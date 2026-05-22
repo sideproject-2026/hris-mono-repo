@@ -1,0 +1,11 @@
+{
+  "name": "hris-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "dev:portal": "pnpm --filter e-portal dev",
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint"
+  }
+}

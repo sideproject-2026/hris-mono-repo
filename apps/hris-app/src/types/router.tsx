@@ -1,0 +1,23 @@
+export const ROUTE = {
+  DASHBOARD_ROUTE: '/',
+  EMPLOYEE_ROUTE: '/employees',
+  EMPLOYEE_CREATE_ROUTE: '/employees/create',
+  EMPLOYEE_PROFILE_ROUTE: (id: string) => `/employees/${id}`,
+  ATTENDANCE_PERIOD_ROUTE: '/attendance-period',
+  ATTENDANCE_SHEET_ROUTE: (id: string) => `/attendance-sheet/${id}`,
+  ATTENDANCE_DETAIL_ROUTE: (periodId: string, empId: number) =>
+    `/attendance-sheet/${periodId}/sheets/${empId}`,
+  ATTENDANCE_REPORTS_ROUTE: '/attendance-sheet/reports',
+  WORKSCHEDULE_ROUTE: '/work-schedule',
+  CALENDAR_ROUTE: '/calendar',
+  ATTENDANCE_POLICY_ROUTE: '/attendance-policy',
+  FORM_REQUEST_ROUTE: '/form-request',
+  LEAVE_ROUTE: '/leave',
+  EMPLOYEE_SETUP_ROUTE: '/employee-setup',
+  ADMIN_BRANCH_SETTINGS: '/admin/branch',
+  ADMIN_COMPANY_SETTINGS: '/admin/company',
+  ADMIN_DEPARTMENT_SETTINGS: '/admin/department',
+  ADMIN_DESIGNATION_SETTINGS: '/admin/designation',
+  ADMIN_USER_ROLES_SETTINGS: '/admin/user-roles',
+  ADMIN_USERS_SETTINGS: '/admin/user-management',
+}
