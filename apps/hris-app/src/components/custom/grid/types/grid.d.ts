@@ -16,5 +16,4 @@ declare type LinkResponse = {
   href: string;
   rel: string;
   method: string;
-
 }

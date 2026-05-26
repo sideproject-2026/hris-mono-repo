@@ -30,6 +30,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
+import type { PaginatedResponse } from '@hris/shared-ui'
+
 // --- Types ---
 declare type LeaveBalance = {
   leaveEntitlement: number
@@ -55,14 +57,6 @@ declare type LeaveTypes = {
   picture: string
   leaveBalances: LeaveBalance[]
   leaveStockCards: LeaveStockCard[]
-}
-
-type PaginatedResponse<TData> = {
-  data: TData[]
-  currentPage: number
-  pageSize: number
-  totalCount: number
-  totalPages: number
 }
 
 type DataTablePaginationProps<TData> = {

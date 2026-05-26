@@ -10,7 +10,7 @@ declare type EmployeeProfileInfo = {
     nationality: string
     bloodType: string
     religion: string
-    dateHired: Date | undefined
+    dateHire: Date
     governmentId: GovernmentId
     spouse: Spouse
     company: Company
@@ -131,6 +131,7 @@ declare type EmployeeEducationTypes = {
 
 declare type EmployeeActiveTypes = {
     id: string
+    photo: string | null
     employeeCode: string
     type: string
     classification: string
@@ -138,9 +139,10 @@ declare type EmployeeActiveTypes = {
     designation: string
     department: string
     company: string
+    branch: string
     manager: string
-    dateHired: Date
     status: boolean
+    dateHired: Date
     dateRegular: Date | null
 }
 

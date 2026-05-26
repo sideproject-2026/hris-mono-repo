@@ -3,9 +3,15 @@
   "private": true,
   "packageManager": "pnpm@10.14.0",
   "scripts": {
+    "dev:hris-app": "pnpm --filter hris-app dev",
     "dev:portal": "pnpm --filter e-portal dev",
     "dev": "pnpm --filter web dev",
     "build": "pnpm --filter web build",
     "lint": "pnpm --filter web lint"
+  },
+  "dependencies": {
+    "@tanstack/react-table": "^8.21.3",
+    "label": "^0.2.2",
+    "react-hook-form": "^7.76.1"
   }
 }

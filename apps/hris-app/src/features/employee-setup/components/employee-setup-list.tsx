@@ -15,7 +15,7 @@ import {
 } from '@/components/custom/containers/page-header'
 import { Button } from '@/components/ui/button'
 import PageContainer from '@/components/custom/containers/page-container'
-import DataTablePagination from '@/components/custom/grid/DataTablePagination'
+import { DataTablePagination } from '@hris/shared-ui'
 import {
   TextCell,
   UserAvatarCell,

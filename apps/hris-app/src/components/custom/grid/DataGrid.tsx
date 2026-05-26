@@ -19,6 +19,7 @@ import type {
   Table as TanStackTable,
 } from '@tanstack/react-table'
 import type { ReactNode } from 'react'
+import type { PaginatedResponse } from '@hris/shared-ui'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {

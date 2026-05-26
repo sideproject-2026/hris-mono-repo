@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import {
   employeeAddressSchema,
+  unifiedEmployeeInfoSchema,
   type EmployeeAddressSchemaTypes,
+  type UnifiedEmployeeInfoPayload,
 } from '../../../types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { InputField } from '@/components/custom/inputs'
@@ -10,7 +12,7 @@ import { Form } from '@/components/ui/form'
 import DropdownField from '@/components/custom/inputs/DropdownField'
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
-import { employeeAddressMutation } from '@/features/employees/hooks/useOtherInfo'
+import { employeeAddressMutation, useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
@@ -44,7 +46,7 @@ const EmployeeFormAddresses = ({
   initialValues,
 }: EmployeeFormAddressesProps) => {
   const { initialData } = useEmployeeAddressesContext()
-  const { mutateAsync } = employeeAddressMutation()
+  const { mutateAsync: createAddress } = useUpdateEmployeeInformationMutation()
   const { employeeId } = useEmployeeProfileContext()
 
   const [open, setOpen] = useState(false)
@@ -53,35 +55,37 @@ const EmployeeFormAddresses = ({
 
   const defaultValues = useMemo(
     () => ({
-      id: initialValues?.id ?? '',
-      type: initialValues?.addressType
-        ? Number(initialValues.addressType)
-        : undefined,
-      street: initialValues?.street ?? '',
-      region: initialValues?.region ?? '',
-      province: initialValues?.province ?? '',
-      municipality: initialValues?.municipality ?? '',
-      zipCode: initialValues?.zipCode ?? '',
-      country: initialValues?.country ?? '',
+      entityType: 'Address',
+      address: {
+        type: initialValues?.addressType
+          ? Number(initialValues.addressType)
+          : undefined,
+        street: initialValues?.street ?? '',
+        region: initialValues?.region ?? '',
+        province: initialValues?.province ?? '',
+        municipality: initialValues?.municipality ?? '',
+        zipCode: initialValues?.zipCode ?? '',
+        country: initialValues?.country ?? '',
+      }
     }),
     [initialValues],
   )
 
-  const form = useForm<EmployeeAddressSchemaTypes>({
+  const form = useForm<UnifiedEmployeeInfoPayload>({
     resolver: zodResolver(
-      employeeAddressSchema,
-    ) as Resolver<EmployeeAddressSchemaTypes>,
-    defaultValues,
+      unifiedEmployeeInfoSchema,
+    ) as Resolver<UnifiedEmployeeInfoPayload>,
+    defaultValues: defaultValues as UnifiedEmployeeInfoPayload
   })
 
   useEffect(() => {
     if (!open) return
-    form.reset(defaultValues)
+    form.reset(defaultValues as UnifiedEmployeeInfoPayload)
   }, [defaultValues, form, open])
 
-  const onSubmit = async (data: EmployeeAddressSchemaTypes) => {
+  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
-      await mutateAsync({ id: employeeId ?? '', data })
+      await createAddress({ id: employeeId ?? '', data })
       toast.success(
         isEditMode
           ? 'Employee address updated successfully'
@@ -128,28 +132,28 @@ const EmployeeFormAddresses = ({
             <div className="grid grid-cols-1 gap-4">
               <DropdownField
                 control={form.control}
-                name="type"
+                name="address.type"
                 label="Address Type"
                 placeholder="Address Type"
                 data={initialData?.addressTypes}
               />
               <InputField
                 control={form.control}
-                name="street"
+                name="address.street"
                 label="Street"
                 placeholder="Street"
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <DropdownField
                   control={form.control}
-                  name="region"
+                  name="address.region"
                   label="Region"
                   placeholder="Region"
                   data={REGION_DATA}
                 />
                 <DropdownField
                   control={form.control}
-                  name="province"
+                  name="address.province"
                   label="Province"
                   placeholder="Province/State"
                   data={PROVINCE_DATA}
@@ -158,21 +162,21 @@ const EmployeeFormAddresses = ({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <DropdownField
                   control={form.control}
-                  name="municipality"
+                  name="address.municipality"
                   label="City/Municipality"
                   placeholder="City/Municipality"
                   data={CITY_MUNICIPALITY_DATA}
                 />
                 <InputField
                   control={form.control}
-                  name="zipCode"
+                  name="address.zipCode"
                   label="Zip Code"
                   placeholder="Portal/Zip Code"
                 />
               </div>
               <DropdownField
                 control={form.control}
-                name="country"
+                name="address.country"
                 label="Country"
                 placeholder="Country"
                 data={COUNTRY_DATA}

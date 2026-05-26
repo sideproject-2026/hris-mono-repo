@@ -1,5 +1,5 @@
 import { queryOptions, useMutation } from "@tanstack/react-query";
-import type { EmployeeAddressSchemaTypes, EmployeeEducationSchemaTypes, EmployeeWorkExperienceSchemaTypes } from "../types/schema";
+import type { EmployeeAddressSchemaTypes, EmployeeEducationSchemaTypes, EmployeeWorkExperienceSchemaTypes, UnifiedEmployeeInfoPayload } from "../types/schema";
 import { request } from "@/lib/http";
 
 /**
@@ -8,10 +8,34 @@ import { request } from "@/lib/http";
  * @remarks
  * This mutation is used to update the employee address. It takes the employee id and the address data as parameters. On success, it invalidates the employee address query to refetch the updated data.
  */
+
+export const useUpdateEmployeeInformationMutation = () => {
+	return useMutation({
+		mutationFn: async ({ id, data }: { id: string, data: UnifiedEmployeeInfoPayload }) => {
+			const url = `/employees/${id}/info`;
+			const response = await request.put(url, data);
+			return response;
+		},
+		onSuccess: (data, variables, onMutateResult, context) => {
+			context.client.invalidateQueries({
+				queryKey: [`{variables.data.entityType}`, variables.id]
+			});
+			context.client.invalidateQueries({
+				queryKey: ['employee', variables.id]
+			});
+		},
+		onError: (error) => {
+			console.error("Mutation error:", error);
+		}
+	});
+};
+
+
+
 export const employeeAddressMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id: string, data: EmployeeAddressSchemaTypes }) => {
-			const url = `/employees/${id}/address`;
+			const url = `/employees/${id}/info`;
 			const response = await request.put(url, data);
 			return response;
 		},
@@ -93,7 +117,7 @@ export const getEmployeeEducationQueryOptions = (id?: string) => {
 export const employeeWorkExperienceMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id?: string, data: EmployeeWorkExperienceSchemaTypes }) => {
-			const url = `/employees/${id}/work-experiences`;
+			const url = `/employees/${id}/info`;
 			const response = await request.put(url, data);
 			return response;
 		},
@@ -118,7 +142,7 @@ export const employeeWorkExperienceDeleteMutation = () => {
 
 export const getEmployeeWorkExperienceQueryOptions = (id?: string) => {
 	return queryOptions({
-		queryKey: ['employee-work-experience', id],
+		queryKey: ['WorkExperience', id],
 		queryFn: async () => {
 			let url = `/employees/${id}/work-experiences`;
 			const response = await request.get<{ data: Array<EmployeeWorkExperienceTypes> }>(url);

@@ -1,4 +1,5 @@
 import { PAGINATION_DEFAULTS } from '@/components/custom/grid/types/constants'
+import type { PaginatedResponse } from '@hris/shared-ui'
 
 type PaginatedPartial<TData> = Partial<PaginatedResponse<TData>> | undefined
 

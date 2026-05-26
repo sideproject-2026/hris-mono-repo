@@ -1,5 +1,5 @@
 import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { InputField } from '@/components/custom/inputs'
+import { InputField } from '@hris/shared-ui'
 import { motion } from 'framer-motion'
 import {
   ArrowCircleRight2,

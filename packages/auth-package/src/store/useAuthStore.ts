@@ -10,34 +10,34 @@ type AuthStore = {
 }
 
 const initialState: AuthState = {
-   accessToken: null,
-   expiresAt: null,
-   expiresIn: null,
-   isAuthenticated: false,
-   refreshToken: null,
-   error: null,
+  accessToken: null,
+  expiresAt: null,
+  expiresIn: null,
+  isAuthenticated: false,
+  refreshToken: null,
+  error: null,
 }
 
 
 
 export const useAuthStore = create<AuthStore>()(
-  persist((set,get) => ({
+  persist((set, get) => ({
     auth: initialState,
     setAuth: (auth) => {
       set({ auth });
     },
     getAuth: () => get().auth,
     clearAuth: () => set({ auth: initialState })
-  }), 
-  {
-    name: 'auth-storage-key',
-    storage: createJSONStorage(() => localStorage),
-  })
+  }),
+    {
+      name: 'auth-storage-key',
+      storage: createJSONStorage(() => localStorage),
+    })
 );
 
 
 export const LocalStorageAuth = {
-   get: (key:string) => {
+  get: (key: string) => {
     const auth = localStorage.getItem(key);
     if (auth) {
       const response = JSON.parse(auth);
@@ -45,7 +45,7 @@ export const LocalStorageAuth = {
     }
     return null;
   },
-  set: (key: string, value: {authState:AuthState }) => {
+  set: (key: string, value: { authState: AuthState }) => {
     const state = { auth: value.authState };
     localStorage.setItem(key, JSON.stringify(state));
   },
