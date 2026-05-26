@@ -10,7 +10,7 @@ import {
   HeaderContainer,
   HeaderText,
 } from '@/components/custom/containers/page-header'
-import DataTablePagination from '@/components/custom/grid/DataTablePagination'
+import { DataTablePagination } from '@hris/shared-ui'
 import { CROSSWORLD_IMAGE_URL } from '@/features/layouts/types/constant'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Status, StatusLabel } from '@/components/kibo-ui/status'

@@ -4,12 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { authSchema } from '../schema/auth-schema'
 import { useLogin } from '../hooks/useAuth'
 import type { AuthFormValues } from '../schema/auth-schema'
-import InputField from '@/components/custom/inputs/InputField'
 import { Form } from '@/components/ui/form'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+
 
 import { motion } from 'framer-motion'
 import { Link } from '@tanstack/react-router'
+
+import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
+import { InputField } from '@hris/shared-ui'
 
 const LoginComponent = () => {
   const { handleLogin, isPending } = useLogin()

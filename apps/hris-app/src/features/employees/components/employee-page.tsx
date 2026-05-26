@@ -5,7 +5,7 @@ import {
   HeaderText,
 } from '@/components/custom/containers/page-header'
 import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui/button'
 import { ROUTE } from '@/types/router'
 import { useNavigate } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -15,12 +15,10 @@ import {
   DateWithTimeTextCell,
   TextCell,
   TextWithTooltipCell,
-  ToolTipTextCell,
   UserAvatarCell,
 } from '@/components/custom/grid/columns/column-type'
-import DataTablePagination from '@/components/custom/grid/DataTablePagination'
-import { useMemo, useState } from 'react'
-import EmployeeProvider, { useEmployeeContext } from './employee-provider'
+import { useMemo } from 'react'
+import { useEmployeeContext } from './employee-provider'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,12 +26,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu'
-import { BagTick, Eye, HamburgerMenu } from 'iconsax-reactjs'
+} from '@hris/shared-ui/dropdown-menu'
+import { Eye, HamburgerMenu } from 'iconsax-reactjs'
 import EmployeeLeaveSetupForm from './employee-leave/employee-leave-setup-form'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@hris/shared-ui/separator'
 import { StackRow } from '@/components/custom/layouts'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@hris/shared-ui/badge'
 import EmployeeLeaveView from './employee-leave/employee-leave-view'
 import {
   DGridColumns,
@@ -42,7 +40,6 @@ import {
   DGridRows,
   DGridTable,
 } from '@/components/custom/grid/DataGrid'
-import EmployeeOBForm from './employee-leave/employee-ob-form'
 import EmployeeAdjustLeaveForm from './employee-leave/employee-adjust-leave-form'
 import { avatarUrl } from '@/lib/utils'
 
@@ -122,13 +119,6 @@ const EmployeePage = () => {
     search,
   } = useEmployeeContext()
 
-  const [movementFormOpen, setMovementFormOpen] = useState(false)
-  const [selectedStatus, setSelectedStatus] = useState<{
-    value: number
-    text: string
-  } | null>(null)
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string>('')
-
   const columns: ColumnDef<EmployeeActiveTypes>[] = useMemo(
     () => [
       {
@@ -189,9 +179,7 @@ const EmployeePage = () => {
         meta: { className: 'hidden min-[1400px]:table-cell' },
         cell: ({ row }) => {
           return (
-            <TextCell alignment="start" className="uppercase">
-              {row.original.department}
-            </TextCell>
+            <TextWithTooltipCell text={row.original.department} />
           )
         },
       },
@@ -201,6 +189,14 @@ const EmployeePage = () => {
         meta: { className: 'hidden lg:table-cell' },
         cell: ({ row }) => {
           return <TextWithTooltipCell text={row.original.company} />
+        },
+      },
+      {
+        accessorKey: 'branch',
+        header: 'BRANCH',
+        meta: { className: 'hidden lg:table-cell' },
+        cell: ({ row }) => {
+          return <TextWithTooltipCell text={row.original.branch} />
         },
       },
       {

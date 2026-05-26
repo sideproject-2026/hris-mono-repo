@@ -12,10 +12,10 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA } from '../../../types/constant'
 import { NavMenu } from '@/components/custom/misc/NavMenu'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+
 import { Building, Personalcard, RepeatCircle, Send } from 'iconsax-reactjs'
-import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
+import { Separator } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import { X } from 'lucide-react'
 import { employeePersonalMutation } from '@/features/employees/hooks/useEmployee'
 import { useEmployeeProfileContext } from './employee-personal-provider'
@@ -23,7 +23,7 @@ import { useEmployeeProfileContext } from './employee-personal-provider'
 import { ROUTE } from '@/types/router'
 import { memo, useEffect, useState } from 'react'
 import { getErrorMessage } from '@/lib/utils'
-import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
+
 import { useNavigate } from '@tanstack/react-router'
 import EmployeeCompany from './employee-company'
 import ViewPhoto from './camera/view-photo'
@@ -35,6 +35,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import EmployeeMovementButtons from '../employee-movement/employee-movement-buttons'
 import EmployeeMovementGrid from '../employee-movement/employee-movement-grid'
 import EmployeeStatus from './employee-status'
+import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
+import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 
 const EmployeeFormPersonalInfo = () => {
   const {
@@ -122,7 +124,7 @@ const EmployeeFormPersonalInfo = () => {
       form.reset({
         classification: employeePersonalInfo.classification,
         type: employeePersonalInfo.type,
-        dateHired: employeePersonalInfo.dateHired,
+        dateHired: employeePersonalInfo.dateHire,
         prefix: employeePersonalInfo.name.prefix,
         lastName: employeePersonalInfo.name.lastName,
         firstName: employeePersonalInfo.name.firstName,
@@ -154,6 +156,7 @@ const EmployeeFormPersonalInfo = () => {
     }
   }, [createMode, employeePersonalInfo])
 
+  console.log("employeePersonalInfo", form.watch('dateHired'))
   const isDisabled = !!employeePersonalInfo && !isEditing
   const showFields = !createMode && !isEditing
   const getButtonText = () => {
@@ -316,9 +319,9 @@ const EmployeeFormPersonalInfo = () => {
                       value={
                         form.watch('dateHired')
                           ? formatDate(
-                              new Date(form.watch('dateHired') as any),
-                              'MMM dd, yyyy',
-                            ).toString()
+                            new Date(form.watch('dateHired') as any),
+                            'MMM-dd-yyyy',
+                          )
                           : ''
                       }
                     />

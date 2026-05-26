@@ -10,7 +10,7 @@ import {
   DGridRows,
   DGridTable,
 } from '@/components/custom/grid/DataGrid'
-import DataTablePagination from '@/components/custom/grid/DataTablePagination'
+import { DataTablePagination } from '@hris/shared-ui'
 import { NavMenu, NavMenuItem } from '@/components/custom/misc/NavMenu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'

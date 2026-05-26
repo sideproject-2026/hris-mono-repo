@@ -4,9 +4,9 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import PageContainer from '@/components/custom/containers/page-container'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+} from '@hris/shared-ui/containers/page-header'
+import PageContainer from '@hris/shared-ui/containers/page-container'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@hris/shared-ui'
 import EmployeeFormPersonalInfo from './employee-personal/employee-form-personal-info'
 import EmployeeAddressesContent from './employee-addresses/employee-addresses-list'
 import EmployeeEducationContent from './employee-education/employee-list-education'

@@ -7,12 +7,12 @@ type AuthContextType = {
    isAuthorized?: (requiredRoles: string[], user: UserType) => boolean;
    isAuthenticated?: boolean | undefined;
    auth: AuthState | null;
-	clearAuth?: () => void;
+   clearAuth?: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: FC<{ children: React.ReactNode,storageKey: string }> = ({
+export const AuthProvider: FC<{ children: React.ReactNode, storageKey: string }> = ({
    storageKey,
    children,
 }) => {
@@ -27,13 +27,13 @@ export const AuthProvider: FC<{ children: React.ReactNode,storageKey: string }> 
 
    const isAuthenticated = auth?.isAuthenticated && !!auth?.accessToken;
 
-	const clearAuth = () => LocalStorageAuth.clear(storageKey);
+   const clearAuth = () => LocalStorageAuth.clear(storageKey);
 
    const contextValue: AuthContextType = {
       isAuthorized,
       isAuthenticated,
       auth: auth || null,
-		clearAuth,
+      clearAuth,
    };
 
    return (

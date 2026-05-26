@@ -33,10 +33,10 @@ import ComboboxField from '@/components/custom/inputs/ComboboxField'
 import TextareaField from '@/components/custom/inputs/TextareaField'
 import LeaveBalance from './leave-balance'
 import DatePickerField from '@/components/custom/inputs/DatePickerField'
-import { InputField } from '@/components/custom/inputs'
 import { formatRequestText, getErrorMessage } from '@/lib/utils'
 import { format } from 'date-fns'
 import { PlusIcon } from 'lucide-react'
+import { InputField } from '@hris/shared-ui'
 
 const RequestForm = () => {
   const { data } = useQuery(requestFormInitialsQueryOptions())

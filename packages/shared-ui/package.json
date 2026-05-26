@@ -9,22 +9,199 @@
       "import": "./src/index.ts"
     },
     "./button": {
-      "types": "./src/components/button.tsx",
-      "import": "./src/components/button.tsx"
+      "types": "./src/components/ui/button.tsx",
+      "import": "./src/components/ui/button.tsx"
+    },
+    "./buttons/button-loading": {
+      "types": "./src/components/buttons/button-loading.tsx",
+      "import": "./src/components/buttons/button-loading.tsx"
     },
     "./utils": {
       "types": "./src/lib/utils.ts",
       "import": "./src/lib/utils.ts"
+    },
+    "./inputs/InputField": {
+      "types": "./src/components/inputs/InputField.tsx",
+      "import": "./src/components/inputs/InputField.tsx"
+    },
+    "./inputs/SelectField": {
+      "types": "./src/components/inputs/SelectField.tsx",
+      "import": "./src/components/inputs/SelectField.tsx"
+    },
+    "./inputs/CheckboxField": {
+      "types": "./src/components/inputs/CheckboxField.tsx",
+      "import": "./src/components/inputs/CheckboxField.tsx"
+    },
+    "./inputs/SwitchField": {
+      "types": "./src/components/inputs/SwitchField.tsx",
+      "import": "./src/components/inputs/SwitchField.tsx"
+    },
+    "./inputs/TextareaField": {
+      "types": "./src/components/inputs/TextareaField.tsx",
+      "import": "./src/components/inputs/TextareaField.tsx"
+    },
+    "./inputs/TimePicker": {
+      "types": "./src/components/inputs/TimePicker.tsx",
+      "import": "./src/components/inputs/TimePicker.tsx"
+    },
+    "./inputs/TimeSpanField": {
+      "types": "./src/components/inputs/TimeSpanField.tsx",
+      "import": "./src/components/inputs/TimeSpanField.tsx"
+    },
+    "./inputs/DateTimePicker": {
+      "types": "./src/components/inputs/DateTimePicker.tsx",
+      "import": "./src/components/inputs/DateTimePicker.tsx"
+    },
+    "./grid": {
+      "types": "./src/components/grid/DataTablePagination.tsx",
+      "import": "./src/components/grid/DataTablePagination.tsx"
+    },
+    "./tabs": {
+      "types": "./src/components/ui/tabs.tsx",
+      "import": "./src/components/ui/tabs.tsx"
+    },
+    "./form": {
+      "types": "./src/components/ui/form.tsx",
+      "import": "./src/components/ui/form.tsx"
+    },
+    "./dialog": {
+      "types": "./src/components/ui/dialog.tsx",
+      "import": "./src/components/ui/dialog.tsx"
+    },
+    "./input": {
+      "types": "./src/components/ui/input.tsx",
+      "import": "./src/components/ui/input.tsx"
+    },
+    "./label": {
+      "types": "./src/components/ui/label.tsx",
+      "import": "./src/components/ui/label.tsx"
+    },
+    "./tooltip": {
+      "types": "./src/components/ui/tooltip.tsx",
+      "import": "./src/components/ui/tooltip.tsx"
+    },
+    "./spinner": {
+      "types": "./src/components/ui/spinner.tsx",
+      "import": "./src/components/ui/spinner.tsx"
+    },
+    "./scroll-area": {
+      "types": "./src/components/ui/scroll-area.tsx",
+      "import": "./src/components/ui/scroll-area.tsx"
+    },
+    "./select": {
+      "types": "./src/components/ui/select.tsx",
+      "import": "./src/components/ui/select.tsx"
+    },
+    "./separator": {
+      "types": "./src/components/ui/separator.tsx",
+      "import": "./src/components/ui/separator.tsx"
+    },
+    "./switch": {
+      "types": "./src/components/ui/switch.tsx",
+      "import": "./src/components/ui/switch.tsx"
+    },
+    "./popover": {
+      "types": "./src/components/ui/popover.tsx",
+      "import": "./src/components/ui/popover.tsx"
+    },
+    "./avatar": {
+      "types": "./src/components/ui/avatar.tsx",
+      "import": "./src/components/ui/avatar.tsx"
+    },
+    "./collapsible": {
+      "types": "./src/components/ui/collapsible.tsx",
+      "import": "./src/components/ui/collapsible.tsx"
+    },
+    "./dropdown-menu": {
+      "types": "./src/components/ui/dropdown-menu.tsx",
+      "import": "./src/components/ui/dropdown-menu.tsx"
+    },
+    "./checkbox": {
+      "types": "./src/components/ui/checkbox.tsx",
+      "import": "./src/components/ui/checkbox.tsx"
+    },
+    "./alert-dialog": {
+      "types": "./src/components/ui/alert-dialog.tsx",
+      "import": "./src/components/ui/alert-dialog.tsx"
+    },
+    "./alert": {
+      "types": "./src/components/ui/alert.tsx",
+      "import": "./src/components/ui/alert.tsx"
+    },
+    "./badge": {
+      "types": "./src/components/ui/badge.tsx",
+      "import": "./src/components/ui/badge.tsx"
+    },
+    "./toast": {
+      "types": "./src/components/ui/toast.tsx",
+      "import": "./src/components/ui/toast.tsx"
+    },
+    "./skeleton": {
+      "types": "./src/components/ui/skeleton.tsx",
+      "import": "./src/components/ui/skeleton.tsx"
+    },
+    "./columns/column-type": {
+      "types": "./src/components/grid/columns/column-type.tsx",
+      "import": "./src/components/grid/columns/column-type.tsx"
+    },
+    "./containers/collapsible-container": {
+      "types": "./src/components/containers/collapsible-container.tsx",
+      "import": "./src/components/containers/collapsible-container.tsx"
+    },
+    "./containers/group-container": {
+      "types": "./src/components/containers/group-container.tsx",
+      "import": "./src/components/containers/group-container.tsx"
+    },
+    "./containers/page-container": {
+      "types": "./src/components/containers/page-container.tsx",
+      "import": "./src/components/containers/page-container.tsx"
+    },
+    "./containers/page-header": {
+      "types": "./src/components/containers/page-header.tsx",
+      "import": "./src/components/containers/page-header.tsx"
+    },
+    "./card": {
+      "types": "./src/components/ui/card.tsx",
+      "import": "./src/components/ui/card.tsx"
     }
   },
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@tanstack/react-router": "^1.0.0"
   },
   "dependencies": {
+    "@base-ui/react": "^1.2.0",
+    "@hookform/resolvers": "^5.2.1",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-collapsible": "^1.1.11",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.544.0",
+    "next-themes": "^0.4.6",
+    "react-day-picker": "^9.8.1",
+    "react-hook-form": "^7.68.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3"
   }
 }

@@ -13,7 +13,7 @@ import {
 } from '@/components/custom/containers/page-header'
 import { createPaginatedResponse } from '@/components/custom/grid/helpers/utils'
 import PageContainer from '@/components/custom/containers/page-container'
-import DataTablePagination from '@/components/custom/grid/DataTablePagination'
+import { DataTablePagination } from '@hris/shared-ui'
 import {
   BadgeCell,
   SwitchCell,

@@ -16,8 +16,9 @@ import { Plus } from 'lucide-react'
 import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  employeeWorkExperienceSchema,
+  unifiedEmployeeInfoSchema,
   type EmployeeWorkExperienceSchemaTypes,
+  type UnifiedEmployeeInfoPayload,
 } from '@/features/employees/types/schema'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
@@ -25,7 +26,7 @@ import { getErrorMessage } from '@/lib/utils'
 import { useEffect, useMemo, useState } from 'react'
 import TextareaField from '@/components/custom/inputs/TextareaField'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
-import { employeeWorkExperienceMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 
 interface EmployeeFormWorkExperienceProps {
   trigger?: React.ReactNode
@@ -37,43 +38,47 @@ const EmployeeFormWorkExperience = ({
   initialValues,
 }: EmployeeFormWorkExperienceProps) => {
   const { employeeId } = useEmployeeProfileContext()
-  const { mutateAsync: createWorkExperience } = employeeWorkExperienceMutation()
+
+  const { mutateAsync: createWorkExperience } = useUpdateEmployeeInformationMutation()
+
 
   const [open, setOpen] = useState(false)
   const isEditMode = !!initialValues?.id
 
   const defaultValues = useMemo(
     () => ({
-      id: initialValues?.id ?? '',
-      companyName: initialValues?.companyName ?? '',
-      address: initialValues?.address ?? '',
-      jobTitle: initialValues?.jobTitle ?? '',
-      startDate: initialValues?.startDate
-        ? new Date(initialValues.startDate)
-        : new Date(),
-      endDate: initialValues?.endDate
-        ? new Date(initialValues.endDate)
-        : new Date(),
-      reason: initialValues?.reason ?? '',
+      entityType: 'WorkExperience' as const,
+      workExperience: {
+        companyName: initialValues?.companyName ?? '',
+        address: initialValues?.address ?? '',
+        jobTitle: initialValues?.jobTitle ?? '',
+        startDate: initialValues?.startDate
+          ? new Date(initialValues.startDate)
+          : new Date(),
+        endDate: initialValues?.endDate
+          ? new Date(initialValues.endDate)
+          : new Date(),
+        reason: initialValues?.reason ?? '',
+      }
     }),
     [initialValues],
   )
 
-  const form = useForm<EmployeeWorkExperienceSchemaTypes>({
+  const form = useForm<UnifiedEmployeeInfoPayload>({
     resolver: zodResolver(
-      employeeWorkExperienceSchema,
-    ) as Resolver<EmployeeWorkExperienceSchemaTypes>,
+      unifiedEmployeeInfoSchema,
+    ) as Resolver<UnifiedEmployeeInfoPayload>,
     defaultValues,
   })
 
   useEffect(() => {
     if (!open) return
-    form.reset(defaultValues)
+    form.reset(defaultValues as UnifiedEmployeeInfoPayload)
   }, [defaultValues, form, open])
 
-  const onSubmit = async (data: EmployeeWorkExperienceSchemaTypes) => {
+  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
-      await createWorkExperience({ id: employeeId, data })
+      await createWorkExperience({ id: employeeId ?? '', data })
       toast.success(
         isEditMode
           ? 'Employee work experience updated successfully'
@@ -120,26 +125,26 @@ const EmployeeFormWorkExperience = ({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <InputField
-              name="companyName"
+              name="workExperience.companyName"
               control={form.control}
               placeholder="Enter company name"
               label="Company Name"
             />
             <InputField
-              name="address"
+              name="workExperience.address"
               control={form.control}
               placeholder="Enter address"
               label="Address"
             />
             <InputField
-              name="jobTitle"
+              name="workExperience.jobTitle"
               control={form.control}
               placeholder="Enter job title"
               label="Job Title"
             />
             <div className="flex gap-2">
               <InputField
-                name="startDate"
+                name="workExperience.startDate"
                 control={form.control}
                 placeholder="Enter start date"
                 label="Start Date"
@@ -147,7 +152,7 @@ const EmployeeFormWorkExperience = ({
                 baseClassName="w-full"
               />
               <InputField
-                name="endDate"
+                name="workExperience.endDate"
                 control={form.control}
                 placeholder="Enter end date"
                 label="End Date"
@@ -156,7 +161,7 @@ const EmployeeFormWorkExperience = ({
               />
             </div>
             <TextareaField
-              name="reason"
+              name="workExperience.reason"
               control={form.control}
               placeholder="Enter reason"
               label="Reason"
