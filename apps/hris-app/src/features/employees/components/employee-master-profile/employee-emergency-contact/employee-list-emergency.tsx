@@ -8,16 +8,16 @@ import {
   DGridTable,
 } from '@/components/custom/grid/DataGrid'
 import type { ColumnDef } from '@tanstack/react-table'
-import EmployeeEmergencyContactProvider, {
-  useEmployeeEmergencyContactContext,
-} from './employee-emergency-provider'
+import OtherInformationProvider, {
+  useOtherInformationContext,
+} from '../other-information-provider'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'iconsax-reactjs'
 import EmergencyDeleteButton from './emergency-delete-button'
 
 const EmployeeListEmergency = () => {
-  const { employeeEmergencyContact, employeeId } =
-    useEmployeeEmergencyContactContext()
+  const { getEmployeeInformation, employeeId } = useOtherInformationContext()
+
   const columns: ColumnDef<EmployeeEmergencyContactTypes>[] = [
     {
       accessorKey: 'relation',
@@ -82,7 +82,7 @@ const EmployeeListEmergency = () => {
       </NavMenu>
       <GroupContainer title="Employee Emergency Contacts List">
         <DGridProvider
-          data={employeeEmergencyContact}
+          data={getEmployeeInformation?.emergencyContacts ?? []}
           columns={columns}
           type="basic"
           emptyMessage="No request found."
@@ -100,9 +100,9 @@ const EmployeeListEmergency = () => {
 
 const EmployeeEmergencyContactContent = () => {
   return (
-    <EmployeeEmergencyContactProvider>
+    <OtherInformationProvider entityObjectType="emergencycontacts">
       <EmployeeListEmergency />
-    </EmployeeEmergencyContactProvider>
+    </OtherInformationProvider>
   )
 }
 

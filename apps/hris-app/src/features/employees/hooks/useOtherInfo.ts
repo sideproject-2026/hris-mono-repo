@@ -1,13 +1,7 @@
 import { queryOptions, useMutation } from "@tanstack/react-query";
-import type { EmployeeAddressSchemaTypes, EmployeeEducationSchemaTypes, EmployeeWorkExperienceSchemaTypes, UnifiedEmployeeInfoPayload } from "../types/schema";
+import type { UnifiedEmployeeInfoPayload } from "../types/schema";
 import { request } from "@/lib/http";
 
-/**
- * Address mutation for employee
- * @returns  useMutation hook for employee address
- * @remarks
- * This mutation is used to update the employee address. It takes the employee id and the address data as parameters. On success, it invalidates the employee address query to refetch the updated data.
- */
 
 export const useUpdateEmployeeInformationMutation = () => {
 	return useMutation({
@@ -17,12 +11,7 @@ export const useUpdateEmployeeInformationMutation = () => {
 			return response;
 		},
 		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({
-				queryKey: [`{variables.data.entityType}`, variables.id]
-			});
-			context.client.invalidateQueries({
-				queryKey: ['employee', variables.id]
-			});
+			context.client.invalidateQueries({ queryKey: ['get-employee-information', variables.id] });
 		},
 		onError: (error) => {
 			console.error("Mutation error:", error);
@@ -30,38 +19,40 @@ export const useUpdateEmployeeInformationMutation = () => {
 	});
 };
 
-
-
-export const employeeAddressMutation = () => {
-	return useMutation({
-		mutationFn: async ({ id, data }: { id: string, data: EmployeeAddressSchemaTypes }) => {
-			const url = `/employees/${id}/info`;
-			const response = await request.put(url, data);
-			return response;
+export const useGetEmployeeOtherInformationQueryOptons = ({ employeeId, entityObjectType }: { employeeId: string, entityObjectType: string }) => {
+	return queryOptions({
+		queryKey: ['get-employee-information', employeeId, entityObjectType],
+		queryFn: async () => {
+			let url = `/employees/${employeeId}/info/?entityObjectType=${entityObjectType}`;
+			const response = await request.get<ApiResponse<EmployeeOtherInformationTypes>>(url);
+			return response.data;
 		},
-		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({ queryKey: ['employee-address', variables.id] });
-		},
-		onError: (error, variables, context) => {
-			console.log(error);
-		}
+		enabled: !!employeeId && !!entityObjectType,
+		staleTime: 1000 * 60 * 5, // 5 minutes
 	})
 }
 
-export const employeeAddressDeleteMutation = () => {
+export const useDeleteEmployeeInformationMutation = () => {
 	return useMutation({
-		mutationFn: async ({ employeeId, id }: { employeeId?: string, id: string }) => {
-			const url = `/employees/${employeeId}/address/${id}`;
+		mutationFn: async ({ id, infoid, entityType }: { id: string, infoid: string, entityType: string }) => {
+			const url = `/employees/${id}/info/${infoid}/${entityType}`;
 			const response = await request.del(url);
 			return response;
+		},
+		onSuccess: (data, variables, onMutateResult, context) => {
+			context.client.invalidateQueries({ queryKey: ['get-employee-information', variables.id] });
+		},
+		onError: (error) => {
+			console.error("Mutation error:", error);
 		}
 	});
 }
 
 
+
 export const getEmployeeAddressQueryOptions = (id?: string) => {
 	return queryOptions({
-		queryKey: ['employee-address', id],
+		queryKey: ['Address', id],
 		queryFn: async () => {
 			let url = `/employees/${id}/address`;
 			const response = await request.get<{ data: Array<EmployeeAddressesTypes> }>(url);
@@ -74,35 +65,11 @@ export const getEmployeeAddressQueryOptions = (id?: string) => {
 
 
 
-export const employeeEducationMutation = () => {
-	return useMutation({
-		mutationFn: async ({ id, data }: { id: string, data: EmployeeEducationSchemaTypes }) => {
-			const url = `/employees/${id}/educations`;
-			const response = await request.put(url, data);
-			return response;
-		},
-		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({ queryKey: ['employee-education', variables.id] });
-		}
-	})
-}
 
-export const employeeEducationDeleteMutation = () => {
-	return useMutation({
-		mutationFn: async ({ employeeId, id }: { employeeId?: string, id: string }) => {
-			const url = `/employees/${employeeId}/educations/${id}`;
-			const response = await request.del(url);
-			return response;
-		},
-		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({ queryKey: ['employee-education', variables.employeeId] });
-		}
-	})
-}
 
 export const getEmployeeEducationQueryOptions = (id?: string) => {
 	return queryOptions({
-		queryKey: ['employee-education', id],
+		queryKey: ['Education', id],
 		queryFn: async () => {
 			let url = `/employees/${id}/educations`;
 			const response = await request.get<{ data: Array<EmployeeEducationTypes> }>(url);
@@ -114,29 +81,18 @@ export const getEmployeeEducationQueryOptions = (id?: string) => {
 }
 
 
-export const employeeWorkExperienceMutation = () => {
-	return useMutation({
-		mutationFn: async ({ id, data }: { id?: string, data: EmployeeWorkExperienceSchemaTypes }) => {
-			const url = `/employees/${id}/info`;
-			const response = await request.put(url, data);
-			return response;
-		},
-		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({ queryKey: ['employee-work-experience', variables.id] });
-		}
-	})
-}
 
-export const employeeWorkExperienceDeleteMutation = () => {
-	return useMutation({
-		mutationFn: async ({ employeeId, id }: { employeeId?: string, id: string }) => {
-			const url = `/employees/${employeeId}/work-experiences/${id}`;
-			const response = await request.del(url);
+
+export const getEmployeeEmergencyContactQueryOptions = (id?: string) => {
+	return queryOptions({
+		queryKey: ['EmergencyContact', id],
+		queryFn: async () => {
+			let url = `/employees/${id}/emergency-contacts`;
+			const response = await request.get<{ data: Array<EmployeeEmergencyContactTypes> }>(url);
 			return response;
 		},
-		onSuccess: (data, variables, onMutateResult, context) => {
-			context.client.invalidateQueries({ queryKey: ['employee-work-experience', variables.employeeId] });
-		}
+		enabled: !!id,
+		staleTime: 1000 * 60 * 5, // 5 minutes
 	})
 }
 

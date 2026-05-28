@@ -4,8 +4,8 @@ import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
-import { useEmployeeWorkExperience } from './employee-work-experience-provider'
-import { employeeWorkExperienceDeleteMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useOtherInformationContext } from '../other-information-provider'
 
 const WorkExperienceDeleteButton = ({
   employeeId,
@@ -16,8 +16,8 @@ const WorkExperienceDeleteButton = ({
 }) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: deleteAsync, isPending } =
-    employeeWorkExperienceDeleteMutation()
-  const { onRefresh } = useEmployeeWorkExperience()
+    useDeleteEmployeeInformationMutation()
+  const { onRefresh } = useOtherInformationContext()
 
   const handleDelete = () => {
     requestConfirmation({
@@ -26,7 +26,7 @@ const WorkExperienceDeleteButton = ({
         'Are you sure you want to delete this work experience record?',
       onConfirm: async () => {
         try {
-          await deleteAsync({ employeeId, id: workExperienceId })
+          await deleteAsync({ id: employeeId || '', infoid: workExperienceId, entityType: 'WorkExperience' })
           toast.success('Work experience deleted successfully', {
             duration: 3000,
             closeButton: true,

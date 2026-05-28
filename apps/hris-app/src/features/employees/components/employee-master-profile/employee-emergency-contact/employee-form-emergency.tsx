@@ -9,11 +9,11 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import {
-  employeeEmergencyContactSchema,
-  type EmployeeEmergencyContactSchemaTypes,
+  unifiedEmployeeInfoSchema,
+  type UnifiedEmployeeInfoPayload,
 } from '@/features/employees/types/schema'
 import { Plus } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from '@/components/ui/form'
 import DropdownField from '@/components/custom/inputs/DropdownField'
@@ -21,11 +21,11 @@ import { RELATION_DATA } from '@/features/employees/types/constant'
 import { InputField } from '@/components/custom/inputs'
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
-import { employeeEmergencyContactMutation } from '@/features/employees/hooks/useEmployee'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { useEffect, useMemo, useState } from 'react'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 
 interface EmployeeFormEmergencyProps {
   trigger?: React.ReactNode
@@ -38,33 +38,38 @@ const EmployeeFormEmergency = ({
 }: EmployeeFormEmergencyProps) => {
   const { employeeId } = useEmployeeProfileContext()
   const { mutateAsync: createEmergencyContact } =
-    employeeEmergencyContactMutation()
+    useUpdateEmployeeInformationMutation()
 
   const [open, setOpen] = useState(false)
   const isEditMode = !!initialValues?.id
 
   const defaultValues = useMemo(
     () => ({
-      id: initialValues?.id ?? '',
-      relation: initialValues?.relation ?? '',
-      contactPerson: initialValues?.contactPerson ?? '',
-      address: initialValues?.address ?? '',
-      telNo: initialValues?.telNo ?? '',
+      entityType: 'EmergencyContact' as const,
+      emergencyContact: {
+        relation: initialValues?.relation ?? '',
+        contactPerson: initialValues?.contactPerson ?? '',
+        address: initialValues?.address ?? '',
+        telNo: initialValues?.telNo ?? '',
+      }
     }),
     [initialValues],
   )
 
-  const form = useForm<EmployeeEmergencyContactSchemaTypes>({
-    resolver: zodResolver(employeeEmergencyContactSchema),
-    defaultValues,
+  const form = useForm<UnifiedEmployeeInfoPayload>({
+    resolver: zodResolver(
+      unifiedEmployeeInfoSchema,
+    ) as Resolver<UnifiedEmployeeInfoPayload>,
+    defaultValues: defaultValues as UnifiedEmployeeInfoPayload,
   })
+
 
   useEffect(() => {
     if (!open) return
-    form.reset(defaultValues)
+    form.reset(defaultValues as UnifiedEmployeeInfoPayload)
   }, [defaultValues, form, open])
 
-  const onSubmit = async (data: EmployeeEmergencyContactSchemaTypes) => {
+  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
       await createEmergencyContact({ id: employeeId ?? '', data })
       toast.success(
@@ -113,26 +118,26 @@ const EmployeeFormEmergency = ({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DropdownField
-              name="relation"
+              name="emergencyContact.relation"
               control={form.control}
               data={RELATION_DATA}
               label="Relation"
               placeholder="Select relation"
             />
             <InputField
-              name="contactPerson"
+              name="emergencyContact.contactPerson"
               control={form.control}
               placeholder="Enter contact person"
               label="Contact Person"
             />
             <InputField
-              name="address"
+              name="emergencyContact.address"
               control={form.control}
               placeholder="Enter address"
               label="Address"
             />
             <InputField
-              name="telNo"
+              name="emergencyContact.telNo"
               control={form.control}
               placeholder="Enter tel no or mobile no"
               label="Tel No / Mobile No."

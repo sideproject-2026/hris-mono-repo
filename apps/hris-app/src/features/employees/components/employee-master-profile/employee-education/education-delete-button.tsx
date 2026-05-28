@@ -1,10 +1,10 @@
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { employeeEducationDeleteMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
-import { useEmployeeEducationContext } from './employee-education-provider'
+import { useOtherInformationContext } from '../other-information-provider'
 
 const EducationDeleteButton = ({
   employeeId,
@@ -15,8 +15,8 @@ const EducationDeleteButton = ({
 }) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: deleteAsync, isPending } =
-    employeeEducationDeleteMutation()
-  const { onRefresh } = useEmployeeEducationContext()
+    useDeleteEmployeeInformationMutation()
+  const { onRefresh } = useOtherInformationContext()
 
   const handleDelete = () => {
     requestConfirmation({
@@ -24,7 +24,7 @@ const EducationDeleteButton = ({
       description: 'Are you sure you want to delete this education record?',
       onConfirm: async () => {
         try {
-          await deleteAsync({ employeeId, id: educationId })
+          await deleteAsync({ id: employeeId || '', infoid: educationId, entityType: 'Education' })
           toast.success('Education deleted successfully', {
             duration: 3000,
             closeButton: true,

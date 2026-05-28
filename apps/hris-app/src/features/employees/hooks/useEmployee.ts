@@ -1,7 +1,7 @@
 import { request } from "@/lib/http";
 import { queryOptions, useMutation } from "@tanstack/react-query"
-import type { EmployeeAppointmentSchemaTypes, EmployeeEmergencyContactSchemaTypes, EmployeeFilterSchemaTypes, EmployeeMovementSchemaTypes, EmployeePersonalInfoTypes } from "../types/schema";
-import type { EmployeeActiveTypes, EmployeeEmergencyContactTypes, EmployeeInitials, EmployeeProfileInfo } from "../types/global";
+import type { EmployeeAppointmentSchemaTypes, EmployeeFilterSchemaTypes, EmployeeMovementSchemaTypes, EmployeePersonalInfoTypes } from "../types/schema";
+import type { EmployeeActiveTypes, EmployeeInitials, EmployeeProfileInfo } from "../types/global";
 import { formatDate } from "date-fns";
 
 
@@ -97,20 +97,6 @@ export const employeeEmergencyContactDeleteMutation = () => {
 		}
 	})
 }
-
-export const getEmployeeEmergencyContactQueryOptions = (id?: string) => {
-	return queryOptions({
-		queryKey: ['employee-emergency-contact', id],
-		queryFn: async () => {
-			let url = `/employees/${id}/emergency-contacts`;
-			const response = await request.get<{ data: Array<EmployeeEmergencyContactTypes> }>(url);
-			return response;
-		},
-		enabled: !!id,
-		staleTime: 1000 * 60 * 5, // 5 minutes
-	})
-}
-
 
 
 export const employeeAppointmentMutation = () => {

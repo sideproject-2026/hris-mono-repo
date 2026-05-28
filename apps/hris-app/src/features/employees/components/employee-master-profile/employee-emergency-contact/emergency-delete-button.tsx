@@ -1,10 +1,10 @@
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { employeeEmergencyContactDeleteMutation } from '@/features/employees/hooks/useEmployee'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
-import { useEmployeeEmergencyContactContext } from './employee-emergency-provider'
+import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useOtherInformationContext } from '../other-information-provider'
 
 const EmergencyDeleteButton = ({
   employeeId,
@@ -15,8 +15,8 @@ const EmergencyDeleteButton = ({
 }) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: deleteAsync, isPending } =
-    employeeEmergencyContactDeleteMutation()
-  const { onRefresh } = useEmployeeEmergencyContactContext()
+    useDeleteEmployeeInformationMutation()
+  const { onRefresh } = useOtherInformationContext()
 
   const handleDelete = () => {
     requestConfirmation({
@@ -24,7 +24,7 @@ const EmergencyDeleteButton = ({
       description: 'Are you sure you want to delete this emergency contact?',
       onConfirm: async () => {
         try {
-          await deleteAsync({ employeeId, id: emergencyId })
+          await deleteAsync({ id: employeeId || '', infoid: emergencyId, entityType: 'EmergencyContact' })
           toast.success('Emergency contact deleted successfully', {
             duration: 3000,
             closeButton: true,

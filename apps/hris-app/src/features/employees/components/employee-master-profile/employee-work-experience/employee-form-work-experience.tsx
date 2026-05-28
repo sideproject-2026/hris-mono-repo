@@ -17,7 +17,6 @@ import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   unifiedEmployeeInfoSchema,
-  type EmployeeWorkExperienceSchemaTypes,
   type UnifiedEmployeeInfoPayload,
 } from '@/features/employees/types/schema'
 import { toast } from 'sonner'
@@ -40,7 +39,6 @@ const EmployeeFormWorkExperience = ({
   const { employeeId } = useEmployeeProfileContext()
 
   const { mutateAsync: createWorkExperience } = useUpdateEmployeeInformationMutation()
-
 
   const [open, setOpen] = useState(false)
   const isEditMode = !!initialValues?.id

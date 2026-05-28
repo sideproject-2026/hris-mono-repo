@@ -1,9 +1,9 @@
-import EmployeeAddressesProvider, {
-  useEmployeeAddressesContext,
-} from './employee-addresses-provider'
+import OtherInformationProvider, {
+  useOtherInformationContext,
+} from '../other-information-provider'
 import type { ColumnDef } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
-import { Edit, Trash } from 'iconsax-reactjs'
+import { Edit } from 'iconsax-reactjs'
 import { NavMenu } from '@/components/custom/misc/NavMenu'
 import GroupContainer from '@/components/custom/containers/group-container'
 import {
@@ -13,11 +13,11 @@ import {
   DGridTable,
 } from '@/components/custom/grid/DataGrid'
 import EmployeeFormAddresses from './employee-form-addresses'
-import { useState } from 'react'
 import AddressDeleteButton from './address-delete-button'
 
 const EmployeeAddressesList = () => {
-  const { employeeAddresses, employeeId } = useEmployeeAddressesContext()
+  const { getEmployeeInformation, employeeId } = useOtherInformationContext()
+
   const columns: ColumnDef<EmployeeAddressesTypes>[] = [
     {
       accessorKey: 'type',
@@ -106,7 +106,7 @@ const EmployeeAddressesList = () => {
       </NavMenu>
       <GroupContainer title="Employee Addresses List">
         <DGridProvider
-          data={employeeAddresses ?? []}
+          data={getEmployeeInformation?.address ?? []}
           columns={columns}
           type="basic"
           emptyMessage="No request found."
@@ -124,9 +124,9 @@ const EmployeeAddressesList = () => {
 
 const EmployeeAddressesContent = () => {
   return (
-    <EmployeeAddressesProvider>
+    <OtherInformationProvider entityObjectType="address">
       <EmployeeAddressesList />
-    </EmployeeAddressesProvider>
+    </OtherInformationProvider>
   )
 }
 

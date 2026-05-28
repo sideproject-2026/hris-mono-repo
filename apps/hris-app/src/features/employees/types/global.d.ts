@@ -184,3 +184,10 @@ declare type EmployeeInitials = {
     departments: SelectionItem
     branches: SelectionItem
 }
+
+declare type EmployeeOtherInformationTypes = {
+    address: EmployeeAddressesTypes[] | null
+    educations: EmployeeEducationTypes[] | null
+    emergencyContacts: EmployeeEmergencyContactTypes[] | null
+    workExperiences: EmployeeWorkExperienceTypes[] | null
+}
