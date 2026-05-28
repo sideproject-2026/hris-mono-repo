@@ -55,7 +55,7 @@ const EmployeeListAppointment = ({
 
   const employees = data ?? []
 
-  const currentManagerId = form.watch('managerId' as any)
+  const currentManagerId = form.watch('company.managerId' as any)
 
   // Use useEffect to sync initialManagerName when it changes
   React.useEffect(() => {
@@ -96,7 +96,7 @@ const EmployeeListAppointment = ({
                     role="button"
                     onClick={(e) => {
                       e.stopPropagation()
-                      form.setValue('managerId' as any, '')
+                      form.setValue('company.managerId' as any, '')
                       setSelectedName('')
                     }}
                     className="ml-1 rounded-full hover:bg-muted-foreground/20 cursor-pointer"
@@ -132,11 +132,11 @@ const EmployeeListAppointment = ({
               <CommandGroup>
                 {employees.map((employee) => {
                   // Check against employeeCode, not the RHF internal ID
-                  const isSelected = form.watch('managerId') === employee.id
+                  const isSelected = form.watch('company.managerId' as any) === employee.id
                   return (
                     <CommandItem
                       key={employee.id}
-                      onSelect={() => form.setValue('managerId', employee.id)}
+                      onSelect={() => form.setValue('company.managerId' as any, employee.id)}
                       className="flex items-center justify-between cursor-pointer"
                     >
                       <div className="flex flex-col">

@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import {
-  employeeAddressSchema,
   unifiedEmployeeInfoSchema,
-  type EmployeeAddressSchemaTypes,
   type UnifiedEmployeeInfoPayload,
 } from '../../../types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,11 +10,10 @@ import { Form } from '@/components/ui/form'
 import DropdownField from '@/components/custom/inputs/DropdownField'
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
-import { employeeAddressMutation, useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
-import { useEmployeeAddressesContext } from './employee-addresses-provider'
 import {
   CITY_MUNICIPALITY_DATA,
   COUNTRY_DATA,
@@ -34,7 +31,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useOtherInformationContext } from '../other-information-provider'
 
 interface EmployeeFormAddressesProps {
   trigger?: React.ReactNode
@@ -45,9 +42,9 @@ const EmployeeFormAddresses = ({
   trigger,
   initialValues,
 }: EmployeeFormAddressesProps) => {
-  const { initialData } = useEmployeeAddressesContext()
+  const { initialData, employeeId } = useOtherInformationContext()
   const { mutateAsync: createAddress } = useUpdateEmployeeInformationMutation()
-  const { employeeId } = useEmployeeProfileContext()
+
 
   const [open, setOpen] = useState(false)
 

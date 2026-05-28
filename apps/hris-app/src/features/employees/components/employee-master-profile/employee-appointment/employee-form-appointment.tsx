@@ -3,15 +3,14 @@ import { InputField } from '@/components/custom/inputs'
 import ComboboxField from '@/components/custom/inputs/ComboboxField'
 import DropdownField from '@/components/custom/inputs/DropdownField'
 import { Form } from '@/components/ui/form'
-import { employeeAppointmentMutation } from '@/features/employees/hooks/useEmployee'
 import {
-  employeeAppointmentSchema,
-  type EmployeeAppointmentSchemaTypes,
+  unifiedEmployeeInfoSchema,
+  type UnifiedEmployeeInfoPayload,
 } from '@/features/employees/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'iconsax-reactjs'
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import EmployeeListAppointment from './employee-list-appointment'
 import {
   Sheet,
@@ -25,6 +24,7 @@ import { getErrorMessage } from '@/lib/utils'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
 import DatePickerField from '@/components/custom/inputs/DatePickerField'
 import { StackRow } from '@/components/custom/layouts'
+import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 
 interface EmployeeFormAppointmentProps {
   isOpen: boolean
@@ -39,40 +39,46 @@ const EmployeeFormAppointment = ({
   const { employeeId, employeeInitials } = useEmployeeProfileContext()
 
   const { mutateAsync: createEmployeeAppointment } =
-    employeeAppointmentMutation()
+    useUpdateEmployeeInformationMutation()
 
-  const form = useForm<EmployeeAppointmentSchemaTypes>({
-    resolver: zodResolver(employeeAppointmentSchema),
+  const form = useForm<UnifiedEmployeeInfoPayload>({
+    resolver: zodResolver(unifiedEmployeeInfoSchema) as Resolver<UnifiedEmployeeInfoPayload>,
     defaultValues: {
-      emailAddress: '',
-      localNo: '',
-      designationId: undefined,
-      departmentId: undefined,
-      companyId: undefined,
-      branchId: undefined,
-      managerId: '',
-      accreditation: undefined,
-      deaccreditation: undefined,
-    },
+      entityType: 'Company' as const,
+      company: {
+        emailAddress: '',
+        localNo: '',
+        designationId: '',
+        departmentId: '',
+        companyId: '',
+        branchId: '',
+        managerId: '',
+        accreditation: undefined,
+        deaccreditation: undefined,
+      }
+    } as UnifiedEmployeeInfoPayload,
   })
 
   useEffect(() => {
     if (initialValues) {
       form.reset({
-        emailAddress: initialValues.emailAddress,
-        localNo: initialValues.localNo,
-        designationId: initialValues.designationId,
-        departmentId: initialValues.departmentId,
-        companyId: initialValues.companyId,
-        branchId: initialValues.branchId,
-        managerId: initialValues.managerId,
-        accreditation: initialValues.accreditedDate,
-        deaccreditation: initialValues.deAccreditedDate,
-      })
+        entityType: 'Company' as const,
+        company: {
+          emailAddress: initialValues.emailAddress,
+          localNo: initialValues.localNo,
+          designationId: initialValues.designationId,
+          departmentId: initialValues.departmentId,
+          companyId: initialValues.companyId,
+          branchId: initialValues.branchId,
+          managerId: initialValues.managerId,
+          accreditation: initialValues.accreditedDate,
+          deaccreditation: initialValues.deAccreditedDate,
+        }
+      } as UnifiedEmployeeInfoPayload)
     }
   }, [initialValues, form])
 
-  const onSubmit = async (data: EmployeeAppointmentSchemaTypes) => {
+  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
       await createEmployeeAppointment({ id: employeeId!, data })
       toast.success('Employee appointment added successfully')
@@ -99,42 +105,42 @@ const EmployeeFormAppointment = ({
           <div className="space-y-4 p-5 -mt-5">
             <InputField
               control={form.control}
-              name="emailAddress"
+              name="company.emailAddress"
               label="Email Address"
               type="email"
               placeholder="Email Address"
             />
             <InputField
               control={form.control}
-              name="localNo"
+              name="company.localNo"
               label="Local No"
               type="text"
               placeholder="Local No"
             />
             <ComboboxField
               control={form.control}
-              name="designationId"
+              name="company.designationId"
               label="Designation"
               placeholder="Select Designation"
               data={employeeInitials?.designations}
             />
             <ComboboxField
               control={form.control}
-              name="departmentId"
+              name="company.departmentId"
               label="Department"
               placeholder="Select Department"
               data={employeeInitials?.departments}
             />
             <DropdownField
               control={form.control}
-              name="companyId"
+              name="company.companyId"
               label="Company"
               placeholder="Select Company"
               data={employeeInitials?.companies}
             />
             <DropdownField
               control={form.control}
-              name="branchId"
+              name="company.branchId"
               label="Branch"
               placeholder="Select Branch"
               data={employeeInitials?.branches}
@@ -146,13 +152,13 @@ const EmployeeFormAppointment = ({
             <StackRow>
               <DatePickerField
                 control={form.control}
-                name="accreditation"
+                name="company.accreditation"
                 label="Accreditation"
                 placeholder="Select Accreditation"
               />
               <DatePickerField
                 control={form.control}
-                name="deaccreditation"
+                name="company.deaccreditation"
                 label="Deaccreditation"
                 placeholder="Select Deaccreditation"
               />

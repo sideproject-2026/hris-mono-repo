@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import {
-  employeeEducationSchema,
-  type EmployeeEducationSchemaTypes,
+  unifiedEmployeeInfoSchema,
+  type UnifiedEmployeeInfoPayload,
 } from '@/features/employees/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -21,12 +21,13 @@ import DropdownField from '@/components/custom/inputs/DropdownField'
 import { InputField } from '@/components/custom/inputs'
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
-import { EDUCATION_DATA } from '@/features/employees/types/constant'
 
-import { employeeEducationMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useOtherInformationContext } from '../other-information-provider'
+
 
 interface EmployeeFormEducationProps {
   trigger?: React.ReactNode
@@ -37,38 +38,40 @@ const EmployeeFormEducation = ({
   trigger,
   initialValues,
 }: EmployeeFormEducationProps) => {
-  const { employeeId, employeeInitials } = useEmployeeProfileContext()
-  const { mutateAsync: createEmployeeEducation } = employeeEducationMutation()
+  const { employeeId, initialData } = useOtherInformationContext()
+  const { mutateAsync: createEmployeeEducation } = useUpdateEmployeeInformationMutation()
 
   const [open, setOpen] = useState(false)
   const isEditMode = !!initialValues?.id
 
   const defaultValues = useMemo(
     () => ({
-      id: initialValues?.id ?? '',
-      level: initialValues?.educationLevel ?? 0,
-      school: initialValues?.school ?? '',
-      course: initialValues?.course ?? '',
-      yearFrom: initialValues?.yearFrom ?? 0,
-      yearTo: initialValues?.yearTo ?? 0,
-      awards: initialValues?.awards ?? '',
+      entityType: 'Education' as const,
+      education: {
+        level: initialValues?.educationLevel ? Number(initialValues.educationLevel) : undefined,
+        school: initialValues?.school ?? '',
+        course: initialValues?.course ?? '',
+        yearFrom: initialValues?.yearFrom ? Number(initialValues.yearFrom) : undefined,
+        yearTo: initialValues?.yearTo ? Number(initialValues.yearTo) : undefined,
+        awards: initialValues?.awards ?? '',
+      }
     }),
     [initialValues],
   )
 
-  const form = useForm<EmployeeEducationSchemaTypes>({
+  const form = useForm<UnifiedEmployeeInfoPayload>({
     resolver: zodResolver(
-      employeeEducationSchema,
-    ) as Resolver<EmployeeEducationSchemaTypes>,
-    defaultValues,
+      unifiedEmployeeInfoSchema,
+    ) as Resolver<UnifiedEmployeeInfoPayload>,
+    defaultValues: defaultValues as UnifiedEmployeeInfoPayload,
   })
 
   useEffect(() => {
     if (!open) return
-    form.reset(defaultValues)
+    form.reset(defaultValues as UnifiedEmployeeInfoPayload)
   }, [defaultValues, form, open])
 
-  const onSubmit = async (data: EmployeeEducationSchemaTypes) => {
+  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
       await createEmployeeEducation({ id: employeeId ?? '', data })
       toast.success(
@@ -118,27 +121,27 @@ const EmployeeFormEducation = ({
             className="space-y-4 w-full"
           >
             <DropdownField
-              name="level"
+              name="education.level"
               control={form.control}
-              data={employeeInitials?.educationalLevels}
+              data={initialData?.educationalLevels}
               label="Level"
               placeholder="Select level"
             />
             <InputField
-              name="school"
+              name="education.school"
               control={form.control}
               placeholder="Enter school"
               label="School"
             />
             <InputField
-              name="course"
+              name="education.course"
               control={form.control}
               placeholder="Enter course"
               label="Course"
             />
             <div className="flex gap-2 w-full">
               <InputField
-                name="yearFrom"
+                name="education.yearFrom"
                 control={form.control}
                 placeholder="Enter year from"
                 label="Year From"
@@ -146,7 +149,7 @@ const EmployeeFormEducation = ({
                 baseClassName="w-full"
               />
               <InputField
-                name="yearTo"
+                name="education.yearTo"
                 control={form.control}
                 placeholder="Enter year to"
                 label="Year To"
@@ -155,7 +158,7 @@ const EmployeeFormEducation = ({
               />
             </div>
             <InputField
-              name="awards"
+              name="education.awards"
               control={form.control}
               placeholder="Enter awards"
               label="Awards"

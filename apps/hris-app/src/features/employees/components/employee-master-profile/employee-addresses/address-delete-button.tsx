@@ -1,10 +1,11 @@
 import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { employeeAddressDeleteMutation } from '@/features/employees/hooks/useOtherInfo'
+import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
-import { useEmployeeAddressesContext } from './employee-addresses-provider'
+import { useOtherInformationContext } from '../other-information-provider'
+
 
 const AddressDeleteButton = ({
   employeeId,
@@ -15,8 +16,8 @@ const AddressDeleteButton = ({
 }) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: deleteAsync, isPending } =
-    employeeAddressDeleteMutation()
-  const { onRefresh } = useEmployeeAddressesContext()
+    useDeleteEmployeeInformationMutation()
+  const { onRefresh } = useOtherInformationContext()
 
   const handleDelete = () => {
     requestConfirmation({
@@ -25,7 +26,7 @@ const AddressDeleteButton = ({
       onConfirm: async () => {
         try {
           // Add your delete logic here
-          await deleteAsync({ employeeId, id: addressId })
+          await deleteAsync({ id: employeeId || '', infoid: addressId, entityType: 'Address' })
           toast.success('Address deleted successfully', {
             duration: 3000,
             closeButton: true,

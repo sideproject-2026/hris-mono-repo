@@ -8,15 +8,15 @@ import {
   DGridTable,
 } from '@/components/custom/grid/DataGrid'
 import type { ColumnDef } from '@tanstack/react-table'
-import EmployeeEducationProvider, {
-  useEmployeeEducationContext,
-} from './employee-education-provider'
+import OtherInformationProvider, {
+  useOtherInformationContext,
+} from '../other-information-provider'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'iconsax-reactjs'
 import EducationDeleteButton from './education-delete-button'
 
 const EmployeeListEducation = () => {
-  const { employeeEducation, employeeId } = useEmployeeEducationContext()
+  const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
   const columns: ColumnDef<EmployeeEducationTypes>[] = [
     {
@@ -100,7 +100,7 @@ const EmployeeListEducation = () => {
       </NavMenu>
       <GroupContainer title="Employee Education List">
         <DGridProvider
-          data={employeeEducation}
+          data={getEmployeeInformation?.educations ?? []}
           columns={columns}
           type="basic"
           emptyMessage="No request found."
@@ -118,9 +118,9 @@ const EmployeeListEducation = () => {
 
 const EmployeeEducationContent = () => {
   return (
-    <EmployeeEducationProvider>
+    <OtherInformationProvider entityObjectType="educations">
       <EmployeeListEducation />
-    </EmployeeEducationProvider>
+    </OtherInformationProvider>
   )
 }
 

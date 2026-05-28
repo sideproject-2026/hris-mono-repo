@@ -9,16 +9,16 @@ import {
 } from '@/components/custom/grid/DataGrid'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import EmployeeWorkExperienceProvider, {
-  useEmployeeWorkExperience,
-} from './employee-work-experience-provider'
+import OtherInformationProvider, {
+  useOtherInformationContext,
+} from '../other-information-provider'
 import { formatDate } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'iconsax-reactjs'
 import WorkExperienceDeleteButton from './work-experience-delete-button'
 
 const EmployeeListWorkExperience = () => {
-  const { employeeWorkExperience, employeeId } = useEmployeeWorkExperience()
+  const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
   const columns: ColumnDef<EmployeeWorkExperienceTypes>[] = [
     {
@@ -108,7 +108,7 @@ const EmployeeListWorkExperience = () => {
       </NavMenu>
       <GroupContainer title="Employee Work Experience List">
         <DGridProvider
-          data={employeeWorkExperience}
+          data={getEmployeeInformation?.workExperiences ?? []}
           columns={columns}
           type="basic"
           emptyMessage="No request found."
@@ -126,9 +126,9 @@ const EmployeeListWorkExperience = () => {
 
 const EmployeeWorkExperienceContent = () => {
   return (
-    <EmployeeWorkExperienceProvider>
+    <OtherInformationProvider entityObjectType="workexperiences">
       <EmployeeListWorkExperience />
-    </EmployeeWorkExperienceProvider>
+    </OtherInformationProvider>
   )
 }
 

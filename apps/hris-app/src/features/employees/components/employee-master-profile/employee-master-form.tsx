@@ -12,7 +12,8 @@ import EmployeeAddressesContent from './employee-addresses/employee-addresses-li
 import EmployeeEducationContent from './employee-education/employee-list-education'
 import EmployeeWorkExperienceContent from './employee-work-experience/employee-list-work-experience'
 import EmployeeEmergencyContactContent from './employee-emergency-contact/employee-list-emergency'
-import { Briefcase, Call, Location, Medal, UserOctagon } from 'iconsax-reactjs'
+import { Briefcase, Building, Call, Location, Medal, UserOctagon } from 'iconsax-reactjs'
+
 
 interface ProfileTabsProps {
   disabled: boolean
@@ -28,7 +29,14 @@ const profileTabs = [
     icon: <UserOctagon variant="Bold" size={18} />,
   },
   {
-    value: 'addresses',
+    value: 'onboarding-information',
+    label: 'Onboarding',
+    disabled: false,
+    components: () => <EmployeeFormPersonalInfo />,
+    icon: <Building variant="Bold" size={18} />,
+  },
+  {
+    value: 'address',
     label: 'Addresses',
     disabled: false,
     components: EmployeeAddressesContent,

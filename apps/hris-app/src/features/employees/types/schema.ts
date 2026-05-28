@@ -34,52 +34,8 @@ export const employeePersonalInfoSchema = z.object({
     dateHired: z.coerce.date().optional(),
 });
 
-export const employeeAddressSchema = z.object({
-    entityType: z.coerce.string().optional(),
-    address: z.object({
-        type: z.coerce.number("Type is required"),
-        street: z.string().min(5, "Street is required"),
-        region: z.string().min(1, "Region is required"),
-        province: z.string().min(5, "Province is required"),
-        municipality: z.string().min(5, "Municipality is required"),
-        zipCode: z.string("Zip code is required"),
-        country: z.string().min(5, "Country is required"),
-    })
-})
 
-export const employeeEmergencyContactSchema = z.object({
-    entityType: z.coerce.string().optional(),
-    emergencyContact: z.object({
-        relation: z.string().min(1, "Relation is required"),
-        contactPerson: z.string().min(1, "Contact person is required"),
-        address: z.string().min(1, "Address is required"),
-        telNo: z.string().min(1, "Tel no is required"),
-    })
-})
 
-export const employeeWorkExperienceSchema = z.object({
-    entityType: z.coerce.string().optional(),
-    workExperience: z.object({
-        companyName: z.string().min(1, "Company name is required"),
-        address: z.string().min(1, "Address is required"),
-        jobTitle: z.string().min(1, "Job title is required"),
-        startDate: z.coerce.date("Start date is required"),
-        endDate: z.coerce.date("End date is required"),
-        reason: z.string().min(1, "Reason is required"),
-    })
-})
-
-export const employeeEducationSchema = z.object({
-    entityType: z.coerce.string().optional(),
-    education: z.object({
-        level: z.coerce.number("Level is required"),
-        school: z.string().min(5, "School is required"),
-        course: z.string().min(1, "Course is required"),
-        yearFrom: z.coerce.number("Year from is required"),
-        yearTo: z.coerce.number("Year to is required"),
-        awards: z.string().optional(),
-    })
-})
 
 export const employeeAppointmentSchema = z.object({
     emailAddress: z.string().optional(),
@@ -202,17 +158,27 @@ export const unifiedEmployeeInfoSchema = z.discriminatedUnion("entityType", [
             yearTo: z.coerce.number().min(1, "Year to is required"),
             awards: z.string().optional(),
         })
+    }),
+    z.object({
+        entityType: z.literal("Company"),
+        company: z.object({
+            emailAddress: z.string().optional(),
+            localNo: z.string().optional(),
+            designationId: z.coerce.string(),
+            departmentId: z.coerce.string(),
+            companyId: z.coerce.string(),
+            branchId: z.coerce.string(),
+            managerId: z.coerce.string().optional(),
+            accreditation: z.coerce.date().optional(),
+            deaccreditation: z.coerce.date().optional(),
+        })
     })
 ]);
 
 export type UnifiedEmployeeInfoPayload = z.infer<typeof unifiedEmployeeInfoSchema>;
 
 export type EmployeePersonalInfoTypes = z.infer<typeof employeePersonalInfoSchema>;
-export type EmployeeAddressSchemaTypes = z.infer<typeof employeeAddressSchema>;
 export type EmployeePersonalSearchSchemaType = z.infer<typeof employeePersonalSearchSchema>;
-export type EmployeeEmergencyContactSchemaTypes = z.infer<typeof employeeEmergencyContactSchema>;
-export type EmployeeWorkExperienceSchemaTypes = z.infer<typeof employeeWorkExperienceSchema>;
-export type EmployeeEducationSchemaTypes = z.infer<typeof employeeEducationSchema>;
 export type EmployeeAppointmentSchemaTypes = z.infer<typeof employeeAppointmentSchema>;
 export type EmployeeFilterSchemaTypes = z.infer<typeof employeeFilterSchema>;
 
