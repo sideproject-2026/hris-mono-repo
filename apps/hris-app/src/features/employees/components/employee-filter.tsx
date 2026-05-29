@@ -91,7 +91,7 @@ const EmployeeFilter = () => {
           Filter
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-full sm:w-[400px] md:w-[600px]">
         <SheetHeader>
           <SheetTitle>Employee Filter</SheetTitle>
           <SheetDescription>
@@ -152,15 +152,6 @@ const EmployeeFilter = () => {
               placeholder="Branch"
             />
             <StackRow>
-              <ButtonLoading
-                loading={form.formState.isSubmitting}
-                type="submit"
-                className="w-fit h-10"
-                textLoading="Filtering..."
-                text="Filter"
-                icon={<FilterSearch size={18} color="#fff" variant="Bold" />}
-                variant="default"
-              />
               <Button
                 className="w-fit h-10 uppercase"
                 variant="destructive"
@@ -170,6 +161,15 @@ const EmployeeFilter = () => {
                 <XIcon />
                 Clear
               </Button>
+              <ButtonLoading
+                loading={form.formState.isSubmitting}
+                type="submit"
+                className="w-fit h-10"
+                textLoading="Filtering..."
+                text="Apply Filter"
+                icon={<FilterSearch size={18} color="#004663" variant="Bold" />}
+                variant="outline"
+              />
             </StackRow>
           </form>
         </Form>

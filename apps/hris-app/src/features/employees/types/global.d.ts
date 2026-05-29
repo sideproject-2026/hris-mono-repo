@@ -11,6 +11,8 @@ declare type EmployeeProfileInfo = {
     bloodType: string
     religion: string
     dateHire: Date
+    probationStartDate: Date
+    probationEndDate: Date
     governmentId: GovernmentId
     spouse: Spouse
     company: Company

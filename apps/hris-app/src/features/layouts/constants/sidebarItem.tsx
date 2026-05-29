@@ -13,11 +13,35 @@ import {
   Location,
   NoteText,
   People,
+  Refresh2,
+  RefreshSquare,
   UserOctagon,
 } from 'iconsax-reactjs'
 import { ROUTE } from '@/types/router'
 
 export const sidebarItems = [
+  {
+    title: 'Employees',
+    icon: <People variant="Bold" size={'18px'} color="#FFFFFF" />,
+    type: 'multiple',
+    disabled: false,
+    subitems: [
+      {
+        title: 'Employee Master',
+        href: ROUTE.EMPLOYEE_ROUTE,
+        subItemIcon: (
+          <People variant={'Bold'} size={'18px'} color="#004663" />
+        ),
+      },
+      {
+        title: 'Internal Request',
+        href: '/',
+        subItemIcon: (
+          <RefreshSquare variant={'Bold'} size={'18px'} color="#004663" />
+        ),
+      },
+    ],
+  },
   {
     title: 'Attendance',
     icon: <Calendar variant="Bold" size={'18px'} color="#FFFFFF" />,
@@ -75,7 +99,7 @@ export const sidebarItems = [
         ),
       },
     ],
-  },
+  }
 ]
 
 export const adminSidebarSubMenus = [
