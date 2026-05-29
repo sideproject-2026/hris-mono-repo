@@ -32,6 +32,8 @@ export const employeePersonalInfoSchema = z.object({
     expiryDate: z.coerce.date().optional(),
     payrollAccountNo: z.string().optional(),
     dateHired: z.coerce.date().optional(),
+    probationStartDate: z.coerce.date().optional(),
+    probationEndDate: z.coerce.date().optional(),
 });
 
 

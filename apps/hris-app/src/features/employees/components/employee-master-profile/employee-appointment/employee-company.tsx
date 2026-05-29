@@ -1,45 +1,42 @@
 import { useState } from 'react'
-import { format, formatDate, isValid, parseISO } from 'date-fns'
 import { Edit2 } from 'iconsax-reactjs'
 
 import { Button } from '@/components/ui/button'
 import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
-import EmployeeFormAppointment from '../employee-appointment/employee-form-appointment'
+import EmployeeFormAppointment from './employee-form-appointment'
+import EmployeeProvider from '../../employee-provider'
+import EmployeePersonalProvider, { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { format, isValid, parseISO } from 'date-fns'
 
-import type { Company } from '@/features/employees/types/global'
-
-interface EmployeeCompanyProps {
-  employee?: Company
-}
-
-const EmployeeCompany = ({ employee }: EmployeeCompanyProps) => {
+const EmployeeCompanyContent = () => {
   const [isEditing, setIsEditing] = useState(false)
+  const { employeePersonalInfo, employeeInitials } = useEmployeeProfileContext()
 
   const formatDisplayDate = (dateValue: string | Date | undefined) => {
     if (!dateValue) return '---'
     const date = typeof dateValue === 'string' ? parseISO(dateValue) : dateValue
     return isValid(date) ? format(date, 'yyyy-MM-dd') : '---'
   }
-
+  console.log('employee Data', employeePersonalInfo?.company?.emailAddress)
   const infoFields = [
-    { label: 'Employee Code', value: employee?.employeeCode },
-    { label: 'Company Email', value: employee?.emailAddress },
-    { label: 'Local No', value: employee?.localNo },
-    { label: 'Designation', value: employee?.designationName },
-    { label: 'Department', value: employee?.departmentName },
-    { label: 'Company', value: employee?.companyName },
-    { label: 'Branch', value: employee?.branchName },
-    { label: 'Manager', value: employee?.managerName },
+    { label: 'Employee Code', value: employeePersonalInfo?.company.employeeCode },
+    { label: 'Company Email', value: employeePersonalInfo?.company?.emailAddress },
+    { label: 'Local No', value: employeePersonalInfo?.company?.localNo },
+    { label: 'Designation', value: employeePersonalInfo?.company?.designationName },
+    { label: 'Department', value: employeePersonalInfo?.company?.departmentName },
+    { label: 'Company', value: employeePersonalInfo?.company?.companyName },
+    { label: 'Branch', value: employeePersonalInfo?.company?.branchName },
+    { label: 'Manager', value: employeePersonalInfo?.company?.managerName },
     {
       label: 'Accreditation',
-      value: employee.accreditation
-        ? formatDate(employee.accreditation, 'yyyy-MM-dd')
+      value: employeePersonalInfo?.company?.accreditedDate
+        ? formatDisplayDate(employeePersonalInfo?.company?.accreditedDate)
         : '-',
     },
     {
       label: 'Deaccreditation',
-      value: employee.deAccreditation
-        ? formatDate(employee.deAccreditation, 'yyyy-MM-dd')
+      value: employeePersonalInfo?.company?.deAccreditedDate
+        ? formatDisplayDate(employeePersonalInfo?.company?.deAccreditedDate)
         : '-',
     },
   ]
@@ -80,10 +77,21 @@ const EmployeeCompany = ({ employee }: EmployeeCompanyProps) => {
       <EmployeeFormAppointment
         isOpen={isEditing}
         onClose={() => setIsEditing(false)}
-        initialValues={employee}
+        initialValues={employeeInitials!}
       />
     </>
   )
 }
 
-export default EmployeeCompany
+
+
+const EmployeeCompay = () => {
+
+  return (
+    <EmployeePersonalProvider>
+      <EmployeeCompanyContent />
+    </EmployeePersonalProvider>
+  )
+}
+
+export default EmployeeCompanyContent

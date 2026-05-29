@@ -88,11 +88,10 @@ const AppSideBarSubMenu = ({
                     <SidebarMenuItem key={subitem.href}>
                       <SidebarMenuButton
                         asChild
-                        className={`h-11 rounded-lg px-3 transition-all duration-200 group relative ${
-                          isActive
+                        className={`h-11 rounded-lg px-3 transition-all duration-200 group relative ${isActive
                             ? 'bg-primary/5 text-primary font-semibold'
                             : 'text-slate-600 hover:bg-gray-50 hover:text-primary'
-                        }`}
+                          }`}
                       >
                         <Link
                           to={subitem.href}
@@ -100,11 +99,10 @@ const AppSideBarSubMenu = ({
                           className="flex items-center gap-3 w-full"
                         >
                           <span
-                            className={`flex-shrink-0 transition-transform duration-200 group-hover:scale-110 ${
-                              isActive
+                            className={`flex-shrink-0 transition-transform duration-200 group-hover:scale-110 ${isActive
                                 ? 'text-primary'
                                 : 'text-slate-400 group-hover:text-primary'
-                            }`}
+                              }`}
                           >
                             {subitem.subItemIcon}
                           </span>
@@ -168,12 +166,6 @@ const AppSideBar = () => {
       href: ROUTE.DASHBOARD_ROUTE,
       type: 'single',
     },
-    {
-      title: 'Employee',
-      icon: <People variant="Bold" size={'22px'} color="#FFFFFF" />,
-      href: ROUTE.EMPLOYEE_ROUTE,
-      type: 'single',
-    },
     ...sidebarItems,
   ]
 
@@ -196,11 +188,10 @@ const AppSideBar = () => {
                     <SidebarMenuButton
                       disabled={isDisabled}
                       variant="default"
-                      className={`w-[70px] h-fit cursor-pointer flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${
-                        isActive
+                      className={`w-[70px] h-fit cursor-pointer flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isActive
                           ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
                           : 'hover:bg-white/10'
-                      }`}
+                        }`}
                       onClick={() => handleItemClick(item)}
                     >
                       <div className="flex flex-col gap-1 items-center">
@@ -217,11 +208,10 @@ const AppSideBar = () => {
                   ) : (
                     <SidebarMenuButton
                       asChild
-                      className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${
-                        isActive
+                      className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isActive
                           ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
                           : 'hover:bg-white/10'
-                      }`}
+                        }`}
                     >
                       <Link
                         to={(item as any).href || '#'}
@@ -251,11 +241,10 @@ const AppSideBar = () => {
               <SidebarMenuButton
                 variant="default"
                 onClick={() => handleItemClick(adminSidebarSubMenus[0])}
-                className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${
-                  isSubMenuOpen && selectedMenuTitle === 'Admin Settings'
+                className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isSubMenuOpen && selectedMenuTitle === 'Admin Settings'
                     ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
                     : 'hover:bg-white/10!'
-                }`}
+                  }`}
               >
                 <div className="flex flex-col gap-1 items-center">
                   <CogIcon className="w-5 h-5 text-white" />
