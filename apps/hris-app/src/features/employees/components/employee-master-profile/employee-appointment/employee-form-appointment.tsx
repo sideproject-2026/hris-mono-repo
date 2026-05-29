@@ -9,7 +9,7 @@ import {
 } from '@/features/employees/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'iconsax-reactjs'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, type Resolver } from 'react-hook-form'
 import EmployeeListAppointment from './employee-list-appointment'
 import {
@@ -25,6 +25,7 @@ import { useEmployeeProfileContext } from '../employee-personal/employee-persona
 import DatePickerField from '@/components/custom/inputs/DatePickerField'
 import { StackRow } from '@/components/custom/layouts'
 import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
+import SwitchInput from '@/components/custom/misc/SwitchInput'
 
 interface EmployeeFormAppointmentProps {
   isOpen: boolean
@@ -36,6 +37,9 @@ const EmployeeFormAppointment = ({
   onClose,
   initialValues,
 }: EmployeeFormAppointmentProps) => {
+
+  const [empClassLabel, setEmpClassLabel] = useState('')
+  const [isDisabled, setIsDisabled] = useState(false)
   const { employeeId, employeeInitials } = useEmployeeProfileContext()
 
   const { mutateAsync: createEmployeeAppointment } =
@@ -103,6 +107,38 @@ const EmployeeFormAppointment = ({
         </SheetHeader>
         <Form {...form}>
           <div className="space-y-4 p-5 -mt-5">
+            <SwitchInput
+              inputComponent={
+                <DropdownField
+                  control={form.control}
+                  name="company.classificationId"
+                  label="Employee Class"
+                  data={employeeInitials?.classes}
+                  baseClassName="w-full"
+                  disabled={isDisabled}
+                  placeholder="Select Employee Class"
+                />
+              }
+              label="Employee Class"
+              readMode={false}
+              value={empClassLabel}
+            />
+            <SwitchInput
+              inputComponent={
+                <DropdownField
+                  control={form.control}
+                  name="company.classificationId"
+                  label="Employee Class"
+                  data={employeeInitials?.classes}
+                  baseClassName="w-full"
+                  disabled={isDisabled}
+                  placeholder="Select Employee Class"
+                />
+              }
+              label="Employee Class"
+              readMode={false}
+              value={empClassLabel}
+            />
             <InputField
               control={form.control}
               name="company.emailAddress"
