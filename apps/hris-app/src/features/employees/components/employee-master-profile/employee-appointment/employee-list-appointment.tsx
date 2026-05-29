@@ -55,7 +55,7 @@ const EmployeeListAppointment = ({
 
   const employees = data ?? []
 
-  const currentManagerId = form.watch('company.managerId' as any)
+  const currentManagerId = form.watch('companyDelegate.managerId' as any)
 
   // Use useEffect to sync initialManagerName when it changes
   React.useEffect(() => {
@@ -81,7 +81,7 @@ const EmployeeListAppointment = ({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between h-auto min-h-11 py-2 px-3"
+            className="w-full justify-between min-h-11 py-2 px-3"
           >
             <div className="flex items-center gap-1 flex-wrap">
               {currentManagerId ? (
@@ -96,7 +96,7 @@ const EmployeeListAppointment = ({
                     role="button"
                     onClick={(e) => {
                       e.stopPropagation()
-                      form.setValue('company.managerId' as any, '')
+                      form.setValue('companyDelegate.managerId' as any, '')
                       setSelectedName('')
                     }}
                     className="ml-1 rounded-full hover:bg-muted-foreground/20 cursor-pointer"
@@ -132,11 +132,11 @@ const EmployeeListAppointment = ({
               <CommandGroup>
                 {employees.map((employee) => {
                   // Check against employeeCode, not the RHF internal ID
-                  const isSelected = form.watch('company.managerId' as any) === employee.id
+                  const isSelected = form.watch('companyDelegate.managerId' as any) === employee.id
                   return (
                     <CommandItem
                       key={employee.id}
-                      onSelect={() => form.setValue('company.managerId' as any, employee.id)}
+                      onSelect={() => form.setValue('companyDelegate.managerId' as any, employee.id)}
                       className="flex items-center justify-between cursor-pointer"
                     >
                       <div className="flex flex-col">
