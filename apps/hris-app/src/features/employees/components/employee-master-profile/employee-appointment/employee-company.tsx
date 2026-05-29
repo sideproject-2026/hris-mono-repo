@@ -17,7 +17,7 @@ const EmployeeCompanyContent = () => {
     const date = typeof dateValue === 'string' ? parseISO(dateValue) : dateValue
     return isValid(date) ? format(date, 'yyyy-MM-dd') : '---'
   }
-  console.log('employee Data', employeePersonalInfo?.company?.emailAddress)
+
   const infoFields = [
     { label: 'Employee Code', value: employeePersonalInfo?.company.employeeCode },
     { label: 'Company Email', value: employeePersonalInfo?.company?.emailAddress },
