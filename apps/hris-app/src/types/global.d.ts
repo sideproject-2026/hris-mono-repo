@@ -40,3 +40,4 @@ declare interface PageType {
     pageNumber: number;
     pageSize: number;
 }
+

@@ -855,3 +855,4 @@ export const LEAVES_DATA = [
         openingBalance: 0,
     },
 ]
+

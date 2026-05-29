@@ -5,7 +5,7 @@ declare type EmployeeProfileInfo = {
     name: Name
     birth: Birth
     contact: Contact
-    gender: number
+    gender: 0 | 1
     civilStatus: number
     nationality: string
     bloodType: string
@@ -73,18 +73,18 @@ declare type Company = {
     branchName: string
     managerId: string
     managerName: string
-    accreditedDate: Date
-    deAccreditedDate: Date
+    accreditedDate?: Date
+    deAccreditedDate?: Date
 }
 
 declare type ActiveTypes = {
     active: boolean
     dateResigned: string
-    probationaryStartDate: string
-    probationaryEndDate: string
-    regularizationDate: string
     referenceNo: string
-    reHired: boolean
+    dateHire?: Date | null
+    probationaryStartDate?: Date
+    probationaryEndDate?: Date
+    regularizationDate?: Date
     resignedReason: string
 }
 

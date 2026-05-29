@@ -1,7 +1,6 @@
 import { request } from "@/lib/http";
 import { queryOptions, useMutation } from "@tanstack/react-query"
 import type { EmployeeAppointmentSchemaTypes, EmployeeFilterSchemaTypes, EmployeeMovementSchemaTypes, EmployeePersonalInfoTypes } from "../types/schema";
-import type { EmployeeActiveTypes, EmployeeInitials, EmployeeProfileInfo } from "../types/global";
 import { formatDate } from "date-fns";
 
 
