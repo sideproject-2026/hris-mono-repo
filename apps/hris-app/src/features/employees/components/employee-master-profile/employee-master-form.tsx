@@ -13,7 +13,7 @@ import EmployeeEducationContent from './employee-education/employee-list-educati
 import EmployeeWorkExperienceContent from './employee-work-experience/employee-list-work-experience'
 import EmployeeEmergencyContactContent from './employee-emergency-contact/employee-list-emergency'
 import { Briefcase, Building, Call, Location, Medal, UserOctagon } from 'iconsax-reactjs'
-import EmployeeCompany from './employee-appointment/employee-company'
+import EmployeeFormCompany from './employee-appointment/employee-form-company'
 
 
 interface ProfileTabsProps {
@@ -33,7 +33,7 @@ const profileTabs = [
     value: 'company-information',
     label: 'Company',
     disabled: false,
-    components: () => <EmployeeCompany />,
+    components: () => <EmployeeFormCompany />,
     icon: <Building variant="Bold" size={18} />,
   },
   {

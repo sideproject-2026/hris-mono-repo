@@ -12,6 +12,7 @@ export const useUpdateEmployeeInformationMutation = () => {
 		},
 		onSuccess: (data, variables, onMutateResult, context) => {
 			context.client.invalidateQueries({ queryKey: ['get-employee-information', variables.id] });
+			context.client.invalidateQueries({ queryKey: ['employee-personal', variables.id] });
 		},
 		onError: (error) => {
 			console.error("Mutation error:", error);
