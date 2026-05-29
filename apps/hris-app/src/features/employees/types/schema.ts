@@ -163,22 +163,21 @@ export const unifiedEmployeeInfoSchema = z.discriminatedUnion("entityType", [
     }),
     z.object({
         entityType: z.literal("Company"),
-        company: z.object({
+        companyDelegate: z.object({
             emailAddress: z.string().optional(),
             localNo: z.string().optional(),
             designationId: z.coerce.string(),
             departmentId: z.coerce.string(),
             companyId: z.coerce.string(),
             branchId: z.coerce.string(),
-            managerId: z.coerce.string().optional(),
-            accreditation: z.coerce.date().optional(),
-            deaccreditation: z.coerce.date().optional(),
+            managerId: z.coerce.string().nullable(),
+            accreditation: z.coerce.date().nullable(),
+            deAccreditation: z.coerce.date().nullable(),
         })
     })
 ]);
 
 export type UnifiedEmployeeInfoPayload = z.infer<typeof unifiedEmployeeInfoSchema>;
-
 export type EmployeePersonalInfoTypes = z.infer<typeof employeePersonalInfoSchema>;
 export type EmployeePersonalSearchSchemaType = z.infer<typeof employeePersonalSearchSchema>;
 export type EmployeeAppointmentSchemaTypes = z.infer<typeof employeeAppointmentSchema>;

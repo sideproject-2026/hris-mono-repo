@@ -25,19 +25,19 @@ import { memo, useEffect, useState } from 'react'
 import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
-import EmployeeCompany from '../employee-appointment/employee-company'
 import ViewPhoto from './camera/view-photo'
 import SwitchInput from '@/components/custom/misc/SwitchInput'
 import { formatDate } from 'date-fns'
 import StackCol from '@/components/custom/layouts/StackCol'
 import { StackRow } from '@/components/custom/layouts'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import EmployeeMovementButtons from '../employee-movement/employee-movement-buttons'
+import EmployeeMovementGrid from '../employee-movement/employee-movement-grid'
 import EmployeeStatus from './employee-status'
 import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
 import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 
 const EmployeeFormPersonalInfo = () => {
-  
   const {
     employeeInitials,
     employeePersonalInfo,
@@ -45,8 +45,6 @@ const EmployeeFormPersonalInfo = () => {
     createMode,
     employeeId,
   } = useEmployeeProfileContext()
-  
-  
   const { mutateAsync: createEmployeePersonalInfo } = employeePersonalMutation()
   const navigate = useNavigate()
   const [isEditing, setIsEditing] = useState(false)
@@ -162,6 +160,7 @@ const EmployeeFormPersonalInfo = () => {
   }, [createMode, employeePersonalInfo])
 
   const isDisabled = !!employeePersonalInfo && !isEditing
+
   const showFields = !createMode && !isEditing
   const getButtonText = () => {
     if (!employeePersonalInfo) return 'SAVE EMPLOYEE PROFILE'

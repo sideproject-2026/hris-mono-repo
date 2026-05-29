@@ -56,7 +56,7 @@ export default function DatePickerField<T extends FieldValues>({
               <FormControl>
                 <Button
                   variant={'outline'}
-                  className="w-full flex items-center justify-between text-sm font-normal dark:bg-background bg-background h-10"
+                  className="w-full flex items-center justify-between text-sm font-normal dark:bg-background bg-background h-11"
                 >
                   {field.value ? (
                     format(field.value, 'PPP')
@@ -82,13 +82,13 @@ export default function DatePickerField<T extends FieldValues>({
                 disabled={
                   disableFutureDates && disablePastDates
                     ? (date) =>
-                        isAfter(endOfDay(date), endOfDay(new Date())) ||
-                        isBefore(startOfDay(date), startOfDay(new Date()))
+                      isAfter(endOfDay(date), endOfDay(new Date())) ||
+                      isBefore(startOfDay(date), startOfDay(new Date()))
                     : disableFutureDates
                       ? (date) => isAfter(endOfDay(date), endOfDay(new Date()))
                       : disablePastDates
                         ? (date) =>
-                            isBefore(startOfDay(date), startOfDay(new Date()))
+                          isBefore(startOfDay(date), startOfDay(new Date()))
                         : undefined
                 }
               />
