@@ -21,6 +21,7 @@ import { Route as AppEmployeeSetupRouteImport } from './routes/_app/employee-set
 import { Route as AppCalendarRouteImport } from './routes/_app/calendar'
 import { Route as AppAttendancePolicyRouteImport } from './routes/_app/attendance-policy'
 import { Route as AppAttendancePeriodRouteImport } from './routes/_app/attendance-period'
+import { Route as AppHrFormsIndexRouteImport } from './routes/_app/hr-forms/index'
 import { Route as AppEmployeesIndexRouteImport } from './routes/_app/employees/index'
 import { Route as AppEmployeesCreateRouteImport } from './routes/_app/employees/create'
 import { Route as AppEmployeesIdRouteImport } from './routes/_app/employees/$id'
@@ -91,6 +92,11 @@ const AppAttendancePolicyRoute = AppAttendancePolicyRouteImport.update({
 const AppAttendancePeriodRoute = AppAttendancePeriodRouteImport.update({
   id: '/attendance-period',
   path: '/attendance-period',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHrFormsIndexRoute = AppHrFormsIndexRouteImport.update({
+  id: '/hr-forms/',
+  path: '/hr-forms/',
   getParentRoute: () => AppRoute,
 } as any)
 const AppEmployeesIndexRoute = AppEmployeesIndexRouteImport.update({
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/employees/$id': typeof AppEmployeesIdRoute
   '/employees/create': typeof AppEmployeesCreateRoute
   '/employees/': typeof AppEmployeesIndexRoute
+  '/hr-forms/': typeof AppHrFormsIndexRoute
   '/attendance-sheet/$id/': typeof AppAttendanceSheetIdIndexRoute
   '/attendance-sheet/$id/sheets/$empId': typeof AppAttendanceSheetIdSheetsEmpIdRoute
   '/attendance-sheet/viewer/$id/timelog/$empid': typeof AppAttendanceSheetViewerIdTimelogEmpidRoute
@@ -209,6 +216,7 @@ export interface FileRoutesByTo {
   '/employees/$id': typeof AppEmployeesIdRoute
   '/employees/create': typeof AppEmployeesCreateRoute
   '/employees': typeof AppEmployeesIndexRoute
+  '/hr-forms': typeof AppHrFormsIndexRoute
   '/attendance-sheet/$id': typeof AppAttendanceSheetIdIndexRoute
   '/attendance-sheet/$id/sheets/$empId': typeof AppAttendanceSheetIdSheetsEmpIdRoute
   '/attendance-sheet/viewer/$id/timelog/$empid': typeof AppAttendanceSheetViewerIdTimelogEmpidRoute
@@ -237,6 +245,7 @@ export interface FileRoutesById {
   '/_app/employees/$id': typeof AppEmployeesIdRoute
   '/_app/employees/create': typeof AppEmployeesCreateRoute
   '/_app/employees/': typeof AppEmployeesIndexRoute
+  '/_app/hr-forms/': typeof AppHrFormsIndexRoute
   '/_app/attendance-sheet/$id/': typeof AppAttendanceSheetIdIndexRoute
   '/_app/attendance-sheet/$id/sheets/$empId': typeof AppAttendanceSheetIdSheetsEmpIdRoute
   '/_app/attendance-sheet/viewer/$id/timelog/$empid': typeof AppAttendanceSheetViewerIdTimelogEmpidRoute
@@ -264,6 +273,7 @@ export interface FileRouteTypes {
     | '/employees/$id'
     | '/employees/create'
     | '/employees/'
+    | '/hr-forms/'
     | '/attendance-sheet/$id/'
     | '/attendance-sheet/$id/sheets/$empId'
     | '/attendance-sheet/viewer/$id/timelog/$empid'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/employees/$id'
     | '/employees/create'
     | '/employees'
+    | '/hr-forms'
     | '/attendance-sheet/$id'
     | '/attendance-sheet/$id/sheets/$empId'
     | '/attendance-sheet/viewer/$id/timelog/$empid'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/_app/employees/$id'
     | '/_app/employees/create'
     | '/_app/employees/'
+    | '/_app/hr-forms/'
     | '/_app/attendance-sheet/$id/'
     | '/_app/attendance-sheet/$id/sheets/$empId'
     | '/_app/attendance-sheet/viewer/$id/timelog/$empid'
@@ -410,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/attendance-period'
       fullPath: '/attendance-period'
       preLoaderRoute: typeof AppAttendancePeriodRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hr-forms/': {
+      id: '/_app/hr-forms/'
+      path: '/hr-forms'
+      fullPath: '/hr-forms/'
+      preLoaderRoute: typeof AppHrFormsIndexRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/employees/': {
@@ -525,6 +544,7 @@ interface AppRouteChildren {
   AppEmployeesIdRoute: typeof AppEmployeesIdRoute
   AppEmployeesCreateRoute: typeof AppEmployeesCreateRoute
   AppEmployeesIndexRoute: typeof AppEmployeesIndexRoute
+  AppHrFormsIndexRoute: typeof AppHrFormsIndexRoute
   AppAttendanceSheetIdIndexRoute: typeof AppAttendanceSheetIdIndexRoute
   AppAttendanceSheetIdSheetsEmpIdRoute: typeof AppAttendanceSheetIdSheetsEmpIdRoute
   AppAttendanceSheetViewerIdTimelogEmpidRoute: typeof AppAttendanceSheetViewerIdTimelogEmpidRoute
@@ -549,6 +569,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppEmployeesIdRoute: AppEmployeesIdRoute,
   AppEmployeesCreateRoute: AppEmployeesCreateRoute,
   AppEmployeesIndexRoute: AppEmployeesIndexRoute,
+  AppHrFormsIndexRoute: AppHrFormsIndexRoute,
   AppAttendanceSheetIdIndexRoute: AppAttendanceSheetIdIndexRoute,
   AppAttendanceSheetIdSheetsEmpIdRoute: AppAttendanceSheetIdSheetsEmpIdRoute,
   AppAttendanceSheetViewerIdTimelogEmpidRoute:
