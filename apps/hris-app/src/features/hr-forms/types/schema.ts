@@ -14,6 +14,8 @@ export const hrFormSchema = z.object({
     companyTo: z.string().nullable().optional(),
     branchFrom: z.string().nullable().optional(),
     branchTo: z.string().nullable().optional(),
+    managerFrom: z.string().nullable().optional(),
+    managerTo: z.string().nullable().optional(),
     rank: z.coerce.number(),
     attachment: z.instanceof(File).nullable().optional(),
 })

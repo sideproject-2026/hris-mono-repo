@@ -17,6 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { toast } from "sonner"
 import { useHRFormMutation } from "../hooks/getHRForms"
 import CollapsibleContainer from "@/components/custom/containers/collapsible-container"
+import HRManagerAssigned from "./hr-manager-assigned"
 
 
 const HRForm = () => {
@@ -41,6 +42,8 @@ const HRForm = () => {
             companyTo: null,
             branchFrom: null,
             branchTo: null,
+            managerFrom: null,
+            managerTo: null,
             attachment: null,
         },
     })
@@ -49,6 +52,7 @@ const HRForm = () => {
 
     const onSubmit = async (data: HRFormSchemaType) => {
         try {
+
             const res = await createHRFormRequest({
                 employeeId: data.employeeId!,
                 data: data
@@ -58,6 +62,7 @@ const HRForm = () => {
                 setOpen(false)
                 form.reset()
             }
+            console.log(res)
         } catch (error) {
             console.log(error)
             toast.error('Failed to create HR form request')
@@ -131,13 +136,6 @@ const HRForm = () => {
                                 placeholder="Select Rank"
                                 baseClassName="w-full"
                                 data={hrInitialData?.employeeRanks}
-                            />
-                            <DropZoneField
-                                control={form.control}
-                                name="attachment"
-                                label="Attachment"
-                                type="file"
-                                required
                             />
 
                             {(type == 1 || type == 4) && (
@@ -214,8 +212,29 @@ const HRForm = () => {
                                             data={appointmentInitial?.branches}
                                         />
                                     </CollapsibleContainer>
+                                    <CollapsibleContainer title="Manager">
+                                        <HRManagerAssigned
+                                            form={form}
+                                            fieldName="managerFrom"
+                                            label="From"
+                                            initialManagerName=''
+                                        />
+                                        <HRManagerAssigned
+                                            form={form}
+                                            fieldName="managerTo"
+                                            label="To"
+                                            initialManagerName=''
+                                        />
+                                    </CollapsibleContainer>
                                 </>
                             )}
+                            <DropZoneField
+                                control={form.control}
+                                name="attachment"
+                                label="Attachment"
+                                type="file"
+                                required
+                            />
                             <StackRow className="gap-1">
                                 <ButtonLoading
                                     loading={false}

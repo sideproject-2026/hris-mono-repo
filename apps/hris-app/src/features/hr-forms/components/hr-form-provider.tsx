@@ -55,7 +55,7 @@ export const HRFormProvider = ({
   }, [])
 
   const handleRefresh = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ['hr-forms-list', search.pageNumber, search.pageSize] })
+    queryClient.invalidateQueries({ queryKey: ['hrForms', search.pageNumber, search.pageSize] })
   }, [search.pageNumber, search.pageSize, queryClient])
 
   const contextValue: HRFormContextType = {

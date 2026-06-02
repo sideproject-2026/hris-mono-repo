@@ -15,6 +15,8 @@ declare type HRFormTypes = {
   branchTo: string
   departmentFrom: string
   departmentTo: string
+  managerFrom: string
+  managerTo: string
   employeeRank: string
   attachmentUrl: string
 }

@@ -1,10 +1,10 @@
 import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 import {
   Status,
-  StatusIndicator,
   StatusLabel,
 } from '@/components/kibo-ui/status'
 import { formatDate } from 'date-fns'
+import { Calendar, CalendarTick } from 'iconsax-reactjs'
 import {
   CalendarCheck,
   CalendarX,
@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 
 interface EmployeeStatusProps {
-  active?: ActiveTypes
+  employeeSummary: EmployeeProfileInfo
 }
 
 interface StatusFieldProps {
@@ -54,7 +54,8 @@ const StatusField = ({
   )
 }
 
-const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
+const EmployeeStatus = ({ employeeSummary }: EmployeeStatusProps) => {
+  const { active, company } = employeeSummary
   const isActive = active?.active ?? false
 
   const formatDateValue = (date?: Date | string | null) => {
@@ -69,7 +70,7 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
   }
 
   return (
-    <CollapsibleContainer title="Status Information" baseClassName="w-full">
+    <CollapsibleContainer title="Summary Information" baseClassName="w-full">
       <div className="mt-4 space-y-4">
         {/* Active Status — prominent hero card */}
         <div
@@ -113,10 +114,10 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
         <div className="grid grid-cols-1 gap-2.5">
           <StatusField
             icon={<Hash className="size-3.5" />}
-            label="Reference No."
+            label="Employee Code."
             value={
-              active?.referenceNo ? (
-                <span className="font-sans text-sm">{active.referenceNo}</span>
+              company?.employeeCode ? (
+                <span className="font-sans text-sm">{company?.employeeCode}</span>
               ) : (
                 <span className="italic text-muted-foreground">—</span>
               )
@@ -124,7 +125,7 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
           />
 
           <StatusField
-            icon={<CalendarCheck className="size-3.5" />}
+            icon={<Calendar variant={'Bold'} size={18} />}
             label="Probationary Period"
             value={
               active?.probationaryStartDate || active?.probationaryEndDate ? (
@@ -140,7 +141,7 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
           />
 
           <StatusField
-            icon={<ShieldCheck className="size-3.5" />}
+            icon={<CalendarTick variant={'Bold'} size={18} />}
             label="Regularization Date"
             value={formatDateValue(active?.regularDate)}
           />
