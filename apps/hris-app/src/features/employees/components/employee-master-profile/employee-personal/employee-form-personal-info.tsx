@@ -86,8 +86,6 @@ const EmployeeFormPersonalInfo = () => {
       expiryDate: undefined,
       payrollAccountNo: '',
       dateHired: new Date().toLocaleDateString('en-CA') as any,
-      probationStartDate: new Date().toLocaleDateString('en-CA') as any,
-      probationEndDate: new Date().toLocaleDateString('en-CA') as any,
     },
   })
 
@@ -124,8 +122,6 @@ const EmployeeFormPersonalInfo = () => {
         classification: employeePersonalInfo.classification,
         type: employeePersonalInfo.type,
         dateHired: employeePersonalInfo.active.dateHire || undefined,
-        probationStartDate: employeePersonalInfo.active.probationaryStartDate || undefined,
-        probationEndDate: employeePersonalInfo.active.probationaryEndDate || undefined,
         prefix: employeePersonalInfo.name.prefix,
         lastName: employeePersonalInfo.name.lastName,
         firstName: employeePersonalInfo.name.firstName,
@@ -204,7 +200,7 @@ const EmployeeFormPersonalInfo = () => {
                     <WebCamCapture />
                   </GroupContainer>
                 </StackCol>
-                <EmployeeStatus active={employeePersonalInfo?.active!} />
+                <EmployeeStatus employeeSummary={employeePersonalInfo!} />
               </>
             )}
           </StackCol>
@@ -294,52 +290,6 @@ const EmployeeFormPersonalInfo = () => {
                     form.watch('dateHired')
                       ? formatDate(
                         new Date(form.watch('dateHired') as any),
-                        'MMM-dd-yyyy',
-                      )
-                      : ''
-                  }
-                />
-                <SwitchInput
-                  inputComponent={
-                    <InputField
-                      control={form.control}
-                      name="probationStartDate"
-                      label="Probation Start Date"
-                      placeholder="Enter Probation Start Date"
-                      baseClassName="w-full"
-                      type="date"
-                      disabled={isDisabled}
-                    />
-                  }
-                  label="Probation Start Date"
-                  readMode={isDisabled}
-                  value={
-                    form.watch('probationStartDate')
-                      ? formatDate(
-                        new Date(form.watch('probationStartDate') as any),
-                        'MMM-dd-yyyy',
-                      )
-                      : ''
-                  }
-                />
-                <SwitchInput
-                  inputComponent={
-                    <InputField
-                      control={form.control}
-                      name="probationEndDate"
-                      label="Probation End Date"
-                      placeholder="Enter Probation End Date"
-                      baseClassName="w-full"
-                      type="date"
-                      disabled={isDisabled}
-                    />
-                  }
-                  label="Probation End Date"
-                  readMode={isDisabled}
-                  value={
-                    form.watch('probationEndDate')
-                      ? formatDate(
-                        new Date(form.watch('probationEndDate') as any),
                         'MMM-dd-yyyy',
                       )
                       : ''
