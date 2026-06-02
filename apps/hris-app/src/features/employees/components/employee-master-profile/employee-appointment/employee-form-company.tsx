@@ -39,6 +39,7 @@ const EmployeeFormCompany = () => {
       companyDelegate: {
         emailAddress: '',
         localNo: '',
+        rank: 1,
         designationId: '',
         departmentId: '',
         companyId: '',
@@ -57,6 +58,7 @@ const EmployeeFormCompany = () => {
         companyDelegate: {
           emailAddress: initialValues.emailAddress,
           localNo: initialValues.localNo,
+          rank: initialValues.rank,
           designationId: initialValues.designationId,
           departmentId: initialValues.departmentId,
           companyId: initialValues.companyId,
@@ -69,7 +71,6 @@ const EmployeeFormCompany = () => {
     }
   }, [initialValues, form])
 
-  console.log(initialValues)
   const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
     try {
       await createEmployeeAppointment({ id: employeeId!, data })
@@ -87,7 +88,7 @@ const EmployeeFormCompany = () => {
   return (
     <CollapsibleContainer title="company information">
       <Form {...form}>
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <SwitchInput
             inputComponent={
               <InputField
@@ -117,6 +118,22 @@ const EmployeeFormCompany = () => {
             label="Local No."
             readMode={isDisabled}
             value={initialValues?.localNo}
+          />
+          <SwitchInput
+            inputComponent={
+              <DropdownField
+                control={form.control}
+                name="companyDelegate.rank"
+                label="Rank"
+                data={employeeInitials?.ranks}
+                baseClassName="w-full"
+                disabled={isDisabled}
+                placeholder="Select Rank"
+              />
+            }
+            label="Rank"
+            readMode={isDisabled}
+            value={initialValues?.rankName}
           />
           <SwitchInput
             inputComponent={

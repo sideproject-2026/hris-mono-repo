@@ -67,8 +67,8 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
             status={'offline'}
           >
             <StatusLabel>
-              {active?.regularizationDate
-                ? formatDate(active?.regularizationDate, 'MMMM-dd-yyyy')
+              {active?.regularDate
+                ? formatDate(active?.regularDate, 'MMMM-dd-yyyy')
                 : '---'}
             </StatusLabel>
           </Status>
@@ -83,18 +83,6 @@ const EmployeeStatus = ({ active }: EmployeeStatusProps) => {
             status={'offline'}
           >
             <StatusLabel>{active?.referenceNo || '---'}</StatusLabel>
-          </Status>
-        </div>
-        <div className="space-y-1 w-full flex items-center gap-2">
-          <p className="text-md text-muted-foreground font-normal tracking-wider">
-            Re-Hired:
-          </p>
-          <Status
-            variant={'outline'}
-            className="text-md font-normal"
-            status={'offline'}
-          >
-            <StatusLabel>{active?.reHired || '---'}</StatusLabel>
           </Status>
         </div>
         <div className="space-y-1 w-full flex items-center gap-2">

@@ -75,6 +75,8 @@ declare type Company = {
     managerName: string
     accreditedDate?: Date
     deAccreditedDate?: Date
+    rank: number
+    rankName?: string
 }
 
 declare type ActiveTypes = {
@@ -84,7 +86,7 @@ declare type ActiveTypes = {
     dateHire?: Date | null
     probationaryStartDate?: Date
     probationaryEndDate?: Date
-    regularizationDate?: Date
+    regularDate?: Date
     resignedReason: string
 }
 
@@ -185,6 +187,7 @@ declare type EmployeeInitials = {
     companies: SelectionItem
     departments: SelectionItem
     branches: SelectionItem
+    ranks: SelectionItem
 }
 
 declare type EmployeeOtherInformationTypes = {

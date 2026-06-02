@@ -125,9 +125,9 @@ const EmployeeFormPersonalInfo = () => {
       form.reset({
         classification: employeePersonalInfo.classification,
         type: employeePersonalInfo.type,
-        dateHired: employeePersonalInfo.dateHire,
-        probationStartDate: employeePersonalInfo.probationStartDate,
-        probationEndDate: employeePersonalInfo.probationEndDate,
+        dateHired: employeePersonalInfo.active.dateHire || undefined,
+        probationStartDate: employeePersonalInfo.active.probationaryStartDate || undefined,
+        probationEndDate: employeePersonalInfo.active.probationaryEndDate || undefined,
         prefix: employeePersonalInfo.name.prefix,
         lastName: employeePersonalInfo.name.lastName,
         firstName: employeePersonalInfo.name.firstName,
@@ -237,8 +237,6 @@ const EmployeeFormPersonalInfo = () => {
                   CLOSE
                 </Button>
               )}
-
-              {showFields && <EmployeeMovementButtons type={form.watch('type')} />}
             </NavMenu>
 
             {/* Employee Information*/}

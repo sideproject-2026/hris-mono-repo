@@ -34,8 +34,8 @@ export const sidebarItems = [
         ),
       },
       {
-        title: 'Internal Request',
-        href: '/',
+        title: 'Employee Action Request',
+        href: ROUTE.HR_INTERNAL_REQUEST_ROUTE,
         subItemIcon: (
           <RefreshSquare variant={'Bold'} size={'18px'} color="#004663" />
         ),
