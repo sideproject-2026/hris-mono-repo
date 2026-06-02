@@ -67,6 +67,8 @@ export const useHRFormMutation = () => {
          if (data.companyTo != null) formData.append('companyTo', data.companyTo);
          if (data.branchFrom != null) formData.append('branchFrom', data.branchFrom);
          if (data.branchTo != null) formData.append('branchTo', data.branchTo);
+         if (data.managerFrom != null) formData.append('managerFrom', data.managerFrom);
+         if (data.managerTo != null) formData.append('managerTo', data.managerTo);
          if (data.attachment instanceof File) formData.append('attachment', data.attachment);
 
          const response = await request.postFormData(url, formData);
