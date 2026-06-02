@@ -2,7 +2,7 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 
 interface SwitchInputProps {
-  inputComponent: React.ReactNode
+  inputComponent?: React.ReactNode
   label: string
   value?: React.ReactNode
   readMode?: boolean
