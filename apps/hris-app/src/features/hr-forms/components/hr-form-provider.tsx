@@ -2,11 +2,14 @@ import { createContext, useCallback, useContext } from 'react'
 import { PAGINATION_DEFAULTS } from '@/components/custom/grid/types/constants'
 import { useQueryStates } from 'nuqs'
 import { hrFormSearchInitialParser } from '../types/search'
-import { useGetHRForms } from '../hooks/getHRForms'
-import { useQueryClient } from '@tanstack/react-query'
+import { useGetHRForms, useGetHRInitials } from '../hooks/getHRForms'
+import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
+import { employeeInitialQueryOptions } from '@/features/employees/hooks/useEmployee'
 
 
 type HRFormContextType = {
+  hrInitialData: HRInitialTypes
+  appointmentInitial: EmployeeInitials
   hrFormsData: PaginatedResponse<HRFormTypes>
   isFetching: boolean
   search: Record<string, any>
@@ -23,16 +26,19 @@ export const HRFormProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  
+
   const [search, setSearch] = useQueryStates(hrFormSearchInitialParser);
-  
-  const {data,isFetching} = useGetHRForms({
-      pageNumber: search.pageNumber, 
-      pageSize: search.pageSize
+
+  const { data, isFetching } = useGetHRForms({
+    pageNumber: search.pageNumber,
+    pageSize: search.pageSize
   });
-  
+
   const queryClient = useQueryClient();
-  
+
+  const { data: initialData } = useQuery(useGetHRInitials());
+  const { data: appointmentInitial } = useSuspenseQuery(employeeInitialQueryOptions())
+
   const handleNextPrevPage = useCallback((_pageNumber: number) => {
     setSearch((prev) => ({
       ...prev,
@@ -42,19 +48,21 @@ export const HRFormProvider = ({
 
   const handlePageSizeChange = useCallback((_pageSize: number) => {
     setSearch((prev) => ({
-        ...prev,
-        _pageSize,
-        pageNumber: 1,
-      }))
+      ...prev,
+      _pageSize,
+      pageNumber: 1,
+    }))
   }, [])
 
   const handleRefresh = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ['hr-forms-list',search.pageNumber, search.pageSize] })
+    queryClient.invalidateQueries({ queryKey: ['hr-forms-list', search.pageNumber, search.pageSize] })
   }, [search.pageNumber, search.pageSize, queryClient])
 
   const contextValue: HRFormContextType = {
     search,
     setSearch,
+    hrInitialData: initialData as HRInitialTypes,
+    appointmentInitial: appointmentInitial as EmployeeInitials,
     hrFormsData: {
       data: data?.data ?? [],
       totalCount: data?.totalCount ?? 0,

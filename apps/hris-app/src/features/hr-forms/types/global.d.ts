@@ -18,3 +18,11 @@ declare type HRFormTypes = {
   employeeRank: string
   attachmentUrl: string
 }
+
+
+declare type HRInitialTypes = {
+  appointments: SelectionItem<string>[]
+  employeeRanks: SelectionItem<string>[]
+}
+
+declare type HRInitialData = HRInitialTypes

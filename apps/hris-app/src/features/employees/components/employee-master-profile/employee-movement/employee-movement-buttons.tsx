@@ -14,14 +14,12 @@ import { ChevronDown } from 'lucide-react'
 import EmployeeMovementForm from './employee-movement-form'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
 
-interface EmployeeMovementButtonsProps {
-  type: number
-}
 
-const EmployeeMovementButtons = ({ type }: EmployeeMovementButtonsProps) => {
+const EmployeeMovementButtons = () => {
+  const [type, setType] = useState<number | undefined>()
   const [open, setOpen] = useState(false)
   const [selectedStatus, setSelectedStatus] = useState<number | undefined>()
-  const { employeeId } = useEmployeeProfileContext()
+
 
   const filteredMovements = useMemo(() => {
     // type 2: Regular -> Promotion (6), End of Service (3), Transfer (7)
@@ -40,7 +38,7 @@ const EmployeeMovementButtons = ({ type }: EmployeeMovementButtonsProps) => {
     return []
   }, [type])
 
-  if (filteredMovements.length === 0 || !employeeId) return null
+  if (filteredMovements.length === 0 || !'') return null
 
   return (
     <StackRow>

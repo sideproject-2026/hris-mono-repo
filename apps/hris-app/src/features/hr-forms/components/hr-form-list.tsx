@@ -8,7 +8,7 @@ import { NavMenu } from '@/components/custom/misc/NavMenu'
 import { Button } from '@hris/shared-ui/button'
 import type { ColumnDef } from '@tanstack/react-table'
 import { RefreshCcw } from 'lucide-react'
-import { TextCell } from '@/components/custom/grid/columns/column-type'
+import { DateWithTimeTextCell, TextCell, TextWithTooltipCell } from '@/components/custom/grid/columns/column-type'
 import { useMemo } from 'react'
 import { useHRFormContext } from './hr-form-provider'
 import { Separator } from '@hris/shared-ui/separator'
@@ -28,10 +28,12 @@ import {
   DropdownMenuTrigger,
 } from '@hris/shared-ui/dropdown-menu'
 import { Eye, HamburgerMenu } from 'iconsax-reactjs'
+import HRForm from './hr-form'
 
 const HRFormList = () => {
   const { hrFormsData, handlePrevNextPage, handlePageSizeChange, onRefresh } =
     useHRFormContext()
+
 
   const columns: ColumnDef<HRFormTypes>[] = useMemo(
     () => [
@@ -45,38 +47,41 @@ const HRFormList = () => {
       {
         accessorKey: 'type',
         header: 'TYPE',
-        cell: ({ row }) => (
-          <TextCell alignment="start" className="uppercase">
-            {row.original.type}
-          </TextCell>
-        ),
+        cell: ({ row }) => {
+
+          return (
+            <TextCell alignment="start" className="uppercase">
+              {row.original.type}
+            </TextCell>
+          )
+        },
       },
       {
         accessorKey: 'fullName',
         header: 'EMPLOYEE',
         cell: ({ row }) => (
-          <TextCell alignment="start">{row.original.fullName}</TextCell>
+          <TextCell alignment="start" className='uppercase'>{row.original.fullName}</TextCell>
         ),
       },
       {
         accessorKey: 'dateFiled',
         header: 'DATE FILED',
         cell: ({ row }) => (
-          <TextCell alignment="start">{row.original.dateFiled}</TextCell>
+          <DateWithTimeTextCell date={row.original.dateFiled} />
         ),
       },
       {
         accessorKey: 'effectiivtyDate',
         header: 'EFFECTIVITY DATE',
         cell: ({ row }) => (
-          <TextCell alignment="start">{row.original.effectiivtyDate}</TextCell>
+          <DateWithTimeTextCell date={row.original.effectiivtyDate} />
         ),
       },
       {
         accessorKey: 'description',
         header: 'DESCRIPTION',
         cell: ({ row }) => (
-          <TextCell alignment="start">{row.original.description}</TextCell>
+          <TextWithTooltipCell text={row.original.description} />
         ),
       },
       {
@@ -132,22 +137,24 @@ const HRFormList = () => {
     <div className="w-full h-full">
       <HeaderContainer loading={false}>
         <HeaderText
-          title="HR Forms"
-          subtitle="Manage and track HR form requests"
+          title="Employee Action Request"
+          subtitle="Manage and track employee action requests"
         >
           <HeaderBackButton to="/" />
         </HeaderText>
       </HeaderContainer>
       <PageContainer loading={false} className="space-y-3">
         <NavMenu>
+          <HRForm />
+          <Separator orientation="vertical" />
           <Button
             variant="ghost"
             onClick={onRefresh}
-            className="font-sans text-sm uppercase font-semibold"
+            className="font-sans text-sm uppercase"
           >
             <RefreshCcw className="size-4" /> Refresh
           </Button>
-          <Separator orientation="vertical" />
+
         </NavMenu>
         <DGridProvider
           columns={columns}

@@ -3,6 +3,7 @@ export const ROUTE = {
   EMPLOYEE_ROUTE: '/employees',
   EMPLOYEE_CREATE_ROUTE: '/employees/create',
   EMPLOYEE_PROFILE_ROUTE: (id: string) => `/employees/${id}`,
+  HR_INTERNAL_REQUEST_ROUTE: '/hr-forms',
   ATTENDANCE_PERIOD_ROUTE: '/attendance-period',
   ATTENDANCE_SHEET_ROUTE: (id: string) => `/attendance-sheet/${id}`,
   ATTENDANCE_DETAIL_ROUTE: (periodId: string, empId: number) =>

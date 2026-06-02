@@ -166,6 +166,7 @@ export const unifiedEmployeeInfoSchema = z.discriminatedUnion("entityType", [
         companyDelegate: z.object({
             emailAddress: z.string().optional(),
             localNo: z.string().optional(),
+            rank: z.coerce.number(),
             designationId: z.coerce.string(),
             departmentId: z.coerce.string(),
             companyId: z.coerce.string(),

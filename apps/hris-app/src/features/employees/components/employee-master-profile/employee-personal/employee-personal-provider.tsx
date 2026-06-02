@@ -27,7 +27,7 @@ const EmployeePersonalContext = createContext<
   EmployeePersonalContextType | undefined
 >(undefined)
 
-const EmployeePersonalProvider: FC<{
+export const EmployeePersonalProvider: FC<{
   children: React.ReactNode
   id?: string
 }> = ({ children, id }) => {
