@@ -34,7 +34,7 @@ const HRForm = () => {
     const { mutateAsync: createHRFormRequest } = useHRFormMutation()
 
     const form = useForm<HRFormSchemaType>({
-        resolver: zodResolver(hrFormSchema),
+        resolver: zodResolver(hrFormSchema) as any,
         defaultValues: {
             employeeId: '',
             type: undefined,

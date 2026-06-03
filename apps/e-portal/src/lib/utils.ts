@@ -30,6 +30,24 @@ export const getDateRangeCurrentDay = () => {
   };
 }
 
+
+export const getErrorMessage = (error: any, fallback = 'An unexpected error occurred') => {
+
+  if (Array.isArray(error) && error[0]?.message) {
+    return error[0].message;
+  }
+
+  //check if error is string
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  if (error?.response?.data?.message) return error.response.data.message;
+  if (error?.message) return error.message;
+
+  return fallback;
+};
+
 export const convertMinutesToHours = (minutes: number): string => {
     // Check for invalid input
     if (!Number.isFinite(minutes) || minutes < 0) {

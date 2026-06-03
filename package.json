@@ -15,5 +15,10 @@
     "label": "^0.2.2",
     "react-dropzone": "^15.0.0",
     "react-hook-form": "^7.76.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "react-hook-form": "7.76.1"
+    }
   }
 }

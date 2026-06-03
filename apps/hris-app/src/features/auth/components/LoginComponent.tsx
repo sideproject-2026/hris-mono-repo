@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form'
 import { ArrowCircleRight2, LockCircle, UserOctagon } from 'iconsax-reactjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { authSchema } from '../schema/auth-schema'
-import { useLogin } from '../hooks/useAuth'
 import type { AuthFormValues } from '../schema/auth-schema'
 import { Form } from '@/components/ui/form'
 
