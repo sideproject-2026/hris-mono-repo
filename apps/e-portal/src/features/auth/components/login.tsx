@@ -1,7 +1,4 @@
-import ButtonLoading from "@hris/shared-ui/buttons/button-loading";
-import InputField from "@hris/shared-ui/inputs/InputField";
-import { Card } from "@hris/shared-ui/card";
-import { Form } from "@hris/shared-ui/form";
+import { ButtonLoading, InputField, Card, Form } from "@hris/shared-ui";
 import { LockCircle, Send, TagUser } from "iconsax-reactjs";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";

@@ -5,9 +5,10 @@
   "scripts": {
     "dev:hris-app": "pnpm --filter hris-app dev",
     "dev:portal": "pnpm --filter e-portal dev",
-    "dev": "pnpm --filter web dev",
-    "build": "pnpm --filter web build",
-    "lint": "pnpm --filter web lint"
+    "dev": "pnpm --filter hris-app dev",
+    "build:hris-app": "pnpm --filter hris-app build",
+    "build": "pnpm --filter hris-app build",
+    "lint": "pnpm --filter hris-app lint"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

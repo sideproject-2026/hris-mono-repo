@@ -1,5 +1,5 @@
 import React from 'react'
-import { Skeleton } from '@hris/shared-ui/skeleton'
+import { Skeleton } from '../ui/skeleton'
 
 const PageContainer = ({
   children,
