@@ -1,13 +1,10 @@
-import { Button } from '@/components/ui/button'
 import {
   Empty,
-  EmptyContent,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from '@/components/ui/empty'
-import { FolderXIcon } from 'lucide-react'
+} from '../ui/empty'
 
 interface EmptyComponentProps {
   title: string

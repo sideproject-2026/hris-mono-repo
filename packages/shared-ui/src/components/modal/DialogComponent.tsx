@@ -4,14 +4,14 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '../ui/dialog'
 
 interface DialogComponentProps {
-    title: string;
-    description: string;
-    isOpen: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    children?: React.ReactNode;
+  title: string;
+  description: string;
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.ReactNode;
 }
 
 export default function DialogComponent({ title, description, isOpen, setOpen, children }: DialogComponentProps) {
@@ -21,11 +21,11 @@ export default function DialogComponent({ title, description, isOpen, setOpen, c
         <DialogHeader>
           <DialogTitle className='font-poppins text-lg text-medium dark:text-foreground text-foreground'>{title}</DialogTitle>
           <DialogDescription className='font-poppins text-sm text-medium dark:text-foreground text-foreground'>
-           {description}
+            {description}
           </DialogDescription>
         </DialogHeader>
         <div className='flex flex-col'>
-            {children}
+          {children}
         </div>
       </DialogContent>
     </Dialog>

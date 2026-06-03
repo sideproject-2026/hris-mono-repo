@@ -1,8 +1,8 @@
 import { ChevronLeft } from 'lucide-react'
 import React from 'react'
 import { Link } from '@tanstack/react-router'
-import { Button } from '@hris/shared-ui/button'
-import { Skeleton } from '@hris/shared-ui/skeleton'
+import { Button } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
 
 interface HeaderContainerProps extends React.ComponentProps<'div'> {
   children: React.ReactNode

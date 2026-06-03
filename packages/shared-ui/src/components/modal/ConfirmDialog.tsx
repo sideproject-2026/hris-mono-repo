@@ -10,8 +10,8 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { cn } from '@/lib/utils'
+} from '../ui/alert-dialog'
+import { cn } from '../../lib/utils'
 
 type ConfirmDialogOptions = {
 	title?: ReactNode
