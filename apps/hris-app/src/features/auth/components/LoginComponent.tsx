@@ -2,7 +2,6 @@ import { useForm } from 'react-hook-form'
 import { ArrowCircleRight2, LockCircle, UserOctagon } from 'iconsax-reactjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { authSchema } from '../schema/auth-schema'
-import { useLogin } from '../hooks/useAuth'
 import type { AuthFormValues } from '../schema/auth-schema'
 import { Form } from '@/components/ui/form'
 
@@ -12,6 +11,7 @@ import { Link } from '@tanstack/react-router'
 
 import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
 import { InputField } from '@hris/shared-ui'
+import { useLogin } from '../hooks/useAuth'
 
 const LoginComponent = () => {
   const { handleLogin, isPending } = useLogin()
