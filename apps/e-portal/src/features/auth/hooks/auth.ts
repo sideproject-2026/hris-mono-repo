@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { showToast } from "../../../lib/utils";
 
 import { useAuthStore, authSchema, type AuthSchemaType, type LoginResponse } from "@cwmsi/auth-package"
+import { resetPasswordSchema, type ForgotPasswordSchemaType, type ResetPasswordSchemaType } from "../types/schema";
 
 
 const useLoginMutate = () => {
@@ -20,51 +21,51 @@ const useLoginMutate = () => {
 }
 
 
-export const useLogin = () => {
+// export const useLogin = () => {
 
-    const { setAuth, getAuth, clearAuth } = useAuthStore();
-    const [error, setError] = useState<string | null>(null);
-    const { mutateAsync, isPending } = useLoginMutate();
-    const navigate = useNavigate();
-    const auth = getAuth();
+//     const { setAuth, getAuth, clearAuth } = useAuthStore();
+//     const [error, setError] = useState<string | null>(null);
+//     const { mutateAsync, isPending } = useLoginMutate();
+//     const navigate = useNavigate();
+//     const auth = getAuth();
 
-    const loginForm = useForm<AuthSchemaType>({
-        resolver: zodResolver(authSchema),
-        defaultValues: {
-            userName: "",
-            password: "",
-            application: "app_portal"
-        },
-    });
+//     const loginForm = useForm<AuthSchemaType>({
+//         resolver: zodResolver(authSchema),
+//         defaultValues: {
+//             userName: "",
+//             password: "",
+//             application: "app_portal"
+//         },
+//     });
 
-    const login = async (data: AuthSchemaType) => {
-        try {
-            setError(null);
-            clearAuth();
-            const response = await mutateAsync(data);
+//     const login = async (data: AuthSchemaType) => {
+//         try {
+//             setError(null);
+//             clearAuth();
+//             const response = await mutateAsync(data);
 
-            setAuth({
-                user: data.userName,
-                token: response.accessToken,
-                refreshToken: response.refreshToken,
-                isSuccess: true,
-                error: null,
-                // isTwoFactorAuth: false
-            });
+//             setAuth({
+//                 user: data.userName,
+//                 token: response.accessToken,
+//                 refreshToken: response.refreshToken,
+//                 isSuccess: true,
+//                 error: null,
+//                 // isTwoFactorAuth: false
+//             });
 
 
-            showToast("Login Successful", "success");
-            navigate({ to: "/" });
-        }
-        catch (error) {
-            console.log(error);
-            setError("Login failed. Please check your credentials.");
-            showToast("Login Failed", "error");
-        }
-    }
+//             showToast("Login Successful", "success");
+//             navigate({ to: "/" });
+//         }
+//         catch (error) {
+//             console.log(error);
+//             setError("Login failed. Please check your credentials.");
+//             showToast("Login Failed", "error");
+//         }
+//     }
 
-    return { loginForm, login, isPending, error, setError, auth };
-};
+//     return { loginForm, login, isPending, error, setError, auth };
+// };
 
 export const useLogout = () => {
 
