@@ -18,7 +18,7 @@ export const AuthProvider: FC<{ children: React.ReactNode, storageKey: string }>
 }) => {
 
    const auth = LocalStorageAuth.get(storageKey);
-   const accessToken = auth?.accessToken || "";
+   //const accessToken = auth?.accessToken || "";
 
    const isAuthorized = (requiredRoles: string[], user: UserType) => {
       if (!user) return false;

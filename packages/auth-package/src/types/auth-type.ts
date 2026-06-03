@@ -38,3 +38,8 @@ export type LoginResponse = {
     expiresIn: number;
     isTwoFactorAuth?: boolean;
 };
+
+export type APIResponse<T> = {
+    data: T;
+    time: Date;
+}
