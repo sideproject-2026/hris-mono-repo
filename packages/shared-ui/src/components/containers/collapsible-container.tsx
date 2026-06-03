@@ -1,11 +1,9 @@
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@hris/shared-ui/collapsible'
-import { cn } from '@hris/shared-ui/utils'
+
+
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible'
+import { cn } from '../../lib/utils'
 
 interface CollapsibleContainerProps {
   title: string

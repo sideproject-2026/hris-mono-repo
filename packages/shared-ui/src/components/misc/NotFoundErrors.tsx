@@ -2,8 +2,8 @@ import * as React from "react"
 import { SearchXIcon } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { Button } from "../ui/button"
+import { cn } from "../../lib/utils"
 
 type ActionConfig = {
 	label: string

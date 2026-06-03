@@ -5,7 +5,6 @@ import {
   HeaderText,
 } from '@/components/custom/containers/page-header'
 import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Button } from '@hris/shared-ui/button'
 import { ROUTE } from '@/types/router'
 import { useNavigate } from '@tanstack/react-router'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -26,12 +25,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from '@hris/shared-ui/dropdown-menu'
+  Separator,
+  Button,
+  Badge,
+} from '@hris/shared-ui'
 import { Eye, HamburgerMenu } from 'iconsax-reactjs'
 import EmployeeLeaveSetupForm from './employee-leave/employee-leave-setup-form'
-import { Separator } from '@hris/shared-ui/separator'
 import { StackRow } from '@/components/custom/layouts'
-import { Badge } from '@hris/shared-ui/badge'
 import EmployeeLeaveView from './employee-leave/employee-leave-view'
 import {
   DGridColumns,

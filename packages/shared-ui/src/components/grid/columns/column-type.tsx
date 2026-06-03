@@ -1,14 +1,14 @@
 import { formatDate } from 'date-fns'
-import { Switch } from '@hris/shared-ui/switch'
+import { Switch } from '../../ui/switch'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@hris/shared-ui/tooltip'
-import { Badge } from '@hris/shared-ui/badge'
-import { createAvatarFallback, getTimeAgo } from '@hris/shared-ui/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '@hris/shared-ui/avatar'
+} from '../../ui/tooltip'
+import { Badge } from '../../ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import { StackCol } from '../../layouts'
+import { createAvatarFallback, getTimeAgo } from '../../../lib/utils'
 
 export const TextCell = ({
   children,

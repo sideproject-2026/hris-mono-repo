@@ -13,9 +13,12 @@ import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA } from '../../../types/constant'
 import { NavMenu } from '@/components/custom/misc/NavMenu'
 
-import { Building, Personalcard, RepeatCircle, Send } from 'iconsax-reactjs'
-import { Separator } from '@hris/shared-ui'
-import { Button } from '@hris/shared-ui'
+import { Send } from 'iconsax-reactjs'
+import {
+  Separator,
+  ButtonLoading,
+  Button,
+} from '@hris/shared-ui'
 import { X } from 'lucide-react'
 import { employeePersonalMutation } from '@/features/employees/hooks/useEmployee'
 import { useEmployeeProfileContext } from './employee-personal-provider'
@@ -30,9 +33,7 @@ import SwitchInput from '@/components/custom/misc/SwitchInput'
 import { formatDate } from 'date-fns'
 import StackCol from '@/components/custom/layouts/StackCol'
 import { StackRow } from '@/components/custom/layouts'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import EmployeeStatus from './employee-status'
-import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
 import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 
 const EmployeeFormPersonalInfo = () => {

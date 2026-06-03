@@ -10,8 +10,7 @@ import { Form } from '@/components/ui/form'
 import { motion } from 'framer-motion'
 import { Link } from '@tanstack/react-router'
 
-import ButtonLoading from '@hris/shared-ui/buttons/button-loading'
-import { InputField } from '@hris/shared-ui'
+import { ButtonLoading, InputField } from '@hris/shared-ui'
 
 const LoginComponent = () => {
   const { handleLogin, isPending } = useLogin()

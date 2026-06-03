@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
+import { ScrollArea } from "../ui/scroll-area";
+import { Skeleton } from "../ui/skeleton";
+import { Separator } from "../ui/separator";
+import { cn } from "../../lib/utils";
 
 export type ListViewProps<TItem> = {
   data: Array<TItem>;
