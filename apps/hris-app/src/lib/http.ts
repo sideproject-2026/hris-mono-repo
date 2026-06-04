@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LocalStorageAuth } from './stores/useAuthStore';
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { ApiRoutes } from '@/types/api-routes';
 
 
 // axios.defaults.baseURL = import.meta.env.VITE_API_URL;
@@ -30,7 +31,7 @@ let refreshPromise: Promise<AuthState | null> | null = null;
 async function refreshAccessToken(): Promise<AuthState | null> {
    if (!refreshPromise) {
       const auth = LocalStorageAuth.get();
-      refreshPromise = refreshClient.post<{ data: AuthState, time: Date }>('/auth/refresh', { refreshToken: auth?.refreshToken ?? "" }) // server reads refresh token from HttpOnly cookie
+      refreshPromise = refreshClient.post<{ data: AuthState, time: Date }>(ApiRoutes.AUTH.REFRESH, { refreshToken: auth?.refreshToken ?? "" }) // server reads refresh token from HttpOnly cookie
          .then((res) => {
             const newToken = res.data.data
             // update the token in local storage

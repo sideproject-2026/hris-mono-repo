@@ -1,5 +1,6 @@
 import { ButtonLoading } from '@hris/shared-ui'
 import { request } from '@/lib/http'
+import { ApiRoutes } from '@/types/api-routes'
 import { Export } from 'iconsax-reactjs'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
@@ -10,7 +11,7 @@ const ExportSetupButton = () => {
   const handleExport = () => {
     startTransition(async () => {
       try {
-        var url = 'setup/export'
+        var url = ApiRoutes.EMPLOYEE_SETUP.EXPORT
         var response = await request.exportExcel(
           url,
           `employees-${new Date().toISOString()}.xlsx`,

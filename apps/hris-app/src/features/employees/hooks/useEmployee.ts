@@ -2,13 +2,14 @@ import { request } from "@/lib/http";
 import { queryOptions, useMutation } from "@tanstack/react-query"
 import type { EmployeeAppointmentSchemaTypes, EmployeeFilterSchemaTypes, EmployeeMovementSchemaTypes, EmployeePersonalInfoTypes } from "../types/schema";
 import { formatDate } from "date-fns";
+import { ApiRoutes } from "@/types/api-routes";
 
 
 
 export const employeePersonalMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id?: string, data: EmployeePersonalInfoTypes }) => {
-			const url = id ? `/employees/${id}` : `/employees/`;
+			const url = id ? ApiRoutes.EMPLOYEES.BY_ID(id) : ApiRoutes.EMPLOYEES.LIST;
 			const method = id ? 'put' : 'post';
 
 			const response = await request[method]<ApiResponse<{ id: string }>>(url, data);
@@ -22,7 +23,7 @@ export const employeeInitialQueryOptions = () => {
 	return queryOptions({
 		queryKey: ['employees-initial'],
 		queryFn: async () => {
-			let url = `/employees/initial`;
+			let url = ApiRoutes.EMPLOYEES.INITIAL;
 			const response = await request.get<APIResponse<EmployeeInitials>>(url);
 			return response.data;
 		},
@@ -36,7 +37,7 @@ export const getEmployeeProfilelQueryOptions = (id?: string) => {
 		queryFn: async () => {
 			if (!id) return null;
 
-			let url = `/employees/${id}`;
+			let url = ApiRoutes.EMPLOYEES.BY_ID(id);
 			const response = await request.get<ApiResponse<EmployeeProfileInfo>>(url);
 			return response.data;
 		},
@@ -74,7 +75,7 @@ export const getEmployeeProfilelQueryOptions = (id?: string) => {
 export const employeeEmergencyContactMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id: string, data: EmployeeEmergencyContactSchemaTypes }) => {
-			const url = `/employees/${id}/emergency-contacts`;
+			const url = ApiRoutes.EMPLOYEES.EMERGENCY_CONTACTS(id);
 			const response = await request.put(url, data);
 			return response;
 		},
@@ -87,7 +88,7 @@ export const employeeEmergencyContactMutation = () => {
 export const employeeEmergencyContactDeleteMutation = () => {
 	return useMutation({
 		mutationFn: async ({ employeeId, id }: { employeeId?: string, id: string }) => {
-			const url = `/employees/${employeeId}/emergency-contacts/${id}`;
+			const url = ApiRoutes.EMPLOYEES.EMERGENCY_CONTACT_BY_ID(employeeId, id);
 			const response = await request.del(url);
 			return response;
 		},
@@ -101,7 +102,7 @@ export const employeeEmergencyContactDeleteMutation = () => {
 export const employeeAppointmentMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id: string, data: EmployeeAppointmentSchemaTypes }) => {
-			const url = `/employees/${id}/appoint`;
+			const url = ApiRoutes.EMPLOYEES.APPOINT(id);
 			const response = await request.put(url, data);
 			return response;
 		},
@@ -116,7 +117,7 @@ export const employeesActiveQueryOptions = ({ fullName }: { fullName: string }) 
 	return queryOptions({
 		queryKey: ['employees-active', fullName],
 		queryFn: async () => {
-			let url = `/employees/active`;
+			let url = ApiRoutes.EMPLOYEES.ACTIVE;
 			if (fullName) {
 				url += `?fullname=${fullName}`;
 			}
@@ -132,7 +133,7 @@ export const employeesListQueryOptions = ({ params }: { params: EmployeeFilterSc
 	return queryOptions({
 		queryKey: ['employees-list', params],
 		queryFn: async () => {
-			let url = `/employees`;
+			let url = ApiRoutes.EMPLOYEES.LIST;
 
 			if (params?.pageSize && params.pageNumber) {
 				url += url.includes('?')
@@ -180,7 +181,7 @@ export const employeesListQueryOptions = ({ params }: { params: EmployeeFilterSc
 export const useUploadPictureMutation = () => {
 	return useMutation({
 		mutationFn: async ({ employeeId, base64Image }: { employeeId: string, base64Image: string }) => {
-			const url = `/employees/upload-photo`;
+			const url = ApiRoutes.EMPLOYEES.UPLOAD_PHOTO;
 			const response = await request.post(url, { employeeId, base64Image });
 			return response;
 		}
@@ -190,7 +191,7 @@ export const useUploadPictureMutation = () => {
 export const employeeMovementMutation = () => {
 	return useMutation({
 		mutationFn: async ({ employeeId, data }: { employeeId: string, data: EmployeeMovementSchemaTypes }) => {
-			const url = `/employees/${employeeId}/appointments`;
+			const url = ApiRoutes.EMPLOYEES.APPOINTMENTS(employeeId);
 			const response = await request.post(url, data);
 			return response;
 		},
@@ -205,7 +206,7 @@ export const employeeMovementQueryOption = (employeeId: string) => {
 	return queryOptions({
 		queryKey: ['employee-movement-list', employeeId],
 		queryFn: async () => {
-			let url = `employees/${employeeId}/appointments`
+			let url = ApiRoutes.EMPLOYEES.APPOINTMENTS(employeeId)
 			const response = await request.get<ApiResponse<{ appointments: Array<EmployeeMovementTypes> }>>(url)
 			return response.data?.appointments
 		},

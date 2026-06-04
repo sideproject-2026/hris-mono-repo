@@ -1,4 +1,5 @@
 import { request } from "@/lib/http"
+import { ApiRoutes } from "@/types/api-routes"
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
 import { CONVERTED_APPOINTMENT_DATA, CONVERTED_EMPLOYEERANKS_DATA } from "../types/constant"
 import type { HRFormSchemaType } from "../types/schema"
@@ -8,7 +9,7 @@ export const useGetHRForms = ({ pageNumber, pageSize }: { pageNumber: number, pa
    const query = useQuery({
       queryKey: ['hrForms', pageNumber, pageSize],
       queryFn: async () => {
-         const url = `hr-form?pageNumber=${pageNumber}&pageSize=${pageSize}`
+         const url = `${ApiRoutes.HR_FORMS.LIST}?pageNumber=${pageNumber}&pageSize=${pageSize}`
          const response = await request.get<PaginatedResponse<HRFormTypes>>(url);
          return response;
       }
@@ -21,7 +22,7 @@ export const useGetHRInitials = () => {
    return queryOptions({
       queryKey: ['hrInitials'],
       queryFn: async () => {
-         const url = `/hr-form/initial`;
+         const url = ApiRoutes.HR_FORMS.INITIAL;
          const response = await request.get<{ data: HRInitialTypes }>(url);
          return response.data;
       },
@@ -50,7 +51,7 @@ export const useGetHRInitials = () => {
 export const useHRFormMutation = () => {
    return useMutation({
       mutationFn: async ({ employeeId, data }: { employeeId: string, data: HRFormSchemaType }) => {
-         const url = `/hr-form/${employeeId}`;
+         const url = ApiRoutes.HR_FORMS.BY_EMPLOYEE(employeeId);
 
          const formData = new FormData();
          formData.append('employeeId', data.employeeId ?? '');

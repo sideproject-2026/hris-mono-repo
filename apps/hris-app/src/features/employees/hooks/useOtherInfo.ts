@@ -1,12 +1,13 @@
 import { queryOptions, useMutation } from "@tanstack/react-query";
 import type { UnifiedEmployeeInfoPayload } from "../types/schema";
 import { request } from "@/lib/http";
+import { ApiRoutes } from "@/types/api-routes";
 
 
 export const useUpdateEmployeeInformationMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, data }: { id: string, data: UnifiedEmployeeInfoPayload }) => {
-			const url = `/employees/${id}/info`;
+			const url = ApiRoutes.EMPLOYEES.INFO(id);
 			const response = await request.put(url, data);
 			return response;
 		},
@@ -24,7 +25,7 @@ export const useGetEmployeeOtherInformationQueryOptons = ({ employeeId, entityOb
 	return queryOptions({
 		queryKey: ['get-employee-information', employeeId, entityObjectType],
 		queryFn: async () => {
-			let url = `/employees/${employeeId}/info/?entityObjectType=${entityObjectType}`;
+			let url = `${ApiRoutes.EMPLOYEES.INFO(employeeId)}/?entityObjectType=${entityObjectType}`;
 			const response = await request.get<ApiResponse<EmployeeOtherInformationTypes>>(url);
 			return response.data;
 		},
@@ -36,7 +37,7 @@ export const useGetEmployeeOtherInformationQueryOptons = ({ employeeId, entityOb
 export const useDeleteEmployeeInformationMutation = () => {
 	return useMutation({
 		mutationFn: async ({ id, infoid, entityType }: { id: string, infoid: string, entityType: string }) => {
-			const url = `/employees/${id}/info/${infoid}/${entityType}`;
+			const url = ApiRoutes.EMPLOYEES.INFO_BY_ID(id, infoid, entityType);
 			const response = await request.del(url);
 			return response;
 		},
@@ -55,7 +56,7 @@ export const getEmployeeAddressQueryOptions = (id?: string) => {
 	return queryOptions({
 		queryKey: ['Address', id],
 		queryFn: async () => {
-			let url = `/employees/${id}/address`;
+			let url = ApiRoutes.EMPLOYEES.ADDRESS(id);
 			const response = await request.get<{ data: Array<EmployeeAddressesTypes> }>(url);
 			return response;
 		},
@@ -67,12 +68,11 @@ export const getEmployeeAddressQueryOptions = (id?: string) => {
 
 
 
-
 export const getEmployeeEducationQueryOptions = (id?: string) => {
 	return queryOptions({
 		queryKey: ['Education', id],
 		queryFn: async () => {
-			let url = `/employees/${id}/educations`;
+			let url = ApiRoutes.EMPLOYEES.EDUCATIONS(id);
 			const response = await request.get<{ data: Array<EmployeeEducationTypes> }>(url);
 			return response;
 		},
@@ -88,7 +88,7 @@ export const getEmployeeEmergencyContactQueryOptions = (id?: string) => {
 	return queryOptions({
 		queryKey: ['EmergencyContact', id],
 		queryFn: async () => {
-			let url = `/employees/${id}/emergency-contacts`;
+			let url = ApiRoutes.EMPLOYEES.EMERGENCY_CONTACTS(id);
 			const response = await request.get<{ data: Array<EmployeeEmergencyContactTypes> }>(url);
 			return response;
 		},
@@ -101,7 +101,7 @@ export const getEmployeeWorkExperienceQueryOptions = (id?: string) => {
 	return queryOptions({
 		queryKey: ['WorkExperience', id],
 		queryFn: async () => {
-			let url = `/employees/${id}/work-experiences`;
+			let url = ApiRoutes.EMPLOYEES.WORK_EXPERIENCES(id);
 			const response = await request.get<{ data: Array<EmployeeWorkExperienceTypes> }>(url);
 			return response;
 		},

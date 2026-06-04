@@ -1,4 +1,5 @@
 import { request } from "@/lib/http";
+import { ApiRoutes } from "@/types/api-routes";
 import { queryOptions, useMutation } from "@tanstack/react-query";
 import type {
     UserManagementAccessSchema,
@@ -10,7 +11,7 @@ export const getSearchUserManagementOptions = ({ name }: { name: string }) => {
     return queryOptions({
         queryKey: ['employees', name],
         queryFn: async () => {
-            const url = `/attendances/employee-setup?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
+            const url = `${ApiRoutes.EMPLOYEE_SETUP.LIST}?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
             const response = await request.get<PaginatedResponse<SearchUserManagementTypes>>(url);
             return response;
         },
@@ -24,7 +25,7 @@ export const getUserManagementInitialOptions = () => {
     return queryOptions({
         queryKey: ['user-management-initial'],
         queryFn: async () => {
-            const url = `/identity/initials`;
+            const url = ApiRoutes.IDENTITY.INITIALS;
             const response = await request.get<ApiResponse<UserManagementSelection>>(url);
             return response.data;
         },
@@ -40,7 +41,7 @@ export const getUserManagementInfoOptions = ({ pageNumber, pageSize }: { pageNum
             if (pageNumber > 0) params.append('pageNumber', pageNumber.toString());
             if (pageSize > 0) params.append('pageSize', pageSize.toString());
 
-            const url = `/identity?${params.toString()}`;
+            const url = `${ApiRoutes.IDENTITY.LIST}?${params.toString()}`;
 
             const response = await request.get<PaginatedResponse<UserManagement>>(url);
             return response;
@@ -51,7 +52,7 @@ export const getUserManagementInfoOptions = ({ pageNumber, pageSize }: { pageNum
 export const userManagementMutation = () => {
     return useMutation({
         mutationFn: async (data: UserManagementSchema) => {
-            const url = `/identity/register`;
+            const url = ApiRoutes.IDENTITY.REGISTER;
             const response = await request.post<ApiResponse<UserManagementSchema>>(url, data);
             return response.data;
         },
@@ -64,7 +65,7 @@ export const userManagementMutation = () => {
 export const userManagementRolesAccessMutation = () => {
     return useMutation({
         mutationFn: async ({ data, userName }: { data: UserManagementAccessSchema, userName: string }) => {
-            const url = `/identity/${userName}/roles-and-access`;
+            const url = ApiRoutes.IDENTITY.ROLES_AND_ACCESS(userName);
             const response = await request.post<ApiResponse<UserManagementAccessSchema>>(url, data);
             return response;
         },
@@ -77,7 +78,7 @@ export const userManagementRolesAccessMutation = () => {
 export const userManagementUpdateMutation = () => {
     return useMutation({
         mutationFn: async ({ data }: { data: UserManagementSchema }) => {
-            const url = `/identity/update`;
+            const url = ApiRoutes.IDENTITY.UPDATE;
             const response = await request.put<ApiResponse<UserManagementSchema>>(url, data);
             return response.data;
         },
@@ -90,7 +91,7 @@ export const userManagementUpdateMutation = () => {
 export const userManagementResetPasswordMutation = () => {
     return useMutation({
         mutationFn: async (data: UserManagementResetPasswordSchema) => {
-            const url = `/identity/reset-password`;
+            const url = ApiRoutes.IDENTITY.RESET_PASSWORD;
             const response = await request.post<ApiResponse<UserManagementResetPasswordSchema>>(url, data);
             return response.data;
         },

@@ -1,6 +1,7 @@
 import { queryOptions, useMutation } from '@tanstack/react-query'
 import type { RequestFilterSchemaType } from '../types/search'
 import { request } from '@/lib/http'
+import { ApiRoutes } from '@/types/api-routes'
 import type { FormRequestTypes, LeaveBalanceType, RequestFormInitial } from '../types/global'
 import type { SyncRequestFormSchemaType } from '../types/schema'
 
@@ -8,9 +9,9 @@ export const requestFormsQueryOptions = ({params,submitted = false} : {params?: 
 
   return queryOptions({
     queryKey: ['request-forms', params],
-    
+
     queryFn: async () => {
-      let url = '/form-request'
+      let url = ApiRoutes.FORM_REQUEST.LIST
 
       if (params?.pageSize && params.pageNumber) {
         url += url.includes('?')
@@ -27,8 +28,8 @@ export const requestFormsQueryOptions = ({params,submitted = false} : {params?: 
           ? `&requestFor=${params.requestFor}`
           : `?requestFor=${params.requestFor}`
       }
-      
-      
+
+
       const response =
         await request.get<PaginatedResponse<FormRequestTypes>>(url)
       return response.data
@@ -42,7 +43,7 @@ export const requestFormInitialsQueryOptions = () => {
   return queryOptions({
     queryKey: ['request-form-initials'],
     queryFn: async () => {
-      const url = '/form-request/initial'
+      const url = ApiRoutes.FORM_REQUEST.INITIAL
       const response = await request.get<{ data: RequestFormInitial }>(url)
       return response
     },
@@ -52,7 +53,7 @@ export const requestFormInitialsQueryOptions = () => {
 export const useSyncLegacyMutation = () => {
   return useMutation({
     mutationFn: async ({month,year} : SyncRequestFormSchemaType) => {
-      const url = '/form-request/sync-legacy'
+      const url = ApiRoutes.FORM_REQUEST.SYNC_LEGACY
       const response = await request.post(url, {month,year})
       return response
     },
@@ -62,7 +63,7 @@ export const useSyncLegacyMutation = () => {
 export const useRequestFormMutation = <T>() => {
   return useMutation({
     mutationFn: async (data: T) => {
-      const response = await request.post('/form-request', {
+      const response = await request.post(ApiRoutes.FORM_REQUEST.LIST, {
         ...data,
         isAutoApproved: true,
       })
@@ -78,7 +79,7 @@ export const useLeaveBalanceQueryOptions = ({ employeeId }: { employeeId: number
   return queryOptions({
     queryKey: ['leave-balance', employeeId],
     queryFn: async () => {
-      const url = `/employees/leave/${employeeId}/balance`
+      const url = ApiRoutes.EMPLOYEES.LEAVE_BALANCE(employeeId)
       const response = await request.get<{ data: LeaveBalanceType[] }>(url)
       return response
     },
@@ -89,7 +90,7 @@ export const useLeaveBalanceQueryOptions = ({ employeeId }: { employeeId: number
 export const useRequestFormCancelMutation = () => {
   return useMutation({
     mutationFn: async ({ formId, cancelReason }: { formId: string, cancelReason: string }) => {
-      const response = await request.put(`/form-request/cancel`, { formId, cancelReason })
+      const response = await request.put(ApiRoutes.FORM_REQUEST.CANCEL, { formId, cancelReason })
       return response
     },
     onSuccess: (data, variables, onMutateResult, context) => {
