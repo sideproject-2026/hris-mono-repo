@@ -16,7 +16,8 @@ import {
 } from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
 import { useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
-import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
+import JobStatusTrackingProvider, { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
+
 
 
 
