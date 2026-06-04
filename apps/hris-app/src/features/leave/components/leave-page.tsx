@@ -1,24 +1,15 @@
-import PageContainer from '@/components/custom/containers/page-container'
+import { PageContainer } from '@hris/shared-ui'
 import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import {
-  DGridColumns,
-  DGridProvider,
-  DGridRows,
-  DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import { DataTablePagination } from '@hris/shared-ui'
-import { NavMenu, NavMenuItem } from '@/components/custom/misc/NavMenu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Separator } from '@/components/ui/separator'
+} from '@hris/shared-ui'
+import { NavMenu, NavMenuItem } from '@hris/shared-ui'
+import { Avatar, AvatarFallback, AvatarImage, Separator } from '@hris/shared-ui'
 import { useQuery } from '@tanstack/react-query'
 import { type ColumnDef } from '@tanstack/react-table'
 import {
   leaveBalanceInitialsQueryOptions,
-  leaveBalanceQueryOptions,
 } from '../hooks/useLeave'
 import {
   DropdownMenu,
@@ -28,12 +19,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+} from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import { Ellipsis, RefreshCcw } from 'lucide-react'
 import LeaveButtons from './leave-buttons'
-import LeaveBalanceTable from '@/components/custom/grid/LeaveBalanceTable'
-import { getLeaveBalances, typeMapping } from '@/lib/utils'
+import { LeaveBalanceTable } from '@hris/shared-ui'
 import LeaveProvider, { useLeaveContext } from './leave-provider'
 import LeaveSearch from './leave-search'
 import LeaveView from './leave-view'

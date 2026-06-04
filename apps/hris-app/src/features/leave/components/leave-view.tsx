@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import {
   Dialog,
   DialogContent,
@@ -6,22 +6,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Separator } from '@/components/ui/separator'
+} from '@hris/shared-ui'
+import { Separator } from '@hris/shared-ui'
 import { useQuery } from '@tanstack/react-query'
 import { Eye } from 'lucide-react'
 import { leaveBalanceEmployeeQueryOptions } from '../hooks/useLeave'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@hris/shared-ui'
 import { useState } from 'react'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import DataTable from '@/components/custom/grid/DataTable'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@hris/shared-ui'
 import type { ColumnDef } from '@tanstack/react-table'
 import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
 import { formatDate } from 'date-fns'
 import { getDisplayText } from '@/lib/utils'
 

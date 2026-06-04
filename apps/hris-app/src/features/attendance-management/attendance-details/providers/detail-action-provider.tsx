@@ -7,7 +7,7 @@ import {
   employeeAttendanceSheetSchema,
 } from '../../types/schema'
 import { useAttendanceDetailContext } from './attendance-detail-provider'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { useConfirmationContext } from '@hris/shared-ui'
 import { useUpdateDetailMutation } from '../../hooks/useAttendanceDetail'
 import { toast } from 'sonner'
 

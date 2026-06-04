@@ -1,17 +1,15 @@
 import { useAuthContext } from '../../auth/components/AuthProvider'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@hris/shared-ui'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@hris/shared-ui'
 import LogoutComponent from '@/features/auth/components/LogoutComponent'
 import UserManagementResetPassword from '@/features/admin/user-management/components/user-management-reset-password'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@hris/shared-ui'
 
 const UserProfile = () => {
   const { userProfile, getPhotoUrl } = useAuthContext()

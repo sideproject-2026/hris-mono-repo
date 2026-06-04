@@ -22,7 +22,7 @@ import {
   SwitchStep,
   ButtonLoading,
 } from '@hris/shared-ui'
-import { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
+import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
 
 const defaultValues = {
   name: '',
@@ -35,7 +35,7 @@ const defaultValues = {
   automate: true,
 }
 
-const AttendancePeriodDialog = ({ children }: { children: ReactNode }) => {
+const AttendancePeriodDialogContent = ({ children }: { children: ReactNode }) => {
 
   const maxSteps = 3
   const [step, setStep] = useState<number>(1)
@@ -114,6 +114,14 @@ const AttendancePeriodDialog = ({ children }: { children: ReactNode }) => {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  )
+}
+
+export const AttendancePeriodDialog = ({ children }: { children: ReactNode }) => {
+  return (
+    <JobStatusTrackingProvider>
+      <AttendancePeriodDialogContent>{children}</AttendancePeriodDialogContent>
+    </JobStatusTrackingProvider>
   )
 }
 

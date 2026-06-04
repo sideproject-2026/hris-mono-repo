@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   StackCol,
+  DialogDescription,
 } from '@hris/shared-ui'
 
 import { cn } from '@/lib/utils'
@@ -87,6 +88,7 @@ const AttendanceFilter = ({ value, onChange }: AttendanceFilterProps) => {
       <DialogContent className="sm:max-w-[680px]">
         <DialogHeader>
           <DialogTitle>Attendance Filter</DialogTitle>
+          <DialogDescription>You can filter the data based on the status and the period.</DialogDescription>
         </DialogHeader>
 
         <StackCol className="w-full py-2" gap="sm">
@@ -181,7 +183,7 @@ const AttendanceFilter = ({ value, onChange }: AttendanceFilterProps) => {
             className="h-11 font-sans text-md font-normal"
             onClick={handleApplyFilter}
           >
-            Filter
+            Apply Filter
           </Button>
         </DialogFooter>
       </DialogContent>

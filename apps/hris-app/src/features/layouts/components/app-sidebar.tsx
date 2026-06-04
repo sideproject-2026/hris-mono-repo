@@ -9,9 +9,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from '@/components/ui/sidebar'
+  Button,
+} from '@hris/shared-ui'
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { ArrowLeft, Calendar, ChartCircle, People } from 'iconsax-reactjs'
 import { ROUTE } from '@/types/router'
 
@@ -89,8 +89,8 @@ const AppSideBarSubMenu = ({
                       <SidebarMenuButton
                         asChild
                         className={`h-11 rounded-lg px-3 transition-all duration-200 group relative ${isActive
-                            ? 'bg-primary/5 text-primary font-semibold'
-                            : 'text-slate-600 hover:bg-gray-50 hover:text-primary'
+                          ? 'bg-primary/5 text-primary font-semibold'
+                          : 'text-slate-600 hover:bg-gray-50 hover:text-primary'
                           }`}
                       >
                         <Link
@@ -100,8 +100,8 @@ const AppSideBarSubMenu = ({
                         >
                           <span
                             className={`flex-shrink-0 transition-transform duration-200 group-hover:scale-110 ${isActive
-                                ? 'text-primary'
-                                : 'text-slate-400 group-hover:text-primary'
+                              ? 'text-primary'
+                              : 'text-slate-400 group-hover:text-primary'
                               }`}
                           >
                             {subitem.subItemIcon}
@@ -189,8 +189,8 @@ const AppSideBar = () => {
                       disabled={isDisabled}
                       variant="default"
                       className={`w-[70px] h-fit cursor-pointer flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isActive
-                          ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
-                          : 'hover:bg-white/10'
+                        ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
+                        : 'hover:bg-white/10'
                         }`}
                       onClick={() => handleItemClick(item)}
                     >
@@ -209,8 +209,8 @@ const AppSideBar = () => {
                     <SidebarMenuButton
                       asChild
                       className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isActive
-                          ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
-                          : 'hover:bg-white/10'
+                        ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
+                        : 'hover:bg-white/10'
                         }`}
                     >
                       <Link
@@ -242,8 +242,8 @@ const AppSideBar = () => {
                 variant="default"
                 onClick={() => handleItemClick(adminSidebarSubMenus[0])}
                 className={`w-[70px] h-fit cursor-pointer hover:bg-white/10! flex flex-col items-center justify-center transition-all duration-200 gap-1.5 rounded-none rounded-l-md ${isSubMenuOpen && selectedMenuTitle === 'Admin Settings'
-                    ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
-                    : 'hover:bg-white/10!'
+                  ? 'border-r-4 border-[#bd7e00] scale-[0.98]'
+                  : 'hover:bg-white/10!'
                   }`}
               >
                 <div className="flex flex-col gap-1 items-center">

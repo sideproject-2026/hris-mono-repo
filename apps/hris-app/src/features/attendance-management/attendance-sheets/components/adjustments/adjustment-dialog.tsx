@@ -6,24 +6,21 @@ import {
   DialogDescription,
   DialogContent,
   DialogFooter,
-} from '@/components/ui/dialog'
+} from '@hris/shared-ui'
 
 import React, { useState } from 'react'
 import {
   adjustmentSchema,
-  overtimePendingSchema,
   type AdjustmentFormValues,
-  type OvertimePendingFormValues,
 } from '../../../types/schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '@/components/ui/form'
-import { InputField, TimeSpanField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import { Form } from '@hris/shared-ui'
+import { InputField, TimeSpanField } from '@hris/shared-ui'
+import { ButtonLoading } from '@hris/shared-ui'
 import { UploadIcon } from 'lucide-react'
 import {
   useAdjustmentMutation,
-  useGetPendingOTQuery,
 } from '../../../hooks/useAttendanceProcess'
 import { usePeriodSheetContext } from '../sheet-provider'
 import { toast } from 'sonner'
@@ -32,15 +29,15 @@ import type { ColumnDef, RowSelectionState } from '@tanstack/react-table'
 import {
   TextCell,
   TextCenterColumn,
-} from '@/components/custom/grid/columns/column-type'
+} from '@hris/shared-ui'
 import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import { formatDate, set } from 'date-fns'
-import DatePickerField from '@/components/custom/inputs/DatePickerField'
+} from '@hris/shared-ui'
+import { formatDate } from 'date-fns'
+import { DatePickerField } from '@hris/shared-ui'
 import { usePendingOTFilter } from '@/features/attendance-management/hooks/useAdjustment'
 
 const columns: ColumnDef<OvertimePending>[] = [

@@ -5,9 +5,9 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { cn } from '@/lib/utils'
+} from '@hris/shared-ui'
+import { ScrollArea } from '@hris/shared-ui'
+import { cn } from '@hris/shared-ui'
 
 type ReportTreeItem = {
   id: string
@@ -199,7 +199,7 @@ const ReportTreeView: React.FC<ReportTreeViewProps> = ({
                           className={cn(
                             'mt-1 grid size-6 place-items-center rounded-full border text-muted-foreground transition-colors',
                             isActive &&
-                              'border-primary/40 bg-primary/10 text-primary',
+                            'border-primary/40 bg-primary/10 text-primary',
                           )}
                         >
                           <FileText className="size-3.5" aria-hidden="true" />

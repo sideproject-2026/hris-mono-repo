@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
 

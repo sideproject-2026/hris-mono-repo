@@ -15,8 +15,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
+} from '@hris/shared-ui'
 import {
   Table,
   TableBody,
@@ -24,12 +23,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
-import { InputField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+} from '@hris/shared-ui'
+import { Input } from '@hris/shared-ui'
+import { Form } from '@hris/shared-ui'
+import { InputField } from '@hris/shared-ui'
+import { ButtonLoading } from '@hris/shared-ui'
 
 const DAYS_OF_WEEK = [
   'Monday',
@@ -129,15 +127,15 @@ const WorkScheduleForm = ({
       <AlertDialogContent className="max-w-fit md:max-w-3xl">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <AlertDialogHeader className="w-[650px]">
-            <AlertDialogTitle>
-              {mode === 'edit' ? 'Edit' : 'Create'} Work Schedule
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              Set the work schedule for each day of the week. Enter time in
-              24-hour format (e.g., 09:00, 18:00).
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            <AlertDialogHeader className="w-[650px]">
+              <AlertDialogTitle>
+                {mode === 'edit' ? 'Edit' : 'Create'} Work Schedule
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                Set the work schedule for each day of the week. Enter time in
+                24-hour format (e.g., 09:00, 18:00).
+              </AlertDialogDescription>
+            </AlertDialogHeader>
             <div className="grid grid-cols-1 gap-4">
               <InputField
                 control={form.control}

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Refresh2, Setting4 } from 'iconsax-reactjs'
+import { Refresh2 } from 'iconsax-reactjs'
 import { useEffect } from 'react'
 
 import { attendanceManagementSearchSchema } from '../../types/search'

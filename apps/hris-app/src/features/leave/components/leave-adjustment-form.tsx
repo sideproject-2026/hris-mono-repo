@@ -12,16 +12,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+  Button,
+  Form,
+  Separator,
+  DropdownField,
+  TextareaField,
+  ButtonLoading,
+  InputField,
+} from '@hris/shared-ui'
 import { Pen } from 'lucide-react'
-import { Separator } from '@/components/ui/separator'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import TextareaField from '@/components/custom/inputs/TextareaField'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
-import { InputField } from '@/components/custom/inputs'
 import {
   leaveBalanceAdjustmentMutation,
   leaveBalanceInitialsQueryOptions,

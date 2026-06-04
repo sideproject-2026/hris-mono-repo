@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { createContext, useCallback, useContext } from 'react'
 import { getUserManagementInfoOptions } from '../hooks/useUserManagement'
-import { PAGINATION_DEFAULTS } from '@/components/custom/grid/types/constants'
+import { PAGINATION_DEFAULTS } from '@hris/shared-ui'
 import { useQueryStates } from 'nuqs'
 import { userManagementSearchInitialParser } from '../types/search'
 

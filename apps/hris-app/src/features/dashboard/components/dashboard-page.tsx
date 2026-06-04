@@ -3,9 +3,9 @@ import DashboardCards from './dashboard-cards'
 import DashboardRequestSummary from './dashboard-request-summary'
 import DashboardCalendarContent from './dashboard-calendar/dashboard-calendar-event'
 import DashboardProbitionary from './dashboard-probitionary'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@hris/shared-ui'
 import DashboardResignation from './dashboard-resignation'
-import { StackCol } from '@/components/custom/layouts'
+import { StackCol } from '@hris/shared-ui'
 import { Clock, UserMinus } from 'iconsax-reactjs'
 
 const DashboardPage = () => {

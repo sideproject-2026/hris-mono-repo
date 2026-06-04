@@ -12,9 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@hris/shared-ui'
 import { Key, Send } from 'iconsax-reactjs'
-import { Form } from '@/components/ui/form'
+import { Form } from '@hris/shared-ui'
 import { toast } from 'sonner'
 import {
   getUserManagementInitialOptions,
@@ -22,14 +22,14 @@ import {
 } from '../hooks/useUserManagement'
 import { Suspense } from 'react'
 import { Loader2 } from 'lucide-react'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import { ButtonLoading } from '@hris/shared-ui'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import CheckboxField from '@/components/custom/inputs/CheckboxField'
+import { CheckboxField } from '@hris/shared-ui'
 import { USER_MANAGEMENT_APP_CHECKLIST } from '../types/constant'
-import { StackCol } from '@/components/custom/layouts'
-import { Label } from '@/components/ui/label'
-import { UserAvatarCell } from '@/components/custom/grid/columns/column-type'
-import { Button } from '@/components/ui/button'
+import { StackCol } from '@hris/shared-ui'
+import { Label } from '@hris/shared-ui'
+import { UserAvatarCell } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import { getErrorMessage } from '@/lib/utils'
 
 interface UserManagementAccessFormProps {

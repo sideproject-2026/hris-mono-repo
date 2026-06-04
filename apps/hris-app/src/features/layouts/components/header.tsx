@@ -1,4 +1,3 @@
-import { useAuthContext } from '../../auth/components/AuthProvider'
 import UserProfile from './user-profile'
 
 const Header = () => {

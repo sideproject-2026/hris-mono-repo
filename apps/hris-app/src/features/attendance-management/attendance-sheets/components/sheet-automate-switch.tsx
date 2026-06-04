@@ -2,7 +2,7 @@ import { LoaderCircleIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { usePeriodPropertyUpdateMutation } from '../../hooks/useAttendanceProcess'
 import { usePeriodSheetContext } from './sheet-provider'
-import { Switch } from '@/components/ui/switch'
+import { Switch } from '@hris/shared-ui'
 
 export const SheetAutomateSwitch = ({
   periodId,
@@ -12,18 +12,18 @@ export const SheetAutomateSwitch = ({
   value?: boolean
 }) => {
   const { mutateAsync, isPending } = usePeriodPropertyUpdateMutation()
-   const {onRefresh} = usePeriodSheetContext();
-   const handleToggle = async (checked: boolean) => {
-      await mutateAsync({periodId,property: 'isAutomate', value: checked}, {
-         onSuccess: () => {
-            toast.success(`Automate is now ${checked ? 'enabled' : 'disabled'}.`);
-            onRefresh();
-         },
-         onError: (error) => {
-            toast.error(`Failed to update automate setting. ${error}`);
-         }
-      });
-   }
+  const { onRefresh } = usePeriodSheetContext();
+  const handleToggle = async (checked: boolean) => {
+    await mutateAsync({ periodId, property: 'isAutomate', value: checked }, {
+      onSuccess: () => {
+        toast.success(`Automate is now ${checked ? 'enabled' : 'disabled'}.`);
+        onRefresh();
+      },
+      onError: (error) => {
+        toast.error(`Failed to update automate setting. ${error}`);
+      }
+    });
+  }
 
   if (isPending) {
     return (

@@ -1,4 +1,4 @@
-import { StackCol, StackRow } from '@/components/custom/layouts'
+import { StackCol, StackRow } from '@hris/shared-ui'
 import { useQuery } from '@tanstack/react-query'
 import { getListDashboardResignation } from '../hooks/useDashboard'
 

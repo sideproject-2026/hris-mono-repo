@@ -1,13 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { SidebarProvider } from '@/components/ui/sidebar'
-import { ConfirmDialogProvider } from '@/components/custom/modal/ConfirmDialog'
+import { SidebarProvider } from '@hris/shared-ui'
+import { ConfirmDialogProvider } from '@hris/shared-ui'
 import AppSideBar from '@/features/layouts/components/app-sidebar'
 import Header from '@/features/layouts/components/header'
 import { AuthProvider } from '@/features/auth/components/AuthProvider'
 import ProtectedOutlet from '@/components/auth/protected-outlet'
-import NotFoundErrors from '@/components/custom/misc/NotFoundErrors'
-import JobStatusTrackingProvider from '@/components/custom/misc/job-status/JobStatusTracking'
+import { NotFoundErrors } from '@hris/shared-ui'
+import { JobStatusTrackingProvider } from '@hris/shared-ui'
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,

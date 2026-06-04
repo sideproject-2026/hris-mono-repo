@@ -4,10 +4,8 @@ import {
   type SearchLeaveBalanceSchemaType,
 } from '../types/search'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import { InputField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import { Form } from '@hris/shared-ui'
+import { InputField, DropdownField, ButtonLoading } from '@hris/shared-ui'
 import { Search } from 'lucide-react'
 import { useLeaveContext } from './leave-provider'
 

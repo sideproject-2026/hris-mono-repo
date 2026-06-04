@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Document,
   Page,
@@ -14,9 +13,9 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
+} from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
-import PageContainer from '@/components/custom/containers/page-container'
+import { PageContainer } from '@hris/shared-ui'
 
 // Create styles
 const styles = StyleSheet.create({

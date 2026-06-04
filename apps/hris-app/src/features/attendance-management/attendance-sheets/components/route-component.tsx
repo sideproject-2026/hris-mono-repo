@@ -9,20 +9,20 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import PageContainer from '@/components/custom/containers/page-container'
+} from '@hris/shared-ui'
+import { PageContainer } from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
 import {
   TextCell,
   TextCenterColumn,
   UserAvatarCell,
-} from '@/components/custom/grid/columns/column-type'
+} from '@hris/shared-ui'
 import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
 
 const columns: Array<ColumnDef<AttendanceSheet>> = [
   {
