@@ -31,7 +31,7 @@ export const requestFormsQueryOptions = ({params,submitted = false} : {params?: 
       
       const response =
         await request.get<PaginatedResponse<FormRequestTypes>>(url)
-      return response
+      return response.data
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
     enabled: submitted !== undefined ? submitted : false,

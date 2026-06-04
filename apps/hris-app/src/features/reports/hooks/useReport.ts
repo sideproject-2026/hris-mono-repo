@@ -1,4 +1,5 @@
 import { request } from '@/lib/http'
+import type { PaginatedResponse } from '@hris/shared-ui'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
 
@@ -220,6 +221,7 @@ export const reportInitialQueryOptions = () => {
       const response = await request.get<APIResponse<ReportInitial>>(url);
       return response.data;
     },
+    enabled: false,
     staleTime: 1000 * 60 * 60, // 1 hour
   })
 }
@@ -230,9 +232,9 @@ export const employeesActiveReportQueryOptions = ({ fullName }: { fullName: stri
   return queryOptions({
     queryKey: ['employees-active', fullName],
     queryFn: async () => {
-      let url = `/setup?fieldName=fullname&fieldValue=${fullName}&pageSize=1000&pageNumber=1`;
-      const response = await request.get<ApiResponse<Array<AttendeeInfo>>>(url);
-      return response
+      let url = `/attendances/employee-setup?fieldName=fullname&fieldValue=${fullName}&pageSize=1000&pageNumber=1`;
+      const response = await request.get<ApiResponse<PaginatedResponse<AttendeeInfo>>>(url);
+      return response.data;
     },
     enabled: fullName.length > 0,
     select: (data) => data.data,

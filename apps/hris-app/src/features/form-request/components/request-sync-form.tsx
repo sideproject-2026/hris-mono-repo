@@ -21,13 +21,14 @@ import { useRequestFormContext } from './request-form-provider'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { I3DRotate } from 'iconsax-reactjs'
+import { MailCheckIcon } from 'lucide-react'
 
 const RequestSyncForm = () => {
   const { mutateAsync: syncLegacy, isPending } = useSyncLegacyMutation()
   const { onRefresh } = useRequestFormContext()
 
   const form = useForm<SyncRequestFormSchemaType>({
-    resolver: zodResolver(syncRequestFormSchema),
+    resolver: zodResolver(syncRequestFormSchema) as any,
     defaultValues: {
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear(),
