@@ -1,4 +1,4 @@
-import EmptyComponent from '@/components/custom/modal/EmptyComponent'
+import { EmptyComponent } from '@hris/shared-ui'
 import { NoteRemove } from 'iconsax-reactjs'
 
 const DashboardRequestSummary = () => {

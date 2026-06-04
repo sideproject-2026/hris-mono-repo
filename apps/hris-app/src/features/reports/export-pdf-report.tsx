@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 

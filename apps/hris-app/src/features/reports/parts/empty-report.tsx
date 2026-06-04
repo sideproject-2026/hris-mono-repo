@@ -1,11 +1,11 @@
-import { StackCol } from '@/components/custom/layouts'
+import { StackCol } from '@hris/shared-ui'
 import {
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
   Empty,
-} from '@/components/ui/empty'
-import { cn } from '@/lib/utils'
+} from '@hris/shared-ui'
+import { cn } from '@hris/shared-ui'
 
 const EmptyReport = ({ className }: { className?: string }) => {
   return (

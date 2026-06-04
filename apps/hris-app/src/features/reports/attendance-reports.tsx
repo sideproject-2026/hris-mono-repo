@@ -1,8 +1,8 @@
-import PageContainer from '@/components/custom/containers/page-container'
+import { PageContainer } from '@hris/shared-ui'
 import {
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
+} from '@hris/shared-ui'
 import React from 'react'
 import ReportTreeView from './report-treeview'
 import ReportContent from './report-content'

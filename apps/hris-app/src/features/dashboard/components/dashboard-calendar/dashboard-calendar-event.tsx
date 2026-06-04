@@ -1,6 +1,6 @@
-import { Calendar } from '@/components/ui/calendar'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import EmptyComponent from '@/components/custom/modal/EmptyComponent'
+import { Calendar } from '@hris/shared-ui'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@hris/shared-ui'
+import { EmptyComponent } from '@hris/shared-ui'
 import { formatDate } from 'date-fns'
 import { getDisplayText } from '@/lib/utils'
 import DashboardCalendarProvider, {
@@ -8,8 +8,8 @@ import DashboardCalendarProvider, {
 } from './dashboard-calendar-provider'
 import { FileUser, PartyPopper } from 'lucide-react'
 import { CalendarTick, Cake } from 'iconsax-reactjs'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { StackCol } from '@/components/custom/layouts'
+import { ScrollArea } from '@hris/shared-ui'
+import { StackCol } from '@hris/shared-ui'
 
 const DashboardCalendarEvent = () => {
   const { date, setDate, currentMonth, setCurrentMonth } =

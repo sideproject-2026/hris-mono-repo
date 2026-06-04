@@ -8,25 +8,25 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
+} from '@hris/shared-ui'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import PageContainer from '@/components/custom/containers/page-container'
+} from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
+import { PageContainer } from '@hris/shared-ui'
 import { useWorkScheduleContext } from './work-schedule-provider'
 import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
-import { TextCell } from '@/components/custom/grid/columns/column-type'
+} from '@hris/shared-ui'
+import { NavMenu } from '@hris/shared-ui'
+import { Separator } from '@hris/shared-ui'
+import { TextCell } from '@hris/shared-ui'
 
 const WorkScheduleComponent = () => {
   const { workSchedules, isRefreshing } = useWorkScheduleContext()

@@ -1,13 +1,13 @@
-import PageContainer from '@/components/custom/containers/page-container'
+import { PageContainer } from '@hris/shared-ui'
 import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import { StackCol } from '@/components/custom/layouts'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
+} from '@hris/shared-ui'
+import { StackCol } from '@hris/shared-ui'
+import { NavMenu } from '@hris/shared-ui'
+import { Separator } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import { RefreshCcw } from 'lucide-react'
 import { type ColumnDef } from '@tanstack/react-table'
 import {
@@ -15,7 +15,7 @@ import {
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
 import CompanyForm from './company-form'
 
 const CompanyPage = () => {

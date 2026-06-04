@@ -1,5 +1,5 @@
 import { MenuIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 
 const AppBar = () => {
   return (

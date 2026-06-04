@@ -1,8 +1,6 @@
-import { InputField } from '@/components/custom/inputs'
-import DatePickerField from '@/components/custom/inputs/DatePickerField'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
+import { InputField, DropdownField, DatePickerField } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
+import { Form } from '@hris/shared-ui'
 
 import { Filter, Loader2, RefreshCcw } from 'lucide-react'
 

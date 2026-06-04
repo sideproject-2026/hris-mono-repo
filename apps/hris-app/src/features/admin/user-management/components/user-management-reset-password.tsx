@@ -1,5 +1,5 @@
-import { InputField } from '@/components/custom/inputs'
-import { Button } from '@/components/ui/button'
+import { InputField } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import {
   Dialog,
   DialogContent,
@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Form } from '@/components/ui/form'
+} from '@hris/shared-ui'
+import { Form } from '@hris/shared-ui'
 import { Key, Lock } from 'iconsax-reactjs'
 import { useForm } from 'react-hook-form'
 import {
@@ -20,8 +20,8 @@ import { userManagementResetPasswordMutation } from '../hooks/useUserManagement'
 import { toast } from 'sonner'
 import { Eye, EyeSlash, Magicpen, Send } from 'iconsax-reactjs'
 import { useState } from 'react'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { DialogFooter } from '@/components/ui/dialog'
+import { ButtonLoading } from '@hris/shared-ui'
+import { DialogFooter } from '@hris/shared-ui'
 import { getErrorMessage } from '@/lib/utils'
 
 interface UserManagementResetPasswordProps {

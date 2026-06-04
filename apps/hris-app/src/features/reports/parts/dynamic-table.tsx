@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@hris/shared-ui'
 import {
   Table,
   TableBody,
@@ -13,7 +13,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@hris/shared-ui'
 import { cn, ellipsis } from '@/lib/utils'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import React, { useEffect, useMemo, useState } from 'react'

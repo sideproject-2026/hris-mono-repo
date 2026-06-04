@@ -1,37 +1,36 @@
-import PageContainer from '@/components/custom/containers/page-container'
+import { PageContainer } from '@hris/shared-ui'
 import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import { StackCol, StackRow } from '@/components/custom/layouts'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
-import { Menu, MoreHorizontal, RefreshCcw } from 'lucide-react'
+} from '@hris/shared-ui'
+import { StackCol } from '@hris/shared-ui'
+import { NavMenu } from '@hris/shared-ui'
+import { Separator } from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
+import { Menu, RefreshCcw } from 'lucide-react'
 import {
   DGridColumns,
   DGridPagination,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
 import { type ColumnDef } from '@tanstack/react-table'
 import UserManagementForm from './user-management-form'
 import { useUserManagementContext } from './user-management-provider'
 import {
   TextCell,
   UserAvatarCell,
-} from '@/components/custom/grid/columns/column-type'
+} from '@hris/shared-ui'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@hris/shared-ui'
 import UserManagementAccessForm from './user-management-access-form'
 import { Edit2 } from 'iconsax-reactjs'
 import UserManagementResetPassword from './user-management-reset-password'
@@ -115,8 +114,8 @@ const UserManagementPage = () => {
                       ? typeof row.original.roles[0] === 'string'
                         ? (row.original.roles as string[])
                         : (row.original.roles as SelectionItem<string>[]).map(
-                            (r) => r.value,
-                          )
+                          (r) => r.value,
+                        )
                       : [],
                   }}
                   trigger={

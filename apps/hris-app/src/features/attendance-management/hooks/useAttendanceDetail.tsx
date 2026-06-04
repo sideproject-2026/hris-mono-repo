@@ -7,7 +7,7 @@ import type {
 } from '../types/schema'
 import { request } from '@/lib/http'
 import { string } from 'zod'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { useConfirmationContext } from '@hris/shared-ui'
 
 export const useDetailExport = () => {
   const [isPending, startTransition] = useTransition()

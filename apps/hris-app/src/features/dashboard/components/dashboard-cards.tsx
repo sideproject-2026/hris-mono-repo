@@ -9,7 +9,7 @@ import {
   UserStar,
   type LucideIcon,
 } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '@hris/shared-ui'
 
 interface StatCardProps {
   title: string

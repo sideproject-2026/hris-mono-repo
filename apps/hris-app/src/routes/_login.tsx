@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 import { useEffect } from 'react'
-import { useTheme } from '@/components/theme-provider'
+import { useTheme } from '@hris/shared-ui'
 
 export const Route = createFileRoute('/_login')({
   component: LoginLayout,

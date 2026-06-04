@@ -1,7 +1,7 @@
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query"
 import type { WorkScheduleFormValue } from "../types/schema";
 import { request } from "@/lib/http"
-import { useConfirmationContext } from "@/components/custom/modal/ConfirmDialog";
+import { useConfirmationContext } from "@hris/shared-ui";
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 import { useWorkScheduleContext } from "../components/work-schedule-provider";
@@ -30,7 +30,7 @@ export const workScheduleOptions = () => {
 
 export const useWorkScheduleMutations = () => {
    return useMutation({
-      mutationFn: async ({id, data}: {id?: string, data: WorkScheduleFormValue}) => {
+      mutationFn: async ({ id, data }: { id?: string, data: WorkScheduleFormValue }) => {
          if (id) {
             const response = await request.put(`/schedules/${id}`, data);
             return response;
@@ -42,16 +42,16 @@ export const useWorkScheduleMutations = () => {
    })
 }
 export const useDeleteWorkSchedule = () => {
-   
-   const {onRefresh} = useWorkScheduleContext();
-   const {mutateAsync,isPending} = useMutation({
+
+   const { onRefresh } = useWorkScheduleContext();
+   const { mutateAsync, isPending } = useMutation({
       mutationFn: async (id: string) => {
          const response = await request.del(`/schedules/${id}`);
          return response;
       }
    });
 
-   const {requestConfirmation} = useConfirmationContext();
+   const { requestConfirmation } = useConfirmationContext();
 
    const handleDelete = async (id: string) => {
       requestConfirmation({
@@ -73,6 +73,6 @@ export const useDeleteWorkSchedule = () => {
       });
    }
 
-   return {handleDelete, isDeleting: isPending};
+   return { handleDelete, isDeleting: isPending };
 
 }

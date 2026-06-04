@@ -21,19 +21,14 @@ import {
   useRecreateSheetMutation,
 } from '../../hooks/useAttendanceProcess'
 import { usePeriodSheetContext } from './sheet-provider'
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
 
-import { NavMenu, NavMenuItem } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { NavMenu, NavMenuItem } from '@hris/shared-ui'
+import { Separator } from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
-import { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
+import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
 
 import {
   DropdownMenuGroup,
@@ -66,7 +61,7 @@ export const useRecreateSheet = ({
           { periodId },
           {
             onSuccess: () => {
-              ;(toast.success('Attendance Sheets recreated successfully'),
+              ; (toast.success('Attendance Sheets recreated successfully'),
                 onRefresh())
             },
           },
@@ -112,7 +107,7 @@ const useDtrProcess = ({
   return { handleProcessDtr }
 }
 
-export const SheetMenuAction = ({ sheet }: { sheet: AttendanceSheet }) => {
+const SheetMenuActionContent = ({ sheet }: { sheet: AttendanceSheet }) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync, isPending } = useDeleteSheetMutation()
   const { onRefresh, period } = usePeriodSheetContext()
@@ -242,7 +237,17 @@ export const SheetMenuAction = ({ sheet }: { sheet: AttendanceSheet }) => {
   )
 }
 
-export const SheetMainMenu = () => {
+export const SheetMenuAction = ({ sheet }: { sheet: AttendanceSheet }) => {
+  return (
+    <JobStatusTrackingProvider>
+      <ConfirmDialogProvider>
+        <SheetMenuActionContent sheet={sheet} />
+      </ConfirmDialogProvider>
+    </JobStatusTrackingProvider>
+  )
+}
+
+const SheetMainMenuContent = () => {
   const { period, onRefresh } = usePeriodSheetContext()
 
   const { handleRecreateSheet } = useRecreateSheet({
@@ -318,5 +323,15 @@ export const SheetMainMenu = () => {
         </NavMenuItem>
       </div>
     </NavMenu>
+  )
+}
+
+export const SheetMainMenu = () => {
+  return (
+    <JobStatusTrackingProvider>
+      <ConfirmDialogProvider>
+        <SheetMainMenuContent />
+      </ConfirmDialogProvider>
+    </JobStatusTrackingProvider>
   )
 }

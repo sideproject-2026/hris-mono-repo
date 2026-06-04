@@ -5,20 +5,20 @@ import { useForm } from 'react-hook-form'
 import { ChevronDown, Filter, Loader2, RefreshCcw } from 'lucide-react'
 import { format } from 'date-fns'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@hris/shared-ui'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { cn } from '@/lib/utils'
+} from '@hris/shared-ui'
+import { ScrollArea } from '@hris/shared-ui'
+import { cn } from '@hris/shared-ui'
 import { reportInitialQueryOptions } from './hooks/useReport'
 import ExportExcelReport from './export-excel-report'
 import { useQuery } from '@tanstack/react-query'
-import { StackCol, StackRow } from '@/components/custom/layouts'
+import { StackCol, StackRow } from '@hris/shared-ui'
 import EmptyReport from './parts/empty-report'
 import DynamicTable from './parts/dynamic-table'
 import { useDynamicQuery } from './parts/dynamic-query'

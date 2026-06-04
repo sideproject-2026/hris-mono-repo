@@ -12,14 +12,14 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+} from '@hris/shared-ui'
+import { Button } from '@hris/shared-ui'
 import { Loader2, PlusIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '@/components/ui/form'
+import { Form } from '@hris/shared-ui'
 import UserManagementSearch from './user-management-search'
-import { InputField } from '@/components/custom/inputs'
-import DropdownField from '@/components/custom/inputs/DropdownField'
+import { InputField } from '@hris/shared-ui'
+import { DropdownField } from '@hris/shared-ui'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import {
   getUserManagementInitialOptions,
@@ -27,7 +27,7 @@ import {
   userManagementUpdateMutation,
 } from '../hooks/useUserManagement'
 import { toast } from 'sonner'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import { ButtonLoading } from '@hris/shared-ui'
 import { Send } from 'iconsax-reactjs'
 import { getErrorMessage } from '@/lib/utils'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   syncRequestFormSchema,
   type SyncRequestFormSchemaType,
@@ -15,12 +14,15 @@ import {
   Form,
   DropdownField,
   ButtonLoading,
+  DialogTitle,
+  DialogDescription,
 } from '@hris/shared-ui'
 import { useSyncLegacyMutation } from '../hooks/useFormRequest'
 import { useRequestFormContext } from './request-form-provider'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { I3DRotate } from 'iconsax-reactjs'
+import { MailCheckIcon } from 'lucide-react'
 
 const RequestSyncForm = () => {
   const { mutateAsync: syncLegacy, isPending } = useSyncLegacyMutation()
@@ -75,13 +77,13 @@ const RequestSyncForm = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] border-0">
         <DialogHeader>
-          <h3 className="font-poppins text-lg text-medium dark:text-foreground text-foreground">
+          <DialogTitle className="font-poppins text-lg text-medium dark:text-foreground text-foreground">
             Sync Requests
-          </h3>
-          <p className="font-poppins text-sm text-medium dark:text-foreground text-foreground">
+          </DialogTitle>
+          <DialogDescription className="font-poppins text-sm text-medium dark:text-foreground text-foreground">
             Sync form requests from external systems by selecting the month and
             year.
-          </p>
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form className="flex flex-col gap-3">

@@ -15,8 +15,8 @@ import {
   DropdownMenuTrigger,
 } from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
+import { useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
+import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
 
 
 
@@ -129,7 +129,7 @@ const usePostPeriod = ({ id }: { id: string }) => {
  * - ✅ Ensure proper styling and accessibility features are in place. 
  */
 
-export const PeriodActionsDropdownMenu = ({ data }: { data: AttendancePeriod }) => {
+const PeriodActionsDropdownMenuContent = ({ data }: { data: AttendancePeriod }) => {
 
   const { handleDelete, isDeleteLoading } = useDeletePeriod({ id: data.id });
   const { handleProcess, isProcessing } = useDtrProcessAttendance();
@@ -147,36 +147,44 @@ export const PeriodActionsDropdownMenu = ({ data }: { data: AttendancePeriod }) 
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenu>
-          <DropdownMenuItem asChild>
-            <Link to={ROUTE.ATTENDANCE_SHEET_ROUTE(data.id)}>
-              <FileText className="h-4 w-4" />
-              <span>View Attendance Sheet</span>
-            </Link>
+        <DropdownMenuItem asChild>
+          <Link to={ROUTE.ATTENDANCE_SHEET_ROUTE(data.id)}>
+            <FileText className="h-4 w-4" />
+            <span>View Attendance Sheet</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="text-sm py-2 font-semibold w-full">
+            Period Actions
+          </DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={() => handleProcess(data.id, () => onRefresh())}
+            disabled={data.posted || data.isAutomate || isProcessing}>
+            <FileText className="h-4 w-4" />
+            <span>Process Attendance</span>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuLabel className="text-sm py-2 font-semibold w-full">
-              Period Actions
-            </DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => handleProcess(data.id, () => onRefresh())}
-              disabled={data.posted || data.isAutomate || isProcessing}>
-              <FileText className="h-4 w-4" />
-              <span>Process Attendance</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handlePost(data.posted)}>
-              <StampIcon className="h-4 w-4" />
-              <span>{postLabel}</span>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-red-800" onClick={handleDelete} disabled={data.posted}>
-            <TrashIcon className="h-4 w-4 text-red-800 " />
-            <span>Delete Period</span>
+          <DropdownMenuItem onClick={() => handlePost(data.posted)}>
+            <StampIcon className="h-4 w-4" />
+            <span>{postLabel}</span>
           </DropdownMenuItem>
-        </DropdownMenu>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="text-red-800" onClick={handleDelete} disabled={data.posted}>
+          <TrashIcon className="h-4 w-4 text-red-800 " />
+          <span>Delete Period</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+}
+
+export const PeriodActionsDropdownMenu = ({ data }: { data: AttendancePeriod }) => {
+  return (
+    <JobStatusTrackingProvider>
+      <ConfirmDialogProvider>
+        <PeriodActionsDropdownMenuContent data={data} />
+      </ConfirmDialogProvider>
+    </JobStatusTrackingProvider>
   )
 }

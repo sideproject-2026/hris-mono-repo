@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import {
   Dialog,
   DialogContent,
@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@hris/shared-ui'
 import { PlusIcon } from 'lucide-react'
 
 const CompanyForm = () => {

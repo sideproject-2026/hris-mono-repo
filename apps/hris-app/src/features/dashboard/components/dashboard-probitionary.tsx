@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getListDashboardProbitionary } from '../hooks/useDashboard'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea } from '@hris/shared-ui'
 import { avatarUrl, formatLongDate } from '@/lib/utils'
-import EmptyComponent from '@/components/custom/modal/EmptyComponent'
-import { Badge } from '@/components/ui/badge'
+import { EmptyComponent } from '@hris/shared-ui'
+import { Badge } from '@hris/shared-ui'
 import { Calendar1, UserRemove } from 'iconsax-reactjs'
-import { StackCol } from '@/components/custom/layouts'
-import { Separator } from '@/components/ui/separator'
-import { UserAvatarCell } from '@/components/custom/grid/columns/column-type'
-import { Input } from '@/components/ui/input'
+import { StackCol } from '@hris/shared-ui'
+import { UserAvatarCell } from '@hris/shared-ui'
+import { Input } from '@hris/shared-ui'
 
 const DashboardProbitionary = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>(
@@ -68,11 +67,10 @@ const DashboardProbitionary = () => {
                   >
                     {/* Vibrant Accent Strip */}
                     <div
-                      className={`absolute left-0 top-0 bottom-0 w-1.5 transition-colors duration-500 ease-in-out ${
-                        isNearing
-                          ? 'bg-gradient-to-b from-amber-400 to-orange-500'
-                          : 'bg-gradient-to-b from-primary/80 to-primary'
-                      }`}
+                      className={`absolute left-0 top-0 bottom-0 w-1.5 transition-colors duration-500 ease-in-out ${isNearing
+                        ? 'bg-gradient-to-b from-amber-400 to-orange-500'
+                        : 'bg-gradient-to-b from-primary/80 to-primary'
+                        }`}
                     />
 
                     {/* Left Section: User Info */}
@@ -123,11 +121,10 @@ const DashboardProbitionary = () => {
                           Days Left
                         </span>
                         <span
-                          className={`text-sans font-medium leading-none ${
-                            isNearing
-                              ? 'text-amber-600 dark:text-amber-400'
-                              : 'text-primary'
-                          }`}
+                          className={`text-sans font-medium leading-none ${isNearing
+                            ? 'text-amber-600 dark:text-amber-400'
+                            : 'text-primary'
+                            }`}
                         >
                           {employee.totalDayRemaining}
                         </span>

@@ -3,7 +3,7 @@ import { type FieldValues, type UseFormReturn } from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronsUpDown, Loader2, X } from 'lucide-react'
 
-import type { EmployeeAppointmentSchemaTypes } from '../../../types/schema'
+
 import { Button } from '@/components/ui/button'
 import {
   Command,
@@ -12,14 +12,15 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from '@hris/shared-ui'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { Badge } from '@/components/ui/badge'
+} from '@hris/shared-ui'
+import { Badge } from '@hris/shared-ui'
 import { getSearchUserManagementOptions } from '../hooks/useUserManagement'
+import type { EmployeeAppointmentSchemaTypes } from '@/features/employees/types/schema'
 
 interface EmployeeListAppointmentProps<
   T extends FieldValues = EmployeeAppointmentSchemaTypes,
