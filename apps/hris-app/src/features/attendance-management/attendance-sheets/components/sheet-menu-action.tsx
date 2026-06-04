@@ -28,7 +28,7 @@ import { useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
 import { NavMenu, NavMenuItem } from '@hris/shared-ui'
 import { Separator } from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
-import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
+import JobStatusTrackingProvider, { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
 
 import {
   DropdownMenuGroup,

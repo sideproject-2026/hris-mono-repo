@@ -22,7 +22,7 @@ import {
   SwitchStep,
   ButtonLoading,
 } from '@hris/shared-ui'
-import { useJobStatusTrackingContext, JobStatusTrackingProvider } from '@hris/shared-ui'
+import JobStatusTrackingProvider, { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
 
 const defaultValues = {
   name: '',

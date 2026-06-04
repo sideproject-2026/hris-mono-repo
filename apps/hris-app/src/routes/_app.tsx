@@ -7,7 +7,7 @@ import Header from '@/features/layouts/components/header'
 import { AuthProvider } from '@/features/auth/components/AuthProvider'
 import ProtectedOutlet from '@/components/auth/protected-outlet'
 import { NotFoundErrors } from '@hris/shared-ui'
-import { JobStatusTrackingProvider } from '@hris/shared-ui'
+import JobStatusTrackingProvider, { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
