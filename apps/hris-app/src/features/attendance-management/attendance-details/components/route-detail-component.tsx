@@ -7,10 +7,10 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
+  PageContainer,
+} from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
 import { setFullName } from '@/lib/utils'
-import PageContainer from '@/components/custom/containers/page-container'
 
 const RouteDetailComponent = () => {
   const { period, sheets, loading } = useAttendanceDetailContext()

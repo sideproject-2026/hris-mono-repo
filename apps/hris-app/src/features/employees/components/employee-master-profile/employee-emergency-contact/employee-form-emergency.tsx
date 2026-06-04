@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -7,7 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+  Form,
+  DropdownField,
+  InputField,
+  ButtonLoading,
+  Button
+} from '@hris/shared-ui'
 import {
   unifiedEmployeeInfoSchema,
   type UnifiedEmployeeInfoPayload,
@@ -15,11 +19,7 @@ import {
 import { Plus } from 'lucide-react'
 import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
 import { RELATION_DATA } from '@/features/employees/types/constant'
-import { InputField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'

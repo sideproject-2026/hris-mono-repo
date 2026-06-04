@@ -1,29 +1,20 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
-import { AlertDialogCancel } from '@radix-ui/react-alert-dialog'
 import { BookIcon, XIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { attendancePolicySchema } from '../types/schema'
 import { useAttendancePolicyMutation } from '../hooks/useAttendancePolicy'
 import type { AttendancePolicyFormValue } from '../types/schema'
 import {
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import {
+  InputField,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form'
-import { InputField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { Switch } from '@/components/ui/switch'
-import {
+  ButtonLoading,
+  Switch,
   Sheet,
   SheetClose,
   SheetContent,
@@ -31,8 +22,7 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+} from '@hris/shared-ui'
 
 interface AttendancePolicyFormProps {
   mode?: 'create' | 'edit'

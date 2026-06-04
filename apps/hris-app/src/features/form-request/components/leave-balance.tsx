@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useLeaveBalanceQueryOptions } from '../hooks/useFormRequest'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@hris/shared-ui'
 import { getLeaveBalances, typeMapping } from '@/lib/utils'
 
 interface LeaveBalanceProps {

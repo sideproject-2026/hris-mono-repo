@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -7,21 +7,20 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { useGetRequestDetailOptions } from '../../hooks/useAttendanceDetail'
-import { useQuery } from '@tanstack/react-query'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useEffect, useState } from 'react'
-
-import {
+  Skeleton,
+  Stack,
+  StackCol,
+  StackRow,
+  InputLabels,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Stack, StackCol, StackRow } from '@/components/custom/layouts'
-import InputLabels from '@/components/custom/labels/InputLabels'
+} from '@hris/shared-ui'
+import { useGetRequestDetailOptions } from '../../hooks/useAttendanceDetail'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { formatDate } from 'date-fns'
 
 const LeaveRequestComponent = ({ request }: { request?: LeaveRequest }) => {

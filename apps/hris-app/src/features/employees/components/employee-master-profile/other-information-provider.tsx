@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { createContext, useCallback, useContext } from "react"
 import { useGetEmployeeOtherInformationQueryOptons } from "../../hooks/useOtherInfo"
 import { useEmployeeProfileContext } from "./employee-personal/employee-personal-provider"

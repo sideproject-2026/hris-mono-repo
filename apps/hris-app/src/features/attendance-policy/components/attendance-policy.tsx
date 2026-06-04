@@ -4,33 +4,27 @@ import { useState } from 'react'
 import { policiesQueryOptions } from '../hooks/useAttendancePolicy'
 import AttendancePolicyForm from './attendance-policy-form'
 
-import type { ColumnDef } from 'node_modules/@tanstack/table-core/build/lib/types'
+import type { ColumnDef } from '@tanstack/table-core'
 import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import DataTable from '@/components/custom/grid/DataTable'
-import {
+  Button,
   SwitchCell,
   TextCell,
-} from '@/components/custom/grid/columns/column-type'
-import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import PageContainer from '@/components/custom/containers/page-container'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
+  PageContainer,
+  NavMenu,
+  Separator,
+} from '@hris/shared-ui'
+
 
 const AttendancePolicyComponent = () => {
   const policyQuery = useSuspenseQuery(policiesQueryOptions())
@@ -167,7 +161,7 @@ const AttendancePolicyComponent = () => {
                 <Pencil className="mr-2 h-4 w-4" />
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => {}} className="text-red-600">
+              <DropdownMenuItem onClick={() => { }} className="text-red-600">
                 <Trash2 className="mr-2 h-4 w-4" />
                 Delete
               </DropdownMenuItem>

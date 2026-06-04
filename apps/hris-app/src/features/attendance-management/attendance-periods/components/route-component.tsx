@@ -10,27 +10,22 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import { createPaginatedResponse } from '@/components/custom/grid/helpers/utils'
-import PageContainer from '@/components/custom/containers/page-container'
-import { DataTablePagination } from '@hris/shared-ui'
-import {
+  createPaginatedResponse,
+  PageContainer,
+  DataTablePagination,
   BadgeCell,
   SwitchCell,
   TextCell,
   TextCenterColumn,
   UserAvatarCell,
-} from '@/components/custom/grid/columns/column-type'
-
-import { Button } from '@/components/ui/button'
-import {
+  Button,
   NavMenu,
   NavMenuGroup,
   NavMenuItem,
-} from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
-import StackRow from '@/components/custom/layouts/StackRow'
-import { Badge } from '@/components/ui/badge'
+  Separator,
+  StackRow,
+  Badge,
+} from '@hris/shared-ui'
 
 const columns: Array<ColumnDef<AttendancePeriod>> = [
   {

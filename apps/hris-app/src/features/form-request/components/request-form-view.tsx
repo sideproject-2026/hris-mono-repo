@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
@@ -10,18 +12,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Eye, Calendar, FileText, Tag } from 'lucide-react'
-import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+  Separator
+} from '@hris/shared-ui'
+import { Eye } from 'lucide-react'
 import type { FormRequestTypes } from '../types/global'
 import { avatarUrl, formatLongDate, getDisplayText } from '@/lib/utils'
 import { COLUMN_CONFIG } from './request-form-view-columns'
-import { Separator } from '@/components/ui/separator'
+
 
 interface RequestFormViewProps {
   data?: FormRequestTypes

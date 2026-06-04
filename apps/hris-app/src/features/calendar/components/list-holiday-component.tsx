@@ -1,18 +1,19 @@
-import ListView from '@/components/custom/lists/ListView'
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from '@/components/ui/dialog'
+  Button,
+  ListView,
+  ConfirmDialogProvider,
+  useConfirmationContext,
+} from '@hris/shared-ui'
 import { Trash } from 'iconsax-reactjs'
 import { useState } from 'react'
 import {
   calendarHolidayDeleteMutation,
 } from '../hooks/useHolidayCalendar'
 import { toast } from 'sonner'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
 import { getDisplayTextHoliday } from '../types/constant'
 import { useHoliday } from './holiday-provider'
 
@@ -25,7 +26,7 @@ interface ListHolidayComponentProps {
   selectedDate?: string
 }
 
-const ListHolidayComponent = ({
+const ListHolidayComponentContent = ({
   open,
   onOpenChange,
   data,
@@ -36,8 +37,8 @@ const ListHolidayComponent = ({
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const { mutateAsync } = calendarHolidayDeleteMutation();
-  const {requestConfirmation} = useConfirmationContext();
-  const { onRefresh } = useHoliday(); 
+  const { requestConfirmation } = useConfirmationContext();
+  const { onRefresh } = useHoliday();
 
   const filteredData = data?.filter((item) => {
     if (!selectedDate) return true
@@ -52,24 +53,24 @@ const ListHolidayComponent = ({
   })
 
   const handleDelete = async (id: string) => {
-     const confirmed = await requestConfirmation({
-         title: "Delete Holiday",
-         description: `Are you sure you want to delete ${id} this holiday? This action cannot be undone.`,
-         confirmLabel: "Delete",
-         variant: "destructive",
-         onConfirm:  async () => {
-            await mutateAsync(id, {
-             onSuccess: () => {
-               toast.success('Holiday deleted successfully')
-               onRefresh?.();
-             },
-             onError: (error) => {
-               toast.error(`Error deleting Holiday: ${error.message}`)
-             },
-           })
-         }
-        });
-    }
+    const confirmed = await requestConfirmation({
+      title: "Delete Holiday",
+      description: `Are you sure you want to delete ${id} this holiday? This action cannot be undone.`,
+      confirmLabel: "Delete",
+      variant: "destructive",
+      onConfirm: async () => {
+        await mutateAsync(id, {
+          onSuccess: () => {
+            toast.success('Holiday deleted successfully')
+            onRefresh?.();
+          },
+          onError: (error) => {
+            toast.error(`Error deleting Holiday: ${error.message}`)
+          },
+        })
+      }
+    });
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -114,5 +115,11 @@ const ListHolidayComponent = ({
     </Dialog>
   )
 }
+
+const ListHolidayComponent = (props: ListHolidayComponentProps) => (
+  <ConfirmDialogProvider>
+    <ListHolidayComponentContent {...props} />
+  </ConfirmDialogProvider>
+)
 
 export default ListHolidayComponent

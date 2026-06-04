@@ -1,7 +1,14 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { InputField } from '@/components/custom/inputs'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import { Form } from '@/components/ui/form'
+import {
+  ButtonLoading,
+  InputField,
+  DropdownField,
+  Form,
+  SwitchInput,
+  CollapsibleContainer,
+  Button,
+  StackRow,
+  DatePickerField
+} from '@hris/shared-ui'
 import {
   unifiedEmployeeInfoSchema,
   type UnifiedEmployeeInfoPayload,
@@ -14,12 +21,7 @@ import EmployeeListAppointment from './employee-list-appointment'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
-import DatePickerField from '@/components/custom/inputs/DatePickerField'
 import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
-import SwitchInput from '@/components/custom/misc/SwitchInput'
-import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
-import { Button } from '@/components/ui/button'
-import { StackRow } from '@/components/custom/layouts'
 import { XIcon } from 'lucide-react'
 
 

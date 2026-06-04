@@ -1,17 +1,17 @@
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import EmployeeFormEmergency from './employee-form-emergency'
-import GroupContainer from '@/components/custom/containers/group-container'
 import {
+  NavMenu,
+  GroupContainer,
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+  Button,
+} from '@hris/shared-ui'
+import EmployeeFormEmergency from './employee-form-emergency'
 import type { ColumnDef } from '@tanstack/react-table'
 import OtherInformationProvider, {
   useOtherInformationContext,
 } from '../other-information-provider'
-import { Button } from '@/components/ui/button'
 import { Edit } from 'iconsax-reactjs'
 import EmergencyDeleteButton from './emergency-delete-button'
 

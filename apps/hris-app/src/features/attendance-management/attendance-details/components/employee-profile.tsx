@@ -1,12 +1,8 @@
-import React from 'react'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import { useAttendanceDetailContext } from '../providers/attendance-detail-provider'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Avatar, AvatarFallback, Stack, StackCol, StackRow, CollapsibleContainer, InputLabels } from '@hris/shared-ui'
 import { createAvatarFallback, setFullName } from '@/lib/utils'
-import InputLabels from '@/components/custom/labels/InputLabels'
-import { Stack, StackCol, StackRow } from '@/components/custom/layouts'
-import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
+
 
 const EmployeeProfile = () => {
   const { sheets } = useAttendanceDetailContext()

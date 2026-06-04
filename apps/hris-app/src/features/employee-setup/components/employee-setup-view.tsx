@@ -1,23 +1,14 @@
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Button, Tabs, TabsContent, TabsList, TabsTrigger, Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@hris/shared-ui'
 import { Eye } from 'iconsax-reactjs'
 import EmployeeSetupSchedule from './employee-setup-schedule'
 import EmployeeSetupPolicy from './employee-setup-policy'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 
 interface EmployeeSetupViewProps {
   employeeSetup: EmployeeSetupTypes
 }
 
 const EmployeeSetupView = ({ employeeSetup }: EmployeeSetupViewProps) => {
-  console.log(employeeSetup)
+
   return (
     <Dialog>
       <DialogTrigger asChild>

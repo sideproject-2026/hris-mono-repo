@@ -1,12 +1,15 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import {
+  useConfirmationContext,
+  ConfirmDialogProvider,
+  ButtonLoading,
+} from '@hris/shared-ui'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
 import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { useOtherInformationContext } from '../other-information-provider'
 
-const EmergencyDeleteButton = ({
+const EmergencyDeleteButtonContent = ({
   employeeId,
   emergencyId,
 }: {
@@ -50,6 +53,17 @@ const EmergencyDeleteButton = ({
       loading={isPending}
       onClick={handleDelete}
     />
+  )
+}
+
+const EmergencyDeleteButton = (props: {
+  employeeId?: string
+  emergencyId: string
+}) => {
+  return (
+    <ConfirmDialogProvider>
+      <EmergencyDeleteButtonContent {...props} />
+    </ConfirmDialogProvider>
   )
 }
 

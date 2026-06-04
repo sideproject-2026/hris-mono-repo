@@ -2,32 +2,27 @@ import { formatDate } from 'date-fns'
 import { useDetailActionContext } from '../providers/detail-action-provider'
 import type { ColumnDef } from '@tanstack/react-table'
 import {
-  InputField,
   TimePicker,
   TimeSpanField,
-} from '@/components/custom/inputs'
-import { Form } from '@/components/ui/form'
-import {
+  Form,
   TextCell,
   TextCenterColumn,
   TextWithTooltipCell,
   ToolTipTextCell,
-} from '@/components/custom/grid/columns/column-type'
-import {
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import { ScrollArea } from '@/components/ui/scroll-area'
+  ScrollArea,
+  Button,
+  DropdownField
+} from '@hris/shared-ui'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+
 import RequestDetail from './request-detail'
 import { useState } from 'react'
-import { PencilIcon } from 'lucide-react'
-import EmployeeDtrDialog from './employee-dtr-dialog'
 import { useAttendanceDetailContext } from '../providers/attendance-detail-provider'
-import DropdownField from '@/components/custom/inputs/DropdownField'
+
 
 const EmployeeTimesheet = () => {
   const { onRefresh, periodId, employeeNumber, dtrStatuses } =

@@ -5,21 +5,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+  Form,
+  Button,
+  Separator,
+  DropdownField,
+  ButtonLoading,
+} from '@hris/shared-ui'
 import { employeeSetupSchema, type EmployeeSetupValues } from '../types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { useQuery } from '@tanstack/react-query'
 import {
   initialQueryOptions,
   useCreateUpdateMutationAsync,
 } from '../hooks/useEmployeeSetup'
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
 import { Edit2, Send } from 'iconsax-reactjs'
-import { Separator } from '@/components/ui/separator'
 import { toast } from 'sonner'
 
 interface EmployeeSetupFormProps {

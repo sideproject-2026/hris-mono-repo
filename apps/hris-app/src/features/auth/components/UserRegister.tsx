@@ -1,5 +1,4 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { InputField } from '@hris/shared-ui'
+import { InputField, ButtonLoading, Form } from '@hris/shared-ui'
 import { motion } from 'framer-motion'
 import {
   ArrowCircleRight2,
@@ -7,15 +6,14 @@ import {
   Personalcard,
   UserOctagon,
 } from 'iconsax-reactjs'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { registerSchema, type RegisterFormValues } from '../schema/auth-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSelfRegisterMutation } from '../hooks/useAuth'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
-import { IdCardIcon, LockIcon, MailIcon, MailXIcon } from 'lucide-react'
-import { Form } from '@/components/ui/form'
+import { MailIcon } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 const UserRegister = () => {

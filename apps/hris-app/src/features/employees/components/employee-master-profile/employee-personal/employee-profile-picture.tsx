@@ -1,4 +1,4 @@
-import GroupContainer from '@/components/custom/containers/group-container'
+import { GroupContainer } from '@hris/shared-ui'
 import EmployeeWebcam from './camera/employee-webcam'
 
 const EmployeeProfilePicture = () => {

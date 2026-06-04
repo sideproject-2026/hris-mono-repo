@@ -3,13 +3,12 @@ import { ArrowCircleRight2, LockCircle, UserOctagon } from 'iconsax-reactjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { authSchema } from '../schema/auth-schema'
 import type { AuthFormValues } from '../schema/auth-schema'
-import { Form } from '@/components/ui/form'
-
 
 import { motion } from 'framer-motion'
 import { Link } from '@tanstack/react-router'
 
-import { ButtonLoading, InputField } from '@hris/shared-ui'
+import { ButtonLoading, InputField, Form } from '@hris/shared-ui'
+import { useLogin } from '../hooks/useAuth'
 
 const LoginComponent = () => {
   const { handleLogin, isPending } = useLogin()

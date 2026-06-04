@@ -1,23 +1,24 @@
-import { TimePicker, TimeSpanField } from '@/components/custom/inputs'
 import {
+  TimePicker,
+  TimeSpanField,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Form } from '@/components/ui/form'
-import { Label } from '@/components/ui/label'
+  Form,
+  Label,
+  DropdownField,
+  ButtonLoading,
+} from '@hris/shared-ui'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { formatDate } from 'date-fns'
 import React, { useEffect } from 'react'
-
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useAttendanceDetailContext } from '../providers/attendance-detail-provider'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { dtrFormSchema, type DtrSchemaValue } from '../../types/schema'
 import { useUpdateDtrMutation } from '../../hooks/useAttendanceDetail'
 import { toast } from 'sonner'

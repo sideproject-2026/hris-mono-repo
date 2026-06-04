@@ -1,16 +1,16 @@
 import { SaveIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {  useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 import { attendancePeriodSchema } from '../../types/schema'
 import { useCreateAttendancePeriodMutation } from '../../hooks/useAttendanceProcess'
 import { Step1, Step2, Step3 } from './actions-wizards'
 import { useAttendancePeriodContext } from './attendance-period-provider'
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import type { AttendancePeriodFormValues } from '../../types/schema'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -18,10 +18,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Form } from '@/components/ui/form'
-import { SwitchStep } from '@/components/custom/misc/SwitchStep'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+  Form,
+  SwitchStep,
+  ButtonLoading,
+} from '@hris/shared-ui'
 import { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
 
 const defaultValues = {
@@ -35,24 +35,24 @@ const defaultValues = {
   automate: true,
 }
 
-const AttendancePeriodDialog = ({children} : {children: ReactNode}) => {
-  
+const AttendancePeriodDialog = ({ children }: { children: ReactNode }) => {
+
   const maxSteps = 3
   const [step, setStep] = useState<number>(1)
-  const {mutateAsync, isPending} = useCreateAttendancePeriodMutation();
-  const {setJobId} = useJobStatusTrackingContext();
-  
-  const {onRefresh} = useAttendancePeriodContext();
+  const { mutateAsync, isPending } = useCreateAttendancePeriodMutation();
+  const { setJobId } = useJobStatusTrackingContext();
+
+  const { onRefresh } = useAttendancePeriodContext();
 
   const form = useForm<AttendancePeriodFormValues>({
     resolver: zodResolver(attendancePeriodSchema),
     defaultValues: defaultValues,
   });
 
- 
+
 
   const handleSubmit = async (data: AttendancePeriodFormValues) => {
-    await mutateAsync(data,{
+    await mutateAsync(data, {
       onSuccess: (response) => {
         console.log('Create Attendance Period Response:', response);
         form.reset();
@@ -69,7 +69,7 @@ const AttendancePeriodDialog = ({children} : {children: ReactNode}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-       {children}
+        {children}
       </DialogTrigger>
       <DialogContent className="lg:max-w-3xl max-w-full">
         <DialogHeader>
@@ -103,12 +103,13 @@ const AttendancePeriodDialog = ({children} : {children: ReactNode}) => {
           )}
           {step === maxSteps && (
             <ButtonLoading
+              type='submit'
               loading={isPending}
               onClick={() => form.handleSubmit(handleSubmit)()}
               text='Create Period'
               icon={<SaveIcon className="h-4 w-4" />}
             />
-            
+
           )}
         </DialogFooter>
       </DialogContent>

@@ -1,5 +1,5 @@
 import { useLogin } from '../hooks/useAuth'
-import { Button } from '@/components/ui/button'
+import { Button } from '@hris/shared-ui'
 import { Logout } from 'iconsax-reactjs'
 
 const LogoutComponent = () => {

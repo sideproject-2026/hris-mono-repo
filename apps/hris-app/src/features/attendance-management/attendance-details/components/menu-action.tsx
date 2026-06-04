@@ -10,13 +10,11 @@ import {
   useDetailExport,
   useManualProcess,
 } from '../../hooks/useAttendanceDetail'
-import { NavMenu, NavMenuItem } from '@/components/custom/misc/NavMenu'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { NavMenu, NavMenuItem, useConfirmationContext, Separator, ConfirmDialogProvider } from '@hris/shared-ui'
 import { Route } from '@/routes/_app/attendance-sheet/$id/sheets/$empId'
-import { Separator } from '@/components/ui/separator'
 import { useAttendanceDetailContext } from '../providers/attendance-detail-provider'
 
-const MenuAction = () => {
+const MenuActionContent = () => {
   const { id, empId } = Route.useParams()
 
   const { form, onSubmit } = useDetailActionContext()
@@ -89,6 +87,14 @@ const MenuAction = () => {
         </NavMenuItem>
       </NavMenu>
     </>
+  )
+}
+
+const MenuAction = () => {
+  return (
+    <ConfirmDialogProvider>
+      <MenuActionContent />
+    </ConfirmDialogProvider>
   )
 }
 

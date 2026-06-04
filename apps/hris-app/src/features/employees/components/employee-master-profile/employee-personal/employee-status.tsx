@@ -1,15 +1,13 @@
-import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 import {
+  CollapsibleContainer,
   Status,
   StatusLabel,
-} from '@/components/kibo-ui/status'
+} from '@hris/shared-ui'
 import { formatDate } from 'date-fns'
 import { Calendar, CalendarTick } from 'iconsax-reactjs'
 import {
-  CalendarCheck,
   CalendarX,
   Hash,
-  ShieldCheck,
   UserRoundX,
 } from 'lucide-react'
 
