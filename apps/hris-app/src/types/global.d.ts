@@ -1,7 +1,8 @@
 declare type AuthState = {
     user?: UserType | null;
     refreshToken: string | null;
-    accessToken: string | null;
+    accessToken?: string | null;
+    token?: string | null;
     expiresIn: number | null;
     expiresAt: Date | null;
     isAuthenticated: boolean;

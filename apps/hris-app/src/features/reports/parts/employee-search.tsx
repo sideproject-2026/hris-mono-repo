@@ -41,6 +41,8 @@ const EmployeeSearch: React.FC<IProps> = ({
     employeesActiveReportQueryOptions({ fullName: debouncedSearchName }),
   )
 
+  console.log('Employees:', employees);
+
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearchName(searchName), 400)
     return () => clearTimeout(handler)

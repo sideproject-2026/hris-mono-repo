@@ -29,7 +29,7 @@ const RequestSyncForm = () => {
   const { onRefresh } = useRequestFormContext()
 
   const form = useForm<SyncRequestFormSchemaType>({
-    resolver: zodResolver(syncRequestFormSchema),
+    resolver: zodResolver(syncRequestFormSchema) as any,
     defaultValues: {
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear(),

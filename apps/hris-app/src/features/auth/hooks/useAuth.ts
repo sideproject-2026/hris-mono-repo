@@ -20,7 +20,7 @@ export const useLogin = () => {
       clearAuth();
       startTransition(async () => {
          try {
-            const response = await request.post<APIResponse<AuthState>>('/auth/login', data);
+            const response = await request.post<APIResponse<AuthState>>('/auth/login', { ...data, application: 'app_portal' });
             const { accessToken, expiresAt, expiresIn, refreshToken } = response.data;
             setAuth({
                accessToken: accessToken,
@@ -63,7 +63,7 @@ export const useProfileQuery = ({ accessToken }: { accessToken: string }) => {
    return useSuspenseQuery({
       queryKey: ['profile', accessToken],
       queryFn: async () => {
-         const url = `/users`;
+         const url = `/users/profile`;
          const response = await request.get<APIResponse<UserType>>(url);
          return response.data;
       },

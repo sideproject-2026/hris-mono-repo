@@ -204,7 +204,7 @@ export const getListEmployeeOptions = ({ name }: { name: string }) => {
    return queryOptions({
       queryKey: ['employees', name],
       queryFn: async () => {
-         const url = `/setup?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
+         const url = `/attendances/employee-setup?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
          const response = await request.get<PaginatedResponse<AttendeeInfo>>(url);
          return response;
       },

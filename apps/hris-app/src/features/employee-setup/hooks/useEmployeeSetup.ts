@@ -5,7 +5,6 @@ import { request } from "@/lib/http";
 import type { FilterSearchEmployeeType } from "../types/search";
 
 
-
 interface EmployeeQueryOptionsParams {
    params?: FilterSearchEmployeeType;
    submitted?: boolean;
@@ -16,7 +15,7 @@ export const employeeQueryOptions = ({ params, options, submitted = false }: Emp
    return queryOptions({
       queryKey: ['setup', params],
       queryFn: async () => {
-         let url = `/setup`;
+         let url = `/attendances/employee-setup`;
          if (params) {
             const queryString = new URLSearchParams(
                Object.entries(params)
@@ -29,11 +28,11 @@ export const employeeQueryOptions = ({ params, options, submitted = false }: Emp
             }
          }
          const response = await request.get<PaginatedResponse<EmployeeSetupTypes>>(url);
-         return response;
+         return response.data;
       },
       staleTime: 5 * 60 * 1000,
       enabled: !!submitted !== undefined ? submitted : false,
-      ...options
+     
    })
 }
 
@@ -42,17 +41,16 @@ export const initialQueryOptions = (options?: Partial<Omit<QueryOptions<APIRespo
    return queryOptions({
       queryKey: ['setup-initial'],
       queryFn: async () => {
-         const response = await request.get<APIResponse<EmployeSetupInitial>>('/setup/initial');
-         return response;
+         const response = await request.get<APIResponse<EmployeSetupInitial>>('/attendances/employee-setup/initial');
+         return response.data;
       },
-      ...options,
    });
 }
 
 export const syncLegacyEmployeesMutation = () => {
    return useMutation({
       mutationFn: async () => {
-         const url = `/setup/sync`;
+         const url = `/attendances/employee-setup/sync`;
          const response = await request.post(url, { syncType: 3, employeeIds: [] });
          return response;
       }
@@ -64,7 +62,7 @@ export const useCreateUpdateMutationAsync = () => {
       mutationFn: async ({ id, data }: { id: string, data: EmployeeSetupValues }) => {
          if (id) {
             // Update existing employee
-            const response = await request.put(`/setup/${id}`, data);
+            const response = await request.put(`/attendances/employee-setup/${id}`, data);
             return response;
          }
       },
@@ -77,7 +75,7 @@ export const useCreateUpdateMutationAsync = () => {
 export const useToggleEmployeeStatusMutation = () => {
    return useMutation({
       mutationFn: async ({ id  }: { id: string }) => {
-         const response = await request.put(`/setup/${id}/toggle`);
+         const response = await request.put(`/attendances/employee-setup/${id}/toggle`);
          return response;
       },
       onSuccess: (data, variables, onMutateResult, context) => {
