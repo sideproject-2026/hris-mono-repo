@@ -1,12 +1,9 @@
-import { Button } from '@/components/ui/button'
-import { UploadCloudIcon } from 'lucide-react'
 import { syncLegacyEmployeesMutation } from '../hooks/useEmployeeSetup'
 import { toast } from 'sonner'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { ButtonLoading, useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
 import { CloudChange } from 'iconsax-reactjs'
 
-const SyncSetupButton = () => {
+const SyncSetupButtonContent = () => {
   const { mutateAsync, isPending } = syncLegacyEmployeesMutation()
   const { requestConfirmation } = useConfirmationContext()
 
@@ -37,6 +34,14 @@ const SyncSetupButton = () => {
       variant={'ghost'}
       className="font-sans text-sm uppercase font-semibold"
     />
+  )
+}
+
+const SyncSetupButton = () => {
+  return (
+    <ConfirmDialogProvider>
+      <SyncSetupButtonContent />
+    </ConfirmDialogProvider>
   )
 }
 

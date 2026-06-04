@@ -1,13 +1,9 @@
 
 import { Calendar1Icon } from 'lucide-react';
-import { periodTypes } from '../../../types/constants';
 import type { FieldValues, UseFormReturn } from 'react-hook-form';
-import { InputField } from '@/components/custom/inputs';
-import DatePickerField from '@/components/custom/inputs/DatePickerField';
-import DropdownField from '@/components/custom/inputs/DropdownField';
+import { InputField, DatePickerField, DropdownField, Skeleton } from '@hris/shared-ui';
 import { useQuery } from '@tanstack/react-query';
 import { getPeriodInitialOptions } from '@/features/attendance-management/hooks/useAttendanceProcess';
-import { Skeleton } from '@/components/ui/skeleton';
 
 
 /**
@@ -31,12 +27,12 @@ interface Step1Props<T extends FieldValues> {
 
 const Step1 = <T extends FieldValues>({ form }: Step1Props<T>) => {
 
-  const {data,isFetching} = useQuery(getPeriodInitialOptions())
-  
-  if(isFetching) {
+  const { data, isFetching } = useQuery(getPeriodInitialOptions())
+
+  if (isFetching) {
     return (<Skeleton className='h-40 w-full rounded-md' />)
   }
-  
+
   const employeeTypes = data?.employeeTypes || [];
   const companies = data?.companies || [];
   console.log('Companies Data in Step1:', companies);
@@ -64,14 +60,14 @@ const Step1 = <T extends FieldValues>({ form }: Step1Props<T>) => {
         hideCloseButton
       />
 
-    <DropdownField
-          control={form.control}
-          name="company"
-          data={companies}
-          label="Company"
-          hideCloseButton
-        />
-    
+      <DropdownField
+        control={form.control}
+        name="company"
+        data={companies}
+        label="Company"
+        hideCloseButton
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 mt-4 gap-2">
         <DatePickerField
           control={form.control}

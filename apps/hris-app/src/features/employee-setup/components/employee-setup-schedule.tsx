@@ -3,8 +3,8 @@ import {
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
-import { Checkbox } from '@/components/ui/checkbox'
+  Checkbox,
+} from '@hris/shared-ui'
 import type { ColumnDef } from '@tanstack/react-table'
 
 interface EmployeeSetupScheduleProps {

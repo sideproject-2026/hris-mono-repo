@@ -7,10 +7,8 @@ import { attendanceManagementSearchSchema } from '../../types/search'
 import { useAttendancePeriodContext } from './attendance-period-provider'
 import type { AttendanceManagementQueryState } from '../../types/search'
 
-import { InputField } from '@/components/custom/inputs'
-import { Form } from '@/components/ui/form'
-import { Button } from '@/components/ui/button'
-import DropdownField from '@/components/custom/inputs/DropdownField'
+import { InputField, Form, Button, DropdownField } from '@hris/shared-ui'
+
 
 const AttendancePeriodSearch = () => {
 

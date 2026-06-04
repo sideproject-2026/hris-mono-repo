@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@hris/shared-ui'
 import { useEmployeeProfileContext } from '@/features/employees/components/employee-master-profile/employee-personal/employee-personal-provider'
 import { useUploadPictureMutation } from '@/features/employees/hooks/useEmployee'
 import { Camera, CameraIcon, Loader2, AlertCircle } from 'lucide-react'

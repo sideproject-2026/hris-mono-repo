@@ -1,14 +1,11 @@
 import React from "react";
 import { TrashIcon } from "lucide-react";
-import {   useFieldArray } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 import { periodTypes } from "../../../types/constants";
-import type {FieldValues, UseFormReturn} from "react-hook-form";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { AttendancePeriodFormValues } from "../../../types/schema";
 
-import ListView from "@/components/custom/lists/ListView";
-import { SelectField } from "@/components/custom/inputs";
-import SwitchField from "@/components/custom/inputs/SwitchField";
-import { Button } from "@/components/ui/button";
+import { ListView, SwitchField, Button } from "@hris/shared-ui";
 
 
 /**
@@ -43,7 +40,7 @@ const Step3 = ({ form }: Step3Props) => {
   const values = form.watch() as Partial<AttendancePeriodFormValues>;
   const employees = values.employeeIds ?? [];
 
-  const {remove} = useFieldArray({
+  const { remove } = useFieldArray({
     control: form.control,
     name: "employeeIds",
   })
@@ -58,7 +55,7 @@ const Step3 = ({ form }: Step3Props) => {
     { label: "Period Name", value: values.name || "—" },
     { label: "Description", value: values.description || "—" },
     { label: "Period Type", value: periodTypeLabel },
-    {label: "Company", value: values.company || "—" },
+    { label: "Company", value: values.company || "—" },
     { label: "Start Date", value: formatDate(values.periodStart) },
     { label: "End Date", value: formatDate(values.periodEnd) },
   ];
@@ -103,7 +100,7 @@ const Step3 = ({ form }: Step3Props) => {
           />
         </div>
         <div className="mt-4">
-          <SwitchField 
+          <SwitchField
             control={form.control}
             name="automate"
             label="Automate"

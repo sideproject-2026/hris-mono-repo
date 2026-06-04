@@ -1,5 +1,4 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { ButtonLoading, useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
 import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
@@ -7,7 +6,7 @@ import { toast } from 'sonner'
 import { useOtherInformationContext } from '../other-information-provider'
 
 
-const AddressDeleteButton = ({
+const AddressDeleteButtonContent = ({
   employeeId,
   addressId,
 }: {
@@ -54,6 +53,22 @@ const AddressDeleteButton = ({
       loading={isPending}
       onClick={handleDelete}
     />
+  )
+}
+
+const AddressDeleteButton = ({
+  employeeId,
+  addressId,
+}: {
+  employeeId?: string
+  addressId: string
+}) => {
+  return (
+    <>
+      <ConfirmDialogProvider>
+        <AddressDeleteButtonContent employeeId={employeeId} addressId={addressId} />
+      </ConfirmDialogProvider>
+    </>
   )
 }
 

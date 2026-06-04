@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  useFieldArray,
   type FieldValues,
   type UseFormReturn,
 } from 'react-hook-form'
@@ -8,21 +7,19 @@ import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronsUpDown, Loader2, X } from 'lucide-react'
 
 import type { EmployeeAppointmentSchemaTypes } from '../../../types/schema'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { Badge } from '@/components/ui/badge'
+  Badge
+} from '@hris/shared-ui'
 import { employeesActiveQueryOptions } from '@/features/employees/hooks/useEmployee'
 
 interface EmployeeListAppointmentProps<

@@ -1,11 +1,11 @@
-import { FileText, MoreHorizontal, PencilIcon, StampIcon, TrashIcon } from 'lucide-react'
+import { FileText, MoreHorizontal, StampIcon, TrashIcon } from 'lucide-react'
 import { toast } from 'sonner'
 import { Link } from '@tanstack/react-router'
 
 import { useDeleteAttendancePeriodMutation, useDtrProcessAttendance, useDtrProcessMutation, usePostPeriodMutation } from '../../hooks/useAttendanceProcess'
 import { useAttendancePeriodContext } from './attendance-period-provider'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@hris/shared-ui'
 import { ROUTE } from '@/types/router'
 import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
 import { useJobStatusTrackingContext } from '@/components/custom/misc/job-status/JobStatusTracking'
@@ -33,41 +33,41 @@ const useDeletePeriod = ({ id }: { id: string }) => {
 
   const { onRefresh } = useAttendancePeriodContext()
   const { mutateAsync, isPending } = useDeleteAttendancePeriodMutation();
-  const {requestConfirmation} = useConfirmationContext();
+  const { requestConfirmation } = useConfirmationContext();
 
 
   const handleDelete = async () => {
 
-   const confirmed = await requestConfirmation({
-    title: "Delete Attendance Period",
-    description: `Are you sure you want to delete ${id} this attendance period? This action cannot be undone.`,
-    confirmLabel: "Delete",
-    variant: "destructive",
-    onConfirm:  async () => {
-       await mutateAsync(id, {
-        onSuccess: () => {
-          toast.success('Attendance Period deleted successfully')
-          onRefresh()
-        },
-        onError: (error) => {
-          toast.error(`Error deleting Attendance Period: ${error.message}`)
-        },
-      })
-    }
-   });
+    const confirmed = await requestConfirmation({
+      title: "Delete Attendance Period",
+      description: `Are you sure you want to delete ${id} this attendance period? This action cannot be undone.`,
+      confirmLabel: "Delete",
+      variant: "destructive",
+      onConfirm: async () => {
+        await mutateAsync(id, {
+          onSuccess: () => {
+            toast.success('Attendance Period deleted successfully')
+            onRefresh()
+          },
+          onError: (error) => {
+            toast.error(`Error deleting Attendance Period: ${error.message}`)
+          },
+        })
+      }
+    });
   }
 
   return { handleDelete, isDeleteLoading: isPending };
 }
 
 
-const useProcessAttendance = ({id}: {id:string}) => {
+const useProcessAttendance = ({ id }: { id: string }) => {
 
   const { mutateAsync, isPending } = useDtrProcessMutation();
   const { onRefresh } = useAttendancePeriodContext();
-  const {requestConfirmation} = useConfirmationContext();
+  const { requestConfirmation } = useConfirmationContext();
 
-  const {setJobId} = useJobStatusTrackingContext();
+  const { setJobId } = useJobStatusTrackingContext();
 
   const handleProcess = async () => {
     const confirmed = await requestConfirmation({
@@ -76,11 +76,11 @@ const useProcessAttendance = ({id}: {id:string}) => {
       confirmLabel: "Process",
       onConfirm: async () => {
         try {
-          const response = await mutateAsync({periodId: id,ids: []});
+          const response = await mutateAsync({ periodId: id, ids: [] });
           setJobId(response.jobId);
           toast.success('Attendance processing started successfully');
           onRefresh();
-        } 
+        }
         catch (error: any) {
           toast.error(`Error processing attendance: ${error.message}`);
         }
@@ -90,34 +90,34 @@ const useProcessAttendance = ({id}: {id:string}) => {
   }
 
   return { handleProcess, isProcessing: isPending };
-  
+
 }
 
 
-const usePostPeriod = ({id}: {id:string}) => {
+const usePostPeriod = ({ id }: { id: string }) => {
 
-  const {mutateAsync, isPending} = usePostPeriodMutation();
-  const {requestConfirmation} = useConfirmationContext();
-  const {onRefresh} = useAttendancePeriodContext();
+  const { mutateAsync, isPending } = usePostPeriodMutation();
+  const { requestConfirmation } = useConfirmationContext();
+  const { onRefresh } = useAttendancePeriodContext();
 
-  const handlePost = async (isPosted:boolean) => {
+  const handlePost = async (isPosted: boolean) => {
     const confirmed = await requestConfirmation({
       title: `${isPosted ? "Unpost" : "Post"} Attendance Period`,
       description: `Are you sure you want to ${isPosted ? "unpost" : "post"} attendance for period ${id}? This action cannot be undone.`,
       confirmLabel: `${isPosted ? "Unpost" : "Post"}`,
       onConfirm: async () => {
         try {
-          const response = await mutateAsync({periodId: id});
+          const response = await mutateAsync({ periodId: id });
           toast.success(`Attendance period ${isPosted ? "unposted" : "posted"} successfully`);
           onRefresh();
-        }catch (error: any) {
+        } catch (error: any) {
           toast.error(`Error ${isPosted ? "unposting" : "posting"} attendance period: ${error.message}`);
         }
       }
     });
   }
 
-  return {handlePost, isPosting: isPending};
+  return { handlePost, isPosting: isPending };
 }
 
 /**
@@ -129,12 +129,12 @@ const usePostPeriod = ({id}: {id:string}) => {
  * - ✅ Ensure proper styling and accessibility features are in place. 
  */
 
-export const PeriodActionsDropdownMenu = ({data} : {data: AttendancePeriod}) => {
+export const PeriodActionsDropdownMenu = ({ data }: { data: AttendancePeriod }) => {
 
   const { handleDelete, isDeleteLoading } = useDeletePeriod({ id: data.id });
-  const {handleProcess, isProcessing} = useDtrProcessAttendance();
-  const {handlePost, isPosting} = usePostPeriod({id: data.id});
-   const { onRefresh } = useAttendancePeriodContext();
+  const { handleProcess, isProcessing } = useDtrProcessAttendance();
+  const { handlePost, isPosting } = usePostPeriod({ id: data.id });
+  const { onRefresh } = useAttendancePeriodContext();
 
   const disabledButton = isDeleteLoading || isProcessing || isPosting;
   const postLabel = data.posted ? "Unpost Period" : "Post Period";
@@ -159,8 +159,8 @@ export const PeriodActionsDropdownMenu = ({data} : {data: AttendancePeriod}) => 
             <DropdownMenuLabel className="text-sm py-2 font-semibold w-full">
               Period Actions
             </DropdownMenuLabel>
-            <DropdownMenuItem 
-              onClick={() => handleProcess(data.id,() => onRefresh())} 
+            <DropdownMenuItem
+              onClick={() => handleProcess(data.id, () => onRefresh())}
               disabled={data.posted || data.isAutomate || isProcessing}>
               <FileText className="h-4 w-4" />
               <span>Process Attendance</span>

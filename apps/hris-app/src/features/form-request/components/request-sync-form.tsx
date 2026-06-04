@@ -11,13 +11,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTrigger,
-} from '@/components/ui/dialog'
-
-import { Button } from '@/components/ui/button'
-import { FolderSyncIcon, MailCheckIcon } from 'lucide-react'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+  Button,
+  Form,
+  DropdownField,
+  ButtonLoading,
+} from '@hris/shared-ui'
 import { useSyncLegacyMutation } from '../hooks/useFormRequest'
 import { useRequestFormContext } from './request-form-provider'
 import { toast } from 'sonner'

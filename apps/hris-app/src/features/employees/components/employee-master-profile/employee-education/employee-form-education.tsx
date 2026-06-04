@@ -6,26 +6,25 @@ import {
 } from '@/features/employees/types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  Button,
+  Form,
+  DropdownField,
+  InputField,
+  ButtonLoading,
   Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+  DialogTrigger
+} from '@hris/shared-ui'
 import { Plus } from 'lucide-react'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import { InputField } from '@/components/custom/inputs'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 import { Send } from 'iconsax-reactjs'
 
 import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
-import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
 import { useOtherInformationContext } from '../other-information-provider'
 
 

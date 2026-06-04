@@ -5,13 +5,22 @@ import {
   type UnifiedEmployeeInfoPayload,
 } from '../../../types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { InputField } from '@/components/custom/inputs'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import {
+  InputField,
+  DropdownField,
+  ButtonLoading,
+  Form,
+  Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@hris/shared-ui'
 import { Send } from 'iconsax-reactjs'
 import { useUpdateEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
-
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import {
@@ -20,17 +29,7 @@ import {
   PROVINCE_DATA,
   REGION_DATA,
 } from '@/features/employees/types/constant'
-import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { useOtherInformationContext } from '../other-information-provider'
 
 interface EmployeeFormAddressesProps {

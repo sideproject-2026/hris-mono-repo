@@ -12,36 +12,34 @@ import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import { Button } from '@/components/ui/button'
-import PageContainer from '@/components/custom/containers/page-container'
-import { DataTablePagination } from '@hris/shared-ui'
-import {
+  PageContainer,
+  DataTablePagination,
   TextCell,
-  UserAvatarCell,
-} from '@/components/custom/grid/columns/column-type'
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+  UserAvatarCell,
+  NavMenu,
+  Separator,
+  Badge,
+  Button,
+  createPaginatedResponse,
+  useConfirmationContext,
+  ConfirmDialogProvider,
+} from '@hris/shared-ui'
+
 import EmployeeFilter from './employee-setup-filter'
-import { createPaginatedResponse } from '@/components/custom/grid/helpers/utils'
 import { useEmployeeContext } from './employee-setup-provider'
 import SyncButton from './sync-setup-button'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Separator } from '@/components/ui/separator'
 import ExportButton from './export-setup-button'
 import EmployeeSetupForm from './employee-setup-form'
 import EmployeeSetupView from './employee-setup-view'
-import { Badge } from '@/components/ui/badge'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
 import { useToggleEmployeeStatusMutation } from '../hooks/useEmployeeSetup'
 import { toast } from 'sonner'
 
-const EmployeeSetupListComponent = () => {
+const EmployeeSetupListComponentContent = () => {
   const { data, isFetching, onPageChange, onPageSizeChange, onRefresh } =
     useEmployeeContext()
 
@@ -209,6 +207,15 @@ const EmployeeSetupListComponent = () => {
         </div>
       </PageContainer>
     </div>
+  )
+}
+
+
+const EmployeeSetupListComponent = () => {
+  return (
+    <ConfirmDialogProvider>
+      <EmployeeSetupListComponentContent />
+    </ConfirmDialogProvider>
   )
 }
 

@@ -1,20 +1,16 @@
-import { Ellipsis, Menu } from 'lucide-react'
-import RequestFormProvider, {
+import { Menu } from 'lucide-react'
+import {
   useRequestFormContext,
 } from './request-form-provider'
-import RequestSyncButton from './request-sync-button'
 import type { ColumnDef } from '@tanstack/react-table'
-import PageContainer from '@/components/custom/containers/page-container'
 import {
+  PageContainer,
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import { DataTablePagination } from '@hris/shared-ui'
-import { CROSSWORLD_IMAGE_URL } from '@/features/layouts/types/constant'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Status, StatusLabel } from '@/components/kibo-ui/status'
-import {
+  DataTablePagination,
+  Status,
+  StatusLabel,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -22,9 +18,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import { NavMenu, NavMenuItem } from '@/components/custom/misc/NavMenu'
+  Button,
+  NavMenu,
+  NavMenuItem,
+  Separator,
+  TextCell,
+  UserAvatarCell,
+} from '@hris/shared-ui'
 import RequestForm from './request-form'
 import {
   avatarUrl,
@@ -32,17 +32,12 @@ import {
   formatLongDateTime,
   getDisplayText,
 } from '@/lib/utils'
-import { Separator } from '@/components/ui/separator'
 import SearchRequest from './search-request'
 import RequestFormView from './request-form-view'
 import type { FormRequestTypes } from '../types/global'
 import { useMemo } from 'react'
 import RequestCancel from './request-cancel-button'
 import RequestSyncForm from './request-sync-form'
-import {
-  TextCell,
-  UserAvatarCell,
-} from '@/components/custom/grid/columns/column-type'
 
 const RequestFormContent = () => {
   const {

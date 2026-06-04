@@ -1,6 +1,6 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
+import { ButtonLoading } from '@hris/shared-ui'
 import { request } from '@/lib/http'
-import { DocumentDownload, Export } from 'iconsax-reactjs'
+import { Export } from 'iconsax-reactjs'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 

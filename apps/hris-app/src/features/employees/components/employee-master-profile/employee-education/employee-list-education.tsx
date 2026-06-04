@@ -1,17 +1,18 @@
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import EmployeeFormEducation from './employee-form-education'
-import GroupContainer from '@/components/custom/containers/group-container'
 import {
+  Button,
+  NavMenu,
+  GroupContainer,
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
+import EmployeeFormEducation from './employee-form-education'
+
 import type { ColumnDef } from '@tanstack/react-table'
 import OtherInformationProvider, {
   useOtherInformationContext,
 } from '../other-information-provider'
-import { Button } from '@/components/ui/button'
 import { Edit } from 'iconsax-reactjs'
 import EducationDeleteButton from './education-delete-button'
 

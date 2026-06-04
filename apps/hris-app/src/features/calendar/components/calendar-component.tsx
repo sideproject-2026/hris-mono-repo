@@ -1,16 +1,15 @@
+import CreateHoliday from './create-holiday'
+import { HolidayProvider, useHoliday } from './holiday-provider'
+import ListHolidayComponent from './list-holiday-component'
+import { PlusIcon, RefreshCcw } from 'lucide-react'
 import {
   HeaderBackButton,
   HeaderContainer,
   HeaderText,
-} from '@/components/custom/containers/page-header'
-import CreateHoliday from './create-holiday'
-import { HolidayProvider, useHoliday } from './holiday-provider'
-import ListHolidayComponent from './list-holiday-component'
-import PageContainer from '@/components/custom/containers/page-container'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import { Button } from '@/components/ui/button'
-import { Plus, PlusIcon, RefreshCcw } from 'lucide-react'
-import {
+  PageContainer,
+  NavMenu,
+  Button,
+  Separator,
   CalendarBody,
   CalendarDate,
   CalendarDatePagination,
@@ -20,9 +19,8 @@ import {
   CalendarMonthPicker,
   CalendarProvider,
   CalendarYearPicker,
-} from '@/components/kibo-ui/calendar'
+} from '@hris/shared-ui'
 import { DEFAULT_YEAR } from '../types/constant'
-import { Separator } from '@/components/ui/separator'
 
 const CalendarContent = () => {
   const {

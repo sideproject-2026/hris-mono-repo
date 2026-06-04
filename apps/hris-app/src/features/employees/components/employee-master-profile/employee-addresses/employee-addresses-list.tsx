@@ -2,16 +2,17 @@ import OtherInformationProvider, {
   useOtherInformationContext,
 } from '../other-information-provider'
 import type { ColumnDef } from '@tanstack/react-table'
-import { Button } from '@/components/ui/button'
-import { Edit } from 'iconsax-reactjs'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-import GroupContainer from '@/components/custom/containers/group-container'
 import {
+  Button,
+  NavMenu,
+  GroupContainer,
   DGridColumns,
   DGridProvider,
   DGridRows,
   DGridTable,
-} from '@/components/custom/grid/DataGrid'
+} from '@hris/shared-ui'
+import { Edit } from 'iconsax-reactjs'
+
 import EmployeeFormAddresses from './employee-form-addresses'
 import AddressDeleteButton from './address-delete-button'
 

@@ -1,12 +1,11 @@
-import ButtonLoading from '@/components/custom/buttons/button-loading'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
+import { ButtonLoading, useConfirmationContext, ConfirmDialogProvider } from '@hris/shared-ui'
 import { useDeleteEmployeeInformationMutation } from '@/features/employees/hooks/useOtherInfo'
 import { getErrorMessage } from '@/lib/utils'
 import { Trash } from 'iconsax-reactjs'
 import { toast } from 'sonner'
 import { useOtherInformationContext } from '../other-information-provider'
 
-const EducationDeleteButton = ({
+const EducationDeleteButtonContent = ({
   employeeId,
   educationId,
 }: {
@@ -50,6 +49,22 @@ const EducationDeleteButton = ({
       loading={isPending}
       onClick={handleDelete}
     />
+  )
+}
+
+const EducationDeleteButton = ({
+  employeeId,
+  educationId,
+}: {
+  employeeId?: string
+  educationId: string
+}) => {
+  return (
+    <>
+      <ConfirmDialogProvider>
+        <EducationDeleteButtonContent employeeId={employeeId} educationId={educationId} />
+      </ConfirmDialogProvider>
+    </>
   )
 }
 

@@ -1,14 +1,16 @@
-import { FolderSyncIcon } from 'lucide-react'
 import { toast } from 'sonner'
-import { useQueryClient } from '@tanstack/react-query'
 import { useSyncLegacyMutation } from '../hooks/useFormRequest'
 import { useRequestFormContext } from './request-form-provider'
-import { Button } from '@/components/ui/button'
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { Spinner } from '@/components/ui/spinner'
+import {
+  Button,
+  ConfirmDialogProvider,
+  useConfirmationContext,
+  Spinner
+} from '@hris/shared-ui'
+
 import { I3DRotate } from 'iconsax-reactjs'
 
-const RequestSyncButton = () => {
+const RequestSyncButtonContent = () => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: syncLegacy, isPending } = useSyncLegacyMutation()
   const { onRefresh } = useRequestFormContext()
@@ -45,6 +47,14 @@ const RequestSyncButton = () => {
         </>
       )}
     </Button>
+  )
+}
+
+const RequestSyncButton = () => {
+  return (
+    <ConfirmDialogProvider>
+      <RequestSyncButtonContent />
+    </ConfirmDialogProvider>
   )
 }
 

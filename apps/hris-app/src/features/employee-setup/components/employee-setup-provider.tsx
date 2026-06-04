@@ -14,7 +14,6 @@ import {
 import {
   useQuery,
   useQueryClient,
-  useSuspenseQuery,
 } from '@tanstack/react-query'
 import { employeeQueryOptions } from '../hooks/useEmployeeSetup'
 

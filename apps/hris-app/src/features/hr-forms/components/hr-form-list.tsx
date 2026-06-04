@@ -1,4 +1,3 @@
-import { NavMenu } from '@/components/custom/misc/NavMenu'
 import type { ColumnDef } from '@tanstack/react-table'
 import { RefreshCcw } from 'lucide-react'
 import { useMemo } from 'react'
@@ -23,7 +22,8 @@ import {
   DGridTable,
   DateWithTimeTextCell,
   TextCell,
-  TextWithTooltipCell
+  TextWithTooltipCell,
+  NavMenu
 } from '@hris/shared-ui'
 import { Eye, HamburgerMenu } from 'iconsax-reactjs'
 import HRForm from './hr-form'

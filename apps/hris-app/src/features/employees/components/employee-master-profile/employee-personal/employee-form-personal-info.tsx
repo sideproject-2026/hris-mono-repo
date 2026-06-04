@@ -1,8 +1,18 @@
 import WebCamCapture from '@/features/employees/components/employee-master-profile/employee-personal/camera/webcam-capture'
-import GroupContainer from '@/components/custom/containers/group-container'
-import { InputField } from '@/components/custom/inputs'
-import DropdownField from '@/components/custom/inputs/DropdownField'
-import { Form } from '@/components/ui/form'
+import {
+  InputField,
+  GroupContainer,
+  DropdownField,
+  Form,
+  NavMenu,
+  Separator,
+  ButtonLoading,
+  Button,
+  StackCol,
+  StackRow,
+  CollapsibleContainer,
+  SwitchInput,
+} from '@hris/shared-ui'
 import {
   employeePersonalInfoSchema,
   type EmployeePersonalInfoTypes,
@@ -11,14 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA } from '../../../types/constant'
-import { NavMenu } from '@/components/custom/misc/NavMenu'
-
 import { Send } from 'iconsax-reactjs'
-import {
-  Separator,
-  ButtonLoading,
-  Button,
-} from '@hris/shared-ui'
 import { X } from 'lucide-react'
 import { employeePersonalMutation } from '@/features/employees/hooks/useEmployee'
 import { useEmployeeProfileContext } from './employee-personal-provider'
@@ -29,12 +32,8 @@ import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
 import ViewPhoto from './camera/view-photo'
-import SwitchInput from '@/components/custom/misc/SwitchInput'
 import { formatDate } from 'date-fns'
-import StackCol from '@/components/custom/layouts/StackCol'
-import { StackRow } from '@/components/custom/layouts'
 import EmployeeStatus from './employee-status'
-import CollapsibleContainer from '@/components/custom/containers/collapsible-container'
 
 const EmployeeFormPersonalInfo = () => {
   const {

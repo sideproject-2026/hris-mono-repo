@@ -1,4 +1,4 @@
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@hris/shared-ui'
 
 interface EmployeeSetupPolicyProps {
   employeePolicy: AttendanceSetupPolicy

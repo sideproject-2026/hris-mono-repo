@@ -4,15 +4,13 @@ import {
   type FilterSearchEmployee,
 } from '../types/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form } from '@/components/ui/form'
-import DropdownField from '@/components/custom/inputs/DropdownField'
+import { Form, DropdownField, ButtonLoading, InputField } from '@hris/shared-ui'
 import { useQuery } from '@tanstack/react-query'
 import { initialQueryOptions } from '../hooks/useEmployeeSetup'
-import ButtonLoading from '@/components/custom/buttons/button-loading'
 
 import { Setting4 } from 'iconsax-reactjs'
 import { useEmployeeContext } from './employee-setup-provider'
-import { InputField } from '@/components/custom/inputs'
+
 
 const EmployeeSetupFilter = () => {
   const { data: initialValue } = useQuery(initialQueryOptions())

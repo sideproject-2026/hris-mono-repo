@@ -1,5 +1,4 @@
-import { useConfirmationContext } from '@/components/custom/modal/ConfirmDialog'
-import { Button } from '@/components/ui/button'
+import { useConfirmationContext, ConfirmDialogProvider, Button } from '@hris/shared-ui'
 import { Ban } from 'lucide-react'
 import { toast } from 'sonner'
 import { useRequestFormCancelMutation } from '../hooks/useFormRequest'
@@ -9,7 +8,7 @@ interface RequestCancelProps {
   requestId: string
   disabled?: boolean
 }
-const RequestCancel = ({ requestId, disabled }: RequestCancelProps) => {
+const RequestCancelContent = ({ requestId, disabled }: RequestCancelProps) => {
   const { requestConfirmation } = useConfirmationContext()
   const { mutateAsync: cancelRequest } = useRequestFormCancelMutation()
 
@@ -45,6 +44,14 @@ const RequestCancel = ({ requestId, disabled }: RequestCancelProps) => {
       <Ban className="w-4 h-4" />
       <span className="text-md font-sans font-normal">Cancel</span>
     </Button>
+  )
+}
+
+const RequestCancel = ({ requestId, disabled }: RequestCancelProps) => {
+  return (
+    <ConfirmDialogProvider>
+      <RequestCancelContent requestId={requestId} disabled={disabled} />
+    </ConfirmDialogProvider>
   )
 }
 
