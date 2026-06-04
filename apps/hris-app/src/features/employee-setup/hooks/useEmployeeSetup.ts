@@ -2,6 +2,7 @@ import { queryOptions, useMutation } from "@tanstack/react-query"
 import type { QueryOptions } from "@tanstack/react-query"
 import type { EmployeeSetupValues } from "../types/schema";
 import { request } from "@/lib/http";
+import { ApiRoutes } from "@/types/api-routes";
 import type { FilterSearchEmployeeType } from "../types/search";
 
 
@@ -15,7 +16,7 @@ export const employeeQueryOptions = ({ params, options, submitted = false }: Emp
    return queryOptions({
       queryKey: ['setup', params],
       queryFn: async () => {
-         let url = `/attendances/employee-setup`;
+         let url = ApiRoutes.EMPLOYEE_SETUP.LIST;
          if (params) {
             const queryString = new URLSearchParams(
                Object.entries(params)
@@ -32,7 +33,7 @@ export const employeeQueryOptions = ({ params, options, submitted = false }: Emp
       },
       staleTime: 5 * 60 * 1000,
       enabled: !!submitted !== undefined ? submitted : false,
-     
+
    })
 }
 
@@ -41,7 +42,7 @@ export const initialQueryOptions = (options?: Partial<Omit<QueryOptions<APIRespo
    return queryOptions({
       queryKey: ['setup-initial'],
       queryFn: async () => {
-         const response = await request.get<APIResponse<EmployeSetupInitial>>('/attendances/employee-setup/initial');
+         const response = await request.get<APIResponse<EmployeSetupInitial>>(ApiRoutes.EMPLOYEE_SETUP.INITIAL);
          return response.data;
       },
    });
@@ -50,7 +51,7 @@ export const initialQueryOptions = (options?: Partial<Omit<QueryOptions<APIRespo
 export const syncLegacyEmployeesMutation = () => {
    return useMutation({
       mutationFn: async () => {
-         const url = `/attendances/employee-setup/sync`;
+         const url = ApiRoutes.EMPLOYEE_SETUP.SYNC;
          const response = await request.post(url, { syncType: 3, employeeIds: [] });
          return response;
       }
@@ -62,7 +63,7 @@ export const useCreateUpdateMutationAsync = () => {
       mutationFn: async ({ id, data }: { id: string, data: EmployeeSetupValues }) => {
          if (id) {
             // Update existing employee
-            const response = await request.put(`/attendances/employee-setup/${id}`, data);
+            const response = await request.put(ApiRoutes.EMPLOYEE_SETUP.BY_ID(id), data);
             return response;
          }
       },
@@ -75,7 +76,7 @@ export const useCreateUpdateMutationAsync = () => {
 export const useToggleEmployeeStatusMutation = () => {
    return useMutation({
       mutationFn: async ({ id  }: { id: string }) => {
-         const response = await request.put(`/attendances/employee-setup/${id}/toggle`);
+         const response = await request.put(ApiRoutes.EMPLOYEE_SETUP.TOGGLE(id));
          return response;
       },
       onSuccess: (data, variables, onMutateResult, context) => {

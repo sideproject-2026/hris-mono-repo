@@ -1,4 +1,5 @@
 import { request } from '@/lib/http'
+import { ApiRoutes } from '@/types/api-routes'
 import type { PaginatedResponse } from '@hris/shared-ui'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
@@ -20,7 +21,7 @@ export const useLuaAttendanceReport = ({
   return useQuery({
     queryKey: ['tardiness-reports', dateFrom, dateTo, department, company],
     queryFn: async () => {
-      let url = `/attendance/reports/tardiness-reports`
+      let url = ApiRoutes.ATTENDANCE_REPORTS.TARDINESS
 
       const fDateFrom = dateFrom instanceof Date ? format(dateFrom, 'yyyy-MM-dd') : dateFrom
       const fDateTo = dateTo instanceof Date ? format(dateTo, 'yyyy-MM-dd') : dateTo
@@ -69,7 +70,7 @@ export const useAbsentReport = ({
   return useQuery({
     queryKey: ['absent-reports', dateFrom, dateTo, department, company],
     queryFn: async () => {
-      let url = `/attendance/reports/absent-reports`
+      let url = ApiRoutes.ATTENDANCE_REPORTS.ABSENT
 
       const fDateFrom = dateFrom instanceof Date ? format(dateFrom, 'yyyy-MM-dd') : dateFrom
       const fDateTo = dateTo instanceof Date ? format(dateTo, 'yyyy-MM-dd') : dateTo
@@ -115,7 +116,7 @@ export const useLUAPerEmployeeReport = ({
   return useQuery({
     queryKey: ['lua-per-employee-report', employeeId, dateFrom, dateTo],
     queryFn: async () => {
-      let url = `/attendance/reports/employee-lua-reports`
+      let url = ApiRoutes.ATTENDANCE_REPORTS.LUA_PER_EMPLOYEE
 
       const fDateFrom =
         dateFrom instanceof Date ? format(dateFrom, 'yyyy-MM-dd') : dateFrom
@@ -172,7 +173,7 @@ export const useOvertimeReport = ({ dateFrom, dateTo, department, company, repor
   return useQuery({
     queryKey: ['overtime-reports', dateFrom, dateTo, department, company],
     queryFn: async () => {
-      let url = `/attendance/reports/overtime-reports`
+      let url = ApiRoutes.ATTENDANCE_REPORTS.OVERTIME
 
       const fDateFrom = dateFrom instanceof Date ? format(dateFrom, 'yyyy-MM-dd') : dateFrom
       const fDateTo = dateTo instanceof Date ? format(dateTo, 'yyyy-MM-dd') : dateTo
@@ -217,7 +218,7 @@ export const reportInitialQueryOptions = () => {
   return queryOptions({
     queryKey: ['report-initial'],
     queryFn: async () => {
-      let url = `/employees/initial`;
+      let url = ApiRoutes.EMPLOYEES.INITIAL;
       const response = await request.get<APIResponse<ReportInitial>>(url);
       return response.data;
     },
@@ -232,7 +233,7 @@ export const employeesActiveReportQueryOptions = ({ fullName }: { fullName: stri
   return queryOptions({
     queryKey: ['employees-active', fullName],
     queryFn: async () => {
-      let url = `/attendances/employee-setup?fieldName=fullname&fieldValue=${fullName}&pageSize=1000&pageNumber=1`;
+      let url = `${ApiRoutes.EMPLOYEE_SETUP.LIST}?fieldName=fullname&fieldValue=${fullName}&pageSize=1000&pageNumber=1`;
       const response = await request.get<ApiResponse<PaginatedResponse<AttendeeInfo>>>(url);
       return response.data;
     },

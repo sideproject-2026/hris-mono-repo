@@ -1,11 +1,12 @@
 import { request } from "@/lib/http"
+import { ApiRoutes } from "@/types/api-routes"
 import { queryOptions } from "@tanstack/react-query"
 
 export const getListDashboardCalendarHoliday = ({ month, year }: { month: number, year: number }) => {
     return queryOptions({
         queryKey: ['dashboard-calendar-holiday', month, year],
         queryFn: () => {
-            let url = `dashboards/calendars/${year}/${month}`
+            let url = ApiRoutes.DASHBOARDS.CALENDAR(year, month)
             const response = request.get<ApiResponse<DashboardCalendarHoliday[]>>(url)
             return response
         },
@@ -18,7 +19,7 @@ export const getListDashboardCalendarBirthday = ({ month }: { month: number }) =
     return queryOptions({
         queryKey: ['dashboard-calendar-birthday', month],
         queryFn: () => {
-            let url = `dashboards/employee-birthdays/${month}`
+            let url = ApiRoutes.DASHBOARDS.BIRTHDAYS(month)
             const response = request.get<ApiResponse<DashboardCalendarBirthday[]>>(url)
             return response
         },
@@ -31,7 +32,7 @@ export const getListDashboardSummary = () => {
     return queryOptions({
         queryKey: ['dashboard-summary'],
         queryFn: () => {
-            let url = `dashboards/employee-type-count`
+            let url = ApiRoutes.DASHBOARDS.SUMMARY
             const response = request.get<DashboardSummary>(url)
             return response
         },
@@ -42,7 +43,7 @@ export const getListDashboardProbitionary = ({ month, year }: { month: number, y
     return queryOptions({
         queryKey: ['dashboard-probitionary', month, year],
         queryFn: () => {
-            let url = `dashboards/probationary-employees?month=${month}&year=${year}`
+            let url = `${ApiRoutes.DASHBOARDS.PROBATIONARY}?month=${month}&year=${year}`
             const response = request.get<DashboardProbitionaryTypes[]>(url)
             return response
         },
@@ -54,7 +55,7 @@ export const getListDashboardResignation = ({ month, year }: { month: number, ye
     return queryOptions({
         queryKey: ['dashboard-resignation', month, year],
         queryFn: () => {
-            let url = `dashboards/resignation-employees?month=${month}&year=${year}`
+            let url = `${ApiRoutes.DASHBOARDS.RESIGNATION}?month=${month}&year=${year}`
             const response = request.get<DashboardResignationTypes[]>(url)
             return response
         },

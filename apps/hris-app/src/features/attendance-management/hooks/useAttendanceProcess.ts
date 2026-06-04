@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 import type { AdjustmentFormValues, AttendancePeriodFormValues, OvertimePendingFormValues } from "../types/schema";
 import { request } from "@/lib/http";
+import { ApiRoutes } from "@/types/api-routes";
 import { useConfirmationContext, useJobStatusTrackingContext } from "@hris/shared-ui";
 import type { FilterSearchAttendanceType } from "../types/search";
 
@@ -13,7 +14,7 @@ export const useAttendanceExport = () => {
    const handleAttendanceSheetExport = async (periodId: string) => {
       startTransition(async () => {
          try {
-            const url = `/attendances/export/sheets/${periodId}`;
+            const url = ApiRoutes.ATTENDANCE_EXPORTS.SHEETS(periodId);
             await request.exportExcel(url, `Attendance_Sheets_${periodId}.xlsx`);
             toast.success("Attendance sheets exported successfully.");
          } catch (error) {
@@ -31,7 +32,7 @@ export const getAttendanceSheetsOptions = ({ id, filter }: { id: string, filter?
    return queryOptions({
       queryKey: ['attendance-sheets', id, filter?.fieldValue, filter?.department, filter?.company, filter?.branch],
       queryFn: async () => {
-         let url = `/attendances/periods/${id}/sheets`;
+         let url = ApiRoutes.ATTENDANCE_PERIODS.SHEETS(id);
          if (filter) {
             const params = new URLSearchParams();
             if (filter.fieldValue) {
@@ -66,7 +67,7 @@ export const getAttendanceSheetsOptions = ({ id, filter }: { id: string, filter?
 export const useDeleteSheetMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId, sheetIds }: { periodId: string; sheetIds: Array<string> }) => {
-         const response = await request.fullDelete(`/attendances/periods/${periodId}/sheets`, { sheetIds });
+         const response = await request.fullDelete(ApiRoutes.ATTENDANCE_PERIODS.SHEETS(periodId), { sheetIds });
          return response;
       }
    })
@@ -75,7 +76,7 @@ export const useDeleteSheetMutation = () => {
 export const useRecreateSheetMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId }: { periodId: string }) => {
-         const response = await request.post('/attendances/periods/recreate-sheet', { periodId });
+         const response = await request.post(ApiRoutes.ATTENDANCE_PERIODS.RECREATE_SHEET, { periodId });
          return response;
       },
    })
@@ -84,7 +85,7 @@ export const useRecreateSheetMutation = () => {
 export const useDtrProcessMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId, ids }: { periodId: string; ids: Array<number> }) => {
-         const response = await request.post<JobStatus>('/queues/attendances/dtr-process', { periodId, ids, preProcess: false });
+         const response = await request.post<JobStatus>(ApiRoutes.QUEUES.DTR_PROCESS, { periodId, ids, preProcess: false });
          return response;
       }
    })
@@ -94,7 +95,7 @@ export const useDtrProcessMutation = () => {
 export const useDeleteAttendancePeriodMutation = () => {
    return useMutation({
       mutationFn: async (attendancePeriodId: string) => {
-         const response = await request.del(`/attendances/periods/${attendancePeriodId}`);
+         const response = await request.del(ApiRoutes.ATTENDANCE_PERIODS.BY_ID(attendancePeriodId));
          return response;
       }
    })
@@ -115,7 +116,7 @@ export const useCreateAttendancePeriodMutation = () => {
             periodEnd,
          }
 
-         const response = await request.post<JobStatus>('queues/periods/create', transformData);
+         const response = await request.post<JobStatus>(ApiRoutes.QUEUES.PERIODS_CREATE, transformData);
          return response;
       },
    })
@@ -124,7 +125,7 @@ export const useCreateAttendancePeriodMutation = () => {
 export const usePeriodPropertyUpdateMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId, property, value }: { periodId: string; property: string; value: any }) => {
-         const response = await request.patch(`/attendances/periods/${periodId}`, { fieldName: property, fieldValue: value ? 'true' : 'false' });
+         const response = await request.patch(ApiRoutes.ATTENDANCE_PERIODS.BY_ID(periodId), { fieldName: property, fieldValue: value ? 'true' : 'false' });
          return response;
       }
    });
@@ -133,7 +134,7 @@ export const usePeriodPropertyUpdateMutation = () => {
 export const usePostPeriodMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId }: { periodId: string }) => {
-         const response = await request.put(`/attendances/periods/${periodId}/post`);
+         const response = await request.put(ApiRoutes.ATTENDANCE_PERIODS.POST(periodId));
          return response;
       }
    })
@@ -143,7 +144,7 @@ export const getPeriodInitialOptions = () => {
    return queryOptions({
       queryKey: ['initial-attendance-periods'],
       queryFn: async () => {
-         const response = await request.get<APIResponse<PeriodInitialType>>('/attendances/periods/initial');
+         const response = await request.get<APIResponse<PeriodInitialType>>(ApiRoutes.ATTENDANCE_PERIODS.INITIAL);
          return response;
       },
       select: (data) => {
@@ -158,7 +159,7 @@ export const getPeriodInitialOptions = () => {
 /**
  * Attendance period options with query params for pagination and filtering
  * @param params Query parameters for filtering and pagination
- * 
+ *
  * @returns Query options for fetching attendance periods
  */
 export const getAttendancePeriodOptions = (params?: AttendancePeriodQueryParams) => {
@@ -166,7 +167,7 @@ export const getAttendancePeriodOptions = (params?: AttendancePeriodQueryParams)
       queryKey: ['attendance-periods', params],
       queryFn: async () => {
 
-         let url = `/attendances/periods`;
+         let url = ApiRoutes.ATTENDANCE_PERIODS.LIST;
 
          if (params?.pageSize && params.pageNumber) {
             url += url.includes('?') ? `&pageSize=${params.pageSize}&pageNumber=${params.pageNumber}` : `?pageSize=${params.pageSize}&pageNumber=${params.pageNumber}`;
@@ -204,7 +205,7 @@ export const getListEmployeeOptions = ({ name }: { name: string }) => {
    return queryOptions({
       queryKey: ['employees', name],
       queryFn: async () => {
-         const url = `/attendances/employee-setup?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
+         const url = `${ApiRoutes.EMPLOYEE_SETUP.LIST}?fieldName=fullname&fieldValue=${name}&pageSize=1000&pageNumber=1`;
          const response = await request.get<PaginatedResponse<AttendeeInfo>>(url);
          return response;
       },
@@ -217,7 +218,7 @@ export const getListEmployeeOptions = ({ name }: { name: string }) => {
 export const useDtrProcessAttendance = () => {
    const { mutateAsync, isPending } = useMutation({
       mutationFn: async ({ periodId, ids }: { periodId: string; ids: Array<number> }) => {
-         const response = await request.post<JobStatus>('/queues/attendances/dtr-process', { periodId, ids, preProcess: false });
+         const response = await request.post<JobStatus>(ApiRoutes.QUEUES.DTR_PROCESS, { periodId, ids, preProcess: false });
          return response;
       }
    });
@@ -259,7 +260,7 @@ export const useGetPendingOTQuery = ({ formValue, isSubmit }: { formValue: Overt
             toDate: dateTo ? formatDate(dateTo, 'yyyy-MM-dd') : '',
             requestFor: 1 //OT
          }
-         const response = await request.post<APIResponse<Array<OvertimePending>>>('/form-request/pending', data);
+         const response = await request.post<APIResponse<Array<OvertimePending>>>(ApiRoutes.FORM_REQUEST.PENDING, data);
          return response.data;
       },
       enabled: isSubmit && !!employeeId && !!dateFrom && !!dateTo,
@@ -270,7 +271,7 @@ export const useGetPendingOTQuery = ({ formValue, isSubmit }: { formValue: Overt
 export const useAdjustmentMutation = () => {
    return useMutation({
       mutationFn: async ({ periodId, employeeId, data }: { periodId: string; employeeId: number; data: AdjustmentFormValues }) => {
-         const url = `/attendances/periods/${periodId}/${employeeId}/adjustment`;
+         const url = ApiRoutes.ATTENDANCE_PERIODS.ADJUSTMENT(periodId, employeeId);
          const response = await request.put(url, {
             regularOvertimeAdjustment: data.regularOT,
             restDayOvertimeAdjustment: data.restDayOT,
@@ -281,4 +282,3 @@ export const useAdjustmentMutation = () => {
       }
    });
 }
-

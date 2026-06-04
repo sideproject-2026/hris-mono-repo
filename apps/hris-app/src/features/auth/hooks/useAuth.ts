@@ -8,6 +8,7 @@ import { useTransition } from "react";
 import { ROUTE } from "@/types/router";
 import { getErrorMessage } from "@/lib/utils";
 import { useRouter } from "@tanstack/react-router";
+import { ApiRoutes } from "@/types/api-routes";
 
 export const useLogin = () => {
 
@@ -20,7 +21,7 @@ export const useLogin = () => {
       clearAuth();
       startTransition(async () => {
          try {
-            const response = await request.post<APIResponse<AuthState>>('/auth/login', { ...data, application: 'app_portal' });
+            const response = await request.post<APIResponse<AuthState>>(ApiRoutes.AUTH.LOGIN, { ...data, application: 'app_portal' });
             const { accessToken, expiresAt, expiresIn, refreshToken } = response.data;
             setAuth({
                accessToken: accessToken,
@@ -44,7 +45,7 @@ export const useLogin = () => {
    const handleLogout = async () => {
       startTransition(async () => {
          try {
-            const response = await request.post('/auth/logout', { refreshToken });
+            const response = await request.post(ApiRoutes.AUTH.LOGOUT, { refreshToken });
             clearAuth();
             routes.navigate({ to: '/login' })
             toast.success('Logged out successfully')
@@ -63,7 +64,7 @@ export const useProfileQuery = ({ accessToken }: { accessToken: string }) => {
    return useSuspenseQuery({
       queryKey: ['profile', accessToken],
       queryFn: async () => {
-         const url = `/users/profile`;
+         const url = ApiRoutes.USERS.PROFILE;
          const response = await request.get<APIResponse<UserType>>(url);
          return response.data;
       },
@@ -78,7 +79,7 @@ export const useSelfRegisterMutation = () => {
 
    return useMutation({
       mutationFn: async (data: RegisterFormValues) => {
-         const response = await request.post<APIResponse<AuthState>>('/users/self-register', data);
+         const response = await request.post<APIResponse<AuthState>>(ApiRoutes.USERS.SELF_REGISTER, data);
          return response.data;
       },
    })

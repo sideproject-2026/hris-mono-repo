@@ -6,6 +6,7 @@ import type {
   EmployeeTimesheetFormValues,
 } from '../types/schema'
 import { request } from '@/lib/http'
+import { ApiRoutes } from '@/types/api-routes'
 import { string } from 'zod'
 import { useConfirmationContext } from '@hris/shared-ui'
 
@@ -15,7 +16,7 @@ export const useDetailExport = () => {
   const handleDetailSheetExport = (periodId: string, employeeNo: number) => {
     startTransition(async () => {
       try {
-        const url = `/attendances/exports/sheets/${periodId}/${employeeNo}`
+        const url = ApiRoutes.ATTENDANCE_EXPORTS.DETAIL_SHEETS(periodId, employeeNo)
         await request.exportExcel(
           url,
           `Attendance_Detail_Sheet_${periodId}_${employeeNo}.xlsx`,
@@ -38,7 +39,7 @@ export const useGetRequestDetailOptions = (detailId?: string) => {
     queryKey: ['attendance-detail', detailId],
     queryFn: async () => {
       const response = await request.get<APIResponse<RequestDetail[]>>(
-        `/attendances/details/${detailId}/requests`,
+        ApiRoutes.ATTENDANCE_DETAILS.REQUESTS(detailId),
       )
       console.log('API Response for Request Details:', response)
       return response.data
@@ -63,7 +64,7 @@ export const getAttendanceDetailOptions = ({
           period: AttendancePeriod
           dtrStatuses: SelectionItem<string>[]
         }>
-      >(`/attendances/periods/${periodId}/sheets/${employeeNo}`)
+      >(ApiRoutes.ATTENDANCE_PERIODS.SHEET_BY_EMPLOYEE(periodId, employeeNo))
       return response
     },
     select: (res) => {
@@ -103,7 +104,7 @@ export const useManualProcess = () => {
       employeeId: number
     }) => {
       const response = await request.put(
-        '/attendances/periods/manual-process',
+        ApiRoutes.ATTENDANCE_PERIODS.MANUAL_PROCESS,
         {
           periodId,
           employeeId,
@@ -161,7 +162,7 @@ export const useUpdateDtrMutation = () => {
         absent: 0,
       }
       const response = await request.put(
-        `/attendances/periods/${periodId}/sheets/${employeeId}/details`,
+        ApiRoutes.ATTENDANCE_PERIODS.SHEET_DETAILS(periodId, employeeId),
         {
           details: [data],
         },
@@ -183,7 +184,7 @@ export const useUpdateDetailMutation = () => {
       data: EmployeeTimesheetFormValues
     }) => {
       const response = await request.put(
-        `/attendances/periods/${periodId}/sheets/${employeeId}/details`,
+        ApiRoutes.ATTENDANCE_PERIODS.SHEET_DETAILS(periodId, employeeId),
         { details: data.rows },
       )
       return response
