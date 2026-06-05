@@ -1,8 +1,8 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { createStandardSchemaV1 } from 'nuqs'
-import { employeeSearchInitialParser } from '@/features/employees/types/search'
-import EmployeeProvider from '@/features/employees/components/employee-provider'
-import EmployeePage from '@/features/employees/components/employee-page'
+import { employeeSearchInitialParser } from '@/features/employee-master/employees/types/search'
+import EmployeeListProvider from '@/features/employee-master/employees/components/employee-master-profile/providers/employee-list-provider'
+import EmployeePage from '@/features/employee-master/employees/components/employee-page'
 import { isAuthenticated } from '@/lib/hooks/authentication'
 
 export const Route = createFileRoute('/_app/employees/')({
@@ -11,9 +11,9 @@ export const Route = createFileRoute('/_app/employees/')({
   }),
   component: () => {
     return (
-      <EmployeeProvider>
+      <EmployeeListProvider>
         <EmployeePage />
-      </EmployeeProvider>
+      </EmployeeListProvider>
     )
   },
   errorComponent: () => <div>Error loading employees.</div>,

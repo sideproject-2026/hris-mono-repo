@@ -1,26 +1,26 @@
 import React from 'react'
-import { type FieldValues, type UseFormReturn } from 'react-hook-form'
+import {
+  type FieldValues,
+  type UseFormReturn,
+} from 'react-hook-form'
 import { useQuery } from '@tanstack/react-query'
 import { Check, ChevronsUpDown, Loader2, X } from 'lucide-react'
 
-
-import { Button } from '@/components/ui/button'
+import type { EmployeeAppointmentSchemaTypes } from '../../../types/schema'
 import {
+  Button,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@hris/shared-ui'
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Badge
 } from '@hris/shared-ui'
-import { Badge } from '@hris/shared-ui'
-import { getSearchUserManagementOptions } from '../hooks/useUserManagement'
-import type { EmployeeAppointmentSchemaTypes } from '@/features/employee-master/employees/types/schema'
+import { employeesActiveQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
 
 interface EmployeeListAppointmentProps<
   T extends FieldValues = EmployeeAppointmentSchemaTypes,
@@ -29,7 +29,7 @@ interface EmployeeListAppointmentProps<
   initialManagerName?: string
 }
 
-const UserManagementSearch = ({
+const EmployeeListAppointment = ({
   form,
   initialManagerName,
 }: EmployeeListAppointmentProps) => {
@@ -47,12 +47,12 @@ const UserManagementSearch = ({
   }, [searchName])
 
   const { data, isFetching } = useQuery(
-    getSearchUserManagementOptions({ name: debouncedSearchName }),
+    employeesActiveQueryOptions({ fullName: debouncedSearchName }),
   )
 
   const employees = data ?? []
 
-  const currentEmployeeId = form.watch('employeeId' as any)
+  const currentManagerId = form.watch('companyDelegate.managerId' as any)
 
   // Use useEffect to sync initialManagerName when it changes
   React.useEffect(() => {
@@ -63,44 +63,37 @@ const UserManagementSearch = ({
 
   // Sync selectedName when an employee is found in search results
   React.useEffect(() => {
-    const found = employees.find((e) => e.id === currentEmployeeId)
+    const found = employees.find((e) => e.id === currentManagerId)
     if (found) {
-      setSelectedName(found.firstName + ' ' + found.lastName)
+      setSelectedName(found.fullName)
     }
-  }, [employees, currentEmployeeId])
+  }, [employees, currentManagerId])
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <h3 className="text-md font-normal text-muted-foreground">
-        Search Employee
-      </h3>
+      <h3 className="text-sm font-medium text-muted-foreground">Manager</h3>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between h-auto min-h-11 py-2 px-3"
+            className="w-full justify-between min-h-11 py-2 px-3"
           >
             <div className="flex items-center gap-1 flex-wrap">
-              {currentEmployeeId ? (
+              {currentManagerId ? (
                 <Badge
                   variant="secondary"
                   className="flex items-center gap-1 pr-1"
                 >
                   <span className="text-sm uppercase">
-                    {selectedName || 'Selected Employee'}
+                    {selectedName || 'Selected Manager'}
                   </span>
                   <div
                     role="button"
                     onClick={(e) => {
                       e.stopPropagation()
-                      form.setValue('employeeId' as any, '')
-                      form.setValue('firstName' as any, '')
-                      form.setValue('lastName' as any, '')
-                      form.setValue('companyName' as any, '')
-                      form.setValue('department' as any, '')
-                      form.setValue('jobTitle' as any, '')
+                      form.setValue('companyDelegate.managerId' as any, '')
                       setSelectedName('')
                     }}
                     className="ml-1 rounded-full hover:bg-muted-foreground/20 cursor-pointer"
@@ -110,7 +103,7 @@ const UserManagementSearch = ({
                 </Badge>
               ) : (
                 <span className="text-sm font-normal text-muted-foreground">
-                  Select an employee...
+                  Select a manager...
                 </span>
               )}
             </div>
@@ -136,29 +129,16 @@ const UserManagementSearch = ({
               <CommandGroup>
                 {employees.map((employee) => {
                   // Check against employeeCode, not the RHF internal ID
-                  const isSelected =
-                    form.watch('employeeId') === employee.employeeID
+                  const isSelected = form.watch('companyDelegate.managerId' as any) === employee.id
                   return (
                     <CommandItem
                       key={employee.id}
-                      onSelect={() => {
-                        form.setValue('employeeId' as any, employee.employeeID)
-                        form.setValue('firstName' as any, employee.firstName)
-                        form.setValue('lastName' as any, employee.lastName)
-                        form.setValue('companyName' as any, employee.company)
-                        form.setValue('department' as any, employee.department)
-                        form.setValue('jobTitle' as any, employee.designation)
-                        form.setValue(
-                          'userName' as any,
-                          `${employee.firstName[0]}${employee.lastName}`,
-                        )
-                        setOpen(false)
-                      }}
+                      onSelect={() => form.setValue('companyDelegate.managerId' as any, employee.id)}
                       className="flex items-center justify-between cursor-pointer"
                     >
                       <div className="flex flex-col">
                         <span className="font-medium text-sm">
-                          {`${employee.firstName} ${employee.lastName}`}
+                          {`${employee.fullName}`}
                         </span>
                         <span className="text-xs text-muted-foreground">
                           {employee.company || 'No Company'}
@@ -177,4 +157,4 @@ const UserManagementSearch = ({
   )
 }
 
-export default UserManagementSearch
+export default EmployeeListAppointment

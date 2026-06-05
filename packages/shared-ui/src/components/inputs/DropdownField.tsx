@@ -53,6 +53,7 @@ const DropdownField = <T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => {
+
         // 3. Ensure value is a string for Shadcn Select, handle null/undefined safely
         const safeValue = field.value?.toString() ?? ''
 
@@ -108,7 +109,7 @@ const DropdownField = <T extends FieldValues>({
                   </SelectContent>
                 </Select>
               </div>
-              {!hideCloseButton && field.value && (
+              {(!hideCloseButton) && (
                 <Button
                   type="button"
                   size={'icon'}
