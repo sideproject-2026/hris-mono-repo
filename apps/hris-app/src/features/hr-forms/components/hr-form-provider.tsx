@@ -4,7 +4,7 @@ import { useQueryStates } from 'nuqs'
 import { hrFormSearchInitialParser } from '../types/search'
 import { useGetHRForms, useGetHRInitials } from '../hooks/getHRForms'
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
-import { employeeInitialQueryOptions } from '@/features/employees/hooks/useEmployee'
+import { employeeInitialQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
 
 
 type HRFormContextType = {

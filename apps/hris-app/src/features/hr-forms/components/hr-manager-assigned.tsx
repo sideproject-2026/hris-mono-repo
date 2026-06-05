@@ -21,7 +21,7 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover'
 import { Badge } from '@/components/ui/badge'
-import { employeesActiveQueryOptions } from '@/features/employees/hooks/useEmployee'
+import { employeesActiveQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
 import { type HRFormSchemaType } from '../types/schema'
 
 interface HRManagerAssignedProps<

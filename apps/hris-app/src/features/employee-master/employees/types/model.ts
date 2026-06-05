@@ -1,0 +1,83 @@
+export interface EmployeeListModel {
+  id: string
+  employeeType: string
+  employeeNumber: number
+  firstName: string
+  middleName: string
+  lastName: string
+  fullName: string
+  dateHired?: Date
+  probStartDate?: Date
+  probEndDate?: Date
+  lengthOfService: string
+  probationaryRemaining: string
+  designation?: string
+  department?: string
+  companyCode?: string
+  companyName?: string
+  branch?: string
+  employeeCode?: string
+  photoFile?: string
+  path?: string
+  status: string
+}
+
+export interface EmployeeModel {
+  id: string
+  type: number
+  strType: string
+  employeeNumber: number
+  prefix: string
+  firstName: string
+  middleName: string
+  lastName: string
+  suffix: string
+  gender: number
+  strGender: string
+  maritalStatus: number
+  strMaritalStatus: string
+  religion?: string
+  designationCode?: string
+  designationName?: string
+  birthday: Date
+  birthPlace: string
+  personalEmailAddress: string
+  businessEmailAddress: string
+  phoneNumber: string
+  mobileNumber: string
+  nationality: string
+  region: string
+  bloodType: string
+  country: string
+  spouseFullName?: string
+  spouseJobTitle?: string
+  spouseCompany?: string
+  spouseBirthday?: Date
+  sssNo?: string
+  philhealthNo?: string
+  tinNo?: string
+  pagIbigNo?: string
+  bankAccountNo?: string
+  passportNo?: string
+  passportExpiry?: Date
+  companyCode?: string
+  companyName?: string
+  branch?: string
+  employeeCode?: string
+  departmentCode?: string
+  departmentName?: string
+  managerId?: string
+  managerName?: string
+  localNo?: string
+  dateHired?: Date
+  probStartDate?: Date
+  probEndDate?: Date
+  lengthOfStay: {}
+  probationaryRemaining: {}
+  photoFile?: string
+  path?: string
+  status: number
+  strStatus?: string
+}
+
+export interface LengthOfStay {}
