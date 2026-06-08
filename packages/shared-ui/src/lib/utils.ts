@@ -179,6 +179,11 @@ const displayMapping: Record<string, string | number> = {
 }
 
 export const getDisplayText = (text: string | number) => displayMapping[text] || text
+export type SelectionItem<T extends string | number = string> = {
+  value: T
+  text: string
+}
+
 export const formatRequestText = (
   types: SelectionItem<string>[] | undefined,
 ) => {
