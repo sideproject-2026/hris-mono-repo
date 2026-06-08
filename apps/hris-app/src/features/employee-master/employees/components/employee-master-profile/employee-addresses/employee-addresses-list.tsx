@@ -1,9 +1,6 @@
-import OtherInformationProvider, {
-  useOtherInformationContext,
-} from '../other-information-provider'
+
 import type { ColumnDef } from '@tanstack/react-table'
 import {
-  Button,
   NavMenu,
   GroupContainer,
   DGridColumns,
@@ -11,20 +8,21 @@ import {
   DGridRows,
   DGridTable,
 } from '@hris/shared-ui'
-import { Edit } from 'iconsax-reactjs'
 
 import EmployeeFormAddresses from './employee-form-addresses'
-import AddressDeleteButton from './address-delete-button'
+import OtherInformationProvider, { useOtherInformationContext } from '../providers/other-info-provider'
+import type { EmployeeAddressesResponse } from '../../../types/model'
 
 const EmployeeAddressesList = () => {
+
   const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
-  const columns: ColumnDef<EmployeeAddressesTypes>[] = [
+  const columns: ColumnDef<EmployeeAddressesResponse>[] = [
     {
       accessorKey: 'type',
       header: 'ADDRESS TYPE',
       cell: ({ row }) => {
-        const type = row.original.type
+        const type = row.original.type.strCode
         return <span className="text-sm uppercase">{type}</span>
       },
     },
@@ -32,7 +30,7 @@ const EmployeeAddressesList = () => {
       accessorKey: 'street',
       header: 'STREET',
       cell: ({ row }) => {
-        const street = row.original.street
+        const street = `${row.original.number} ${row.original.street}`
         return <span className="text-sm uppercase">{street}</span>
       },
     },
@@ -53,10 +51,10 @@ const EmployeeAddressesList = () => {
       },
     },
     {
-      accessorKey: 'municipality',
+      accessorKey: 'city',
       header: 'MUNICIPALITY',
       cell: ({ row }) => {
-        const municipality = row.original.municipality
+        const municipality = row.original.city
         return <span className="text-sm uppercase">{municipality}</span>
       },
     },
@@ -82,7 +80,7 @@ const EmployeeAddressesList = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            <EmployeeFormAddresses
+            {/* <EmployeeFormAddresses
               initialValues={row.original}
               trigger={
                 <Button variant="ghost" size="icon">
@@ -93,7 +91,7 @@ const EmployeeAddressesList = () => {
             <AddressDeleteButton
               employeeId={employeeId}
               addressId={row.original.id}
-            />
+            /> */}
           </div>
         )
       },

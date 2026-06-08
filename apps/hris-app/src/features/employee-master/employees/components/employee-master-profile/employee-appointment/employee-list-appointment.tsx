@@ -21,9 +21,10 @@ import {
   Badge
 } from '@hris/shared-ui'
 import { employeesActiveQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
+import type { IEmployeeCompanyModel } from '../../../types/employee.schema'
 
 interface EmployeeListAppointmentProps<
-  T extends FieldValues = EmployeeAppointmentSchemaTypes,
+  T extends FieldValues = IEmployeeCompanyModel,
 > {
   form: UseFormReturn<T>
   initialManagerName?: string

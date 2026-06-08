@@ -37,7 +37,7 @@ export interface EmployeeModel {
    religion: string | null;
    designationCode: string | null;
    designationName: string | null;
-   rank: string | null;
+   rank: CodeValue;
    birthday: string;
    birthPlace: string;
    age: number;
@@ -103,3 +103,64 @@ export interface EndOfService {
 }
 
 export interface LengthOfStay {}
+
+
+
+export type EmployeeAddressesResponse = {
+    id: string
+    type: CodeValue
+    number: string
+    street: string
+    region: string
+    province: string
+    city: string
+    zipCode: string
+    country: string
+}
+
+
+export type EmergencyContactResponse = {
+   id: string;
+   name: string;
+   relationship: string;
+   phoneNumber: string;
+   email: string | null;
+}
+
+export type EmployeeDocumentResponse = {
+  id: string;
+  type: CodeValue;
+  documentNumber: string;
+  description: string;
+  issueDate: string;
+  expiryDate: string | null;
+  filePath: string;
+}
+
+export type WorkExperienceResponse = {
+  id: string;
+  company: string;
+  position: string;
+  startDate: string;
+  endDate: string | null;
+  description: string | null;
+}
+
+export type EmployeeEducationResponse = {
+  id: string;
+  level: CodeValue; // EnumDto<T> defined earlier
+  school: string;
+  degree: string;
+  fieldOfStudy: string | null;
+  startYear: number;
+  graduationYear: number | null;
+  honors: string | null;
+}
+
+
+export type AllInformationResponse = {
+    address: EmployeeAddressesResponse[] | null
+    educations: EmployeeEducationResponse[] | null
+    emergencyContacts: EmergencyContactResponse[] | null
+    workExperiences: WorkExperienceResponse[] | null
+}

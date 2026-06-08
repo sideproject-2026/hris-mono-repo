@@ -92,12 +92,12 @@ declare type ActiveTypes = {
 
 declare type EmployeeAddressesTypes = {
     id: string
-    addressType: number
-    type: string
+    type: CodeValue
+    number: string
     street: string
     region: string
     province: string
-    municipality: string
+    city: string
     zipCode: string
     country: string
 }
@@ -187,6 +187,7 @@ declare type EmployeeInitials = {
     departments: SelectionItem
     branches: Array<SelectionItem>
     ranks: Array<SelectionItem>
+    managers: Array<SelectionItem>
 }
 
 declare type EmployeeOtherInformationTypes = {

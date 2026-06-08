@@ -25,6 +25,7 @@ interface DatePickerFieldProps<T extends FieldValues> {
   disableFutureDates?: boolean
   disablePastDates?: boolean
   baseClassName?: string
+  disabled?: boolean
 }
 
 export default function DatePickerField<T extends FieldValues>({
@@ -36,6 +37,7 @@ export default function DatePickerField<T extends FieldValues>({
   disableFutureDates,
   disablePastDates,
   baseClassName,
+  disabled,
 }: DatePickerFieldProps<T>) {
   return (
     <FormField
@@ -56,6 +58,7 @@ export default function DatePickerField<T extends FieldValues>({
               <FormControl>
                 <Button
                   variant={'outline'}
+                  disabled={disabled}
                   className="w-full flex items-center justify-between text-sm font-normal dark:bg-background bg-background h-10"
                 >
                   {field.value ? (
@@ -79,18 +82,7 @@ export default function DatePickerField<T extends FieldValues>({
                 mode="single"
                 selected={field.value}
                 onSelect={field.onChange}
-                disabled={
-                  disableFutureDates && disablePastDates
-                    ? (date) =>
-                      isAfter(endOfDay(date), endOfDay(new Date())) ||
-                      isBefore(startOfDay(date), startOfDay(new Date()))
-                    : disableFutureDates
-                      ? (date) => isAfter(endOfDay(date), endOfDay(new Date()))
-                      : disablePastDates
-                        ? (date) =>
-                          isBefore(startOfDay(date), startOfDay(new Date()))
-                        : undefined
-                }
+                captionLayout='dropdown'
               />
             </PopoverContent>
           </Popover>

@@ -10,19 +10,17 @@ import {
   DatePickerField
 } from '@hris/shared-ui'
 import {
-  unifiedEmployeeInfoSchema,
   type UnifiedEmployeeInfoPayload,
 } from '@/features/employee-master/employees/types/schema'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Edit2, Send } from 'iconsax-reactjs'
-import { useEffect, useState } from 'react'
-import { useForm, type Resolver } from 'react-hook-form'
+import { useState } from 'react'
 import EmployeeListAppointment from './employee-list-appointment'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
-import { useUpdateEmployeeInformationMutation } from '@/features/employee-master/employees/hooks/useOtherInfo'
 import { XIcon } from 'lucide-react'
+import { useCompanyMutation } from '../../../hooks/mutations/useCompanyMutation'
+import { Label } from '@/components/ui/label'
 
 
 const EmployeeFormCompany = () => {
@@ -30,220 +28,129 @@ const EmployeeFormCompany = () => {
   const [isDisabled, setIsDisabled] = useState(true)
   const { employeeId, employeeInitials, employeePersonalInfo } = useEmployeeProfileContext()
 
-  const initialValues = employeePersonalInfo?.company
-  const { mutateAsync: createEmployeeAppointment } =
-    useUpdateEmployeeInformationMutation()
-
-  const form = useForm<UnifiedEmployeeInfoPayload>({
-    resolver: zodResolver(unifiedEmployeeInfoSchema) as Resolver<UnifiedEmployeeInfoPayload>,
-    defaultValues: {
-      entityType: 'Company' as const,
-      companyDelegate: {
-        emailAddress: '',
-        localNo: '',
-        rank: 1,
-        designationId: '',
-        departmentId: '',
-        companyId: '',
-        branchId: '',
-        managerId: null,
-        accreditation: null,
-        deAccreditation: null,
-      }
-    } as UnifiedEmployeeInfoPayload,
-  })
-
-  useEffect(() => {
-    if (initialValues) {
-      form.reset({
-        entityType: 'Company' as const,
-        companyDelegate: {
-          emailAddress: initialValues.emailAddress,
-          localNo: initialValues.localNo,
-          rank: initialValues.rank,
-          designationId: initialValues.designationId,
-          departmentId: initialValues.departmentId,
-          companyId: initialValues.companyId,
-          branchId: initialValues.branchId,
-          managerId: initialValues.managerId || null,
-          accreditation: initialValues.accreditedDate ? new Date(initialValues.accreditedDate) : null,
-          deAccreditation: initialValues.deAccreditedDate ? new Date(initialValues.deAccreditedDate) : null,
-        }
-      } as UnifiedEmployeeInfoPayload)
-    }
-  }, [initialValues, form])
-
-  const onSubmit = async (data: UnifiedEmployeeInfoPayload) => {
-    try {
-      await createEmployeeAppointment({ id: employeeId!, data })
-      toast.success('Employee company information updated successfully')
-      form.reset()
+  
+  const {form,onSubmit} = useCompanyMutation({
+    id: employeeId, 
+    defaultValue: employeePersonalInfo,
+    onSuccess: (response) => {
+      toast.success('Employee company information updated successfully');
       setIsDisabled(true)
-    } catch (error) {
-      toast.error('Failed to update employee company information', {
+    },
+    onError: (error) => {
+       toast.error('Failed to update employee company information', {
         description: getErrorMessage(error),
         style: { color: 'red' },
       })
     }
-  }
+    })
+ 
 
   return (
     <CollapsibleContainer title="company information">
       <Form {...form}>
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <SwitchInput
-            label="Employee Code"
-            readMode={isDisabled}
-            value={initialValues?.employeeCode}
+          <Label>
+            {employeePersonalInfo?.employeeCode}
+          </Label>
+          <InputField
+              control={form.control}
+              name="localNo"
+              label="Local No"
+              baseClassName="w-full"
+              disabled={isDisabled}
+              placeholder="Ex. 123"
           />
-          <SwitchInput
-            inputComponent={
-              <InputField
-                control={form.control}
-                name="companyDelegate.emailAddress"
-                label="Company Email"
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Ex. it@crossworldmarine.com"
-              />
-            }
-            label="Company Email"
-            readMode={isDisabled}
-            value={initialValues?.emailAddress}
-          />
-          <SwitchInput
-            inputComponent={
-              <InputField
-                control={form.control}
-                name="companyDelegate.localNo"
-                label="Local No"
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Ex. 123"
-              />
-            }
-            label="Local No."
-            readMode={isDisabled}
-            value={initialValues?.localNo}
-          />
-          <SwitchInput
-            inputComponent={
-              <DropdownField
-                control={form.control}
-                name="companyDelegate.rank"
-                label="Rank"
-                data={employeeInitials?.ranks}
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Select Rank"
-              />
-            }
+          <DropdownField
+            control={form.control}
+            name="rank"
             label="Rank"
-            readMode={isDisabled}
-            value={initialValues?.rankName}
+            data={employeeInitials?.ranks ?? []}
+            baseClassName="w-full"
+            disabled={isDisabled}
+            placeholder="Select Rank"
           />
-          <SwitchInput
-            inputComponent={
-              <DropdownField
-                control={form.control}
-                name="companyDelegate.designationId"
-                label="Designation"
-                data={employeeInitials?.designations}
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Select Designation"
-              />
-            }
-            label="Designation"
-            readMode={isDisabled}
-            value={initialValues?.designationName}
+          <DropdownField
+              control={form.control}
+              name="designationCode"
+              label="Designation"
+              data={employeeInitials?.designations ?? []}
+              baseClassName="w-full"
+              disabled={isDisabled}
+              placeholder="Select Designation"
           />
-          <SwitchInput
-            inputComponent={
-              <DropdownField
-                control={form.control}
-                name="companyDelegate.departmentId"
-                label="Department"
-                data={employeeInitials?.departments}
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Select Department"
-              />
-            }
+          <DropdownField
+            control={form.control}
+            name="departmentCode"
             label="Department"
-            readMode={isDisabled}
-            value={initialValues?.departmentName}
+            data={employeeInitials?.departments}
+            baseClassName="w-full"
+            disabled={isDisabled}
+            placeholder="Select Department"
           />
-          <SwitchInput
-            inputComponent={
-              <DropdownField
-                control={form.control}
-                name="companyDelegate.companyId"
-                label="Company"
-                data={employeeInitials?.companies}
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Select Company"
-              />
-            }
-            label="Company"
-            readMode={isDisabled}
-            value={initialValues?.companyName}
-          />
-          <SwitchInput
-            inputComponent={
-              <DropdownField
-                control={form.control}
-                name="companyDelegate.branchId"
-                label="Branch"
-                data={employeeInitials?.branches}
-                baseClassName="w-full"
-                disabled={isDisabled}
-                placeholder="Select Branch"
-              />
-            }
-            label="Branch"
-            readMode={isDisabled}
-            value={initialValues?.branchName}
-          />
-          <SwitchInput
-            inputComponent={
-              <EmployeeListAppointment
-                form={form}
-                initialManagerName={initialValues?.managerName}
-              />
-            }
-            label="Manager"
-            readMode={isDisabled}
-            value={initialValues?.managerName}
-          />
+           <DropdownField
+              control={form.control}
+              name="companyCode"
+              label="Company"
+              data={employeeInitials?.companies ?? []}
+              baseClassName="w-full"
+              disabled={isDisabled}
+              placeholder="Select Company"
+            />
 
-          <SwitchInput
-            inputComponent={
+            <DropdownField
+              control={form.control}
+              name="branch"
+              label="Branch"
+              data={employeeInitials?.branches ?? []}
+              baseClassName="w-full"
+              disabled={isDisabled}
+              placeholder="Select Branch"
+            />
+
+            {/* <EmployeeListAppointment
+                form={form}
+                initialManagerName={init ?? []}
+              /> */}
+
               <DatePickerField
+              control={form.control}
+              name="dateHired"
+              label="Date Hired"
+              placeholder="Select Date Hired"
+              disabled={isDisabled}
+            />
+
+            <DatePickerField
+              control={form.control}
+              name="probStartDate"
+              label="Prob. Start Date"
+              placeholder="Select Prob. Start Date"
+              disabled={isDisabled}
+            />
+
+            <DatePickerField
+              control={form.control}
+              name="probEndDate"
+              label="Prob. End Date"
+              placeholder="Select Prob. End Date"
+              disabled={isDisabled}
+            />
+
+            <DatePickerField
                 control={form.control}
-                name="companyDelegate.accreditation"
+                name="accreditation"
                 label="Accreditation"
                 placeholder="Select Accreditation"
+                disabled={isDisabled}
               />
-            }
-            label="Accreditation"
-            readMode={isDisabled}
-            value={initialValues?.accreditedDate ? new Date(initialValues.accreditedDate).toLocaleDateString() : undefined}
-          />
-          <SwitchInput
-            inputComponent={
-              <DatePickerField
-                control={form.control}
-                name="companyDelegate.deAccreditation"
-                label="Deaccreditation"
-                placeholder="Select Deaccreditation"
-              />
-            }
-            label="Deaccreditation"
-            readMode={isDisabled}
-            value={initialValues?.deAccreditedDate ? new Date(initialValues.deAccreditedDate).toLocaleDateString() : undefined}
-          />
+
+            <DatePickerField
+              control={form.control}
+              name="deaccreditation"
+              label="Deaccreditation"
+              placeholder="Select Deaccreditation"
+              disabled={isDisabled}
+            />
         </div>
         <StackRow className='gap-2'>
           {isDisabled ? (

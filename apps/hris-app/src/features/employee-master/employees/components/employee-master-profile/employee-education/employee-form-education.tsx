@@ -25,7 +25,8 @@ import { Send } from 'iconsax-reactjs'
 import { useUpdateEmployeeInformationMutation } from '@/features/employee-master/employees/hooks/useOtherInfo'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
-import { useOtherInformationContext } from '../other-information-provider'
+import { useOtherInformationContext } from '../providers/other-info-provider'
+
 
 
 interface EmployeeFormEducationProps {

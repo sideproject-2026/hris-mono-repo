@@ -30,7 +30,8 @@ import {
   REGION_DATA,
 } from '@/features/employee-master/employees/types/constant'
 import { Plus } from 'lucide-react'
-import { useOtherInformationContext } from '../other-information-provider'
+import { useOtherInformationContext } from '../providers/other-info-provider'
+
 
 interface EmployeeFormAddressesProps {
   trigger?: React.ReactNode

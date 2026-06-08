@@ -5,49 +5,38 @@ import {
   DGridProvider,
   DGridRows,
   DGridTable,
-  Button,
 } from '@hris/shared-ui'
 import EmployeeFormEmergency from './employee-form-emergency'
 import type { ColumnDef } from '@tanstack/react-table'
-import OtherInformationProvider, {
-  useOtherInformationContext,
-} from '../other-information-provider'
-import { Edit } from 'iconsax-reactjs'
-import EmergencyDeleteButton from './emergency-delete-button'
+
+import OtherInformationProvider, { useOtherInformationContext } from '../providers/other-info-provider'
+import type { EmergencyContactResponse } from '../../../types/model'
 
 const EmployeeListEmergency = () => {
   const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
-  const columns: ColumnDef<EmployeeEmergencyContactTypes>[] = [
+  const columns: ColumnDef<EmergencyContactResponse>[] = [
     {
-      accessorKey: 'relation',
+      accessorKey: 'relationship',
       header: 'RELATION',
       cell: ({ row }) => {
-        const relation = row.original.relation
+        const relation = row.original.relationship
         return <span className="text-sm uppercase">{relation}</span>
       },
     },
     {
-      accessorKey: 'contactPerson',
+      accessorKey: 'name',
       header: 'CONTACT PERSON',
       cell: ({ row }) => {
-        const contactPerson = row.original.contactPerson
+        const contactPerson = row.original.name
         return <span className="text-sm uppercase">{contactPerson}</span>
       },
     },
     {
-      accessorKey: 'address',
-      header: 'ADDRESS',
-      cell: ({ row }) => {
-        const address = row.original.address
-        return <span className="text-sm uppercase">{address}</span>
-      },
-    },
-    {
-      accessorKey: 'telNo',
+      accessorKey: 'phoneNumber',
       header: 'TEL NO',
       cell: ({ row }) => {
-        const telNo = row.original.telNo
+        const telNo = row.original.phoneNumber
         return <span className="text-sm uppercase">{telNo}</span>
       },
     },
@@ -57,18 +46,18 @@ const EmployeeListEmergency = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            <EmployeeFormEmergency
+            {/* <EmployeeFormEmergency
               initialValues={row.original}
               trigger={
                 <Button variant="ghost" size="icon">
                   <Edit size={18} variant={'Bold'} />
                 </Button>
               }
-            />
-            <EmergencyDeleteButton
+            /> */}
+            {/* <EmergencyDeleteButton
               employeeId={employeeId}
               emergencyId={row.original.id}
-            />
+            /> */}
           </div>
         )
       },
@@ -100,7 +89,7 @@ const EmployeeListEmergency = () => {
 
 const EmployeeEmergencyContactContent = () => {
   return (
-    <OtherInformationProvider entityObjectType="emergencycontacts">
+    <OtherInformationProvider entityObjectType="contact">
       <EmployeeListEmergency />
     </OtherInformationProvider>
   )

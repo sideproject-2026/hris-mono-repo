@@ -25,7 +25,8 @@ export const useGetEmployeeOtherInformationQueryOptons = ({ employeeId, entityOb
 	return queryOptions({
 		queryKey: ['get-employee-information', employeeId, entityObjectType],
 		queryFn: async () => {
-			let url = `${ApiRoutes.EMPLOYEES.INFO(employeeId)}/?entityObjectType=${entityObjectType}`;
+			let url = `${ApiRoutes.EMPLOYEES.INFO(employeeId,entityObjectType)}`;
+			
 			const response = await request.get<ApiResponse<EmployeeOtherInformationTypes>>(url);
 			return response.data;
 		},

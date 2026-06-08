@@ -11,13 +11,14 @@ import {
   StackCol,
   StackRow,
   CollapsibleContainer,
+  DatePickerField,
 } from '@hris/shared-ui'
 
 
 import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA, COUNTRY_DATA } from '../../../types/constant'
 import { Send } from 'iconsax-reactjs'
-import { X } from 'lucide-react'
+import { Calendar, X } from 'lucide-react'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
 
 import { ROUTE } from '@/types/router'
@@ -26,12 +27,12 @@ import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
 import ViewPhoto from '../employee-personal/camera/view-photo'
-import { useEmployeeMutation } from '../../../hooks/mutations/mutations'
+import { useEmployeeMutation } from '../../../hooks/mutations/useEmployeeMutation'
 
 
 
 const EmployeeFormPersonalInfo = () => {
-  
+
   const {
     employeeInitials,
     employeePersonalInfo: info,
@@ -39,16 +40,17 @@ const EmployeeFormPersonalInfo = () => {
     createMode,
     employeeId,
   } = useEmployeeProfileContext()
-  
+
   const navigate = useNavigate()
+
   const { onSubmit,form} = useEmployeeMutation({
     defaultValue: info,
     onSuccess: (response) => {
       toast.success('Employee setup created/update successfully')
-      if(createMode)  {
+      if (createMode) {
         const id = response?.data ?? "";
         navigate({
-           to: ROUTE.EMPLOYEE_PROFILE_ROUTE(id!),
+          to: ROUTE.EMPLOYEE_PROFILE_ROUTE(id!),
         })
       }
     },
@@ -207,14 +209,14 @@ const EmployeeFormPersonalInfo = () => {
                   baseClassName="w-full"
                   disabled={isDisabled}
                 />
-                <InputField
+                <DatePickerField
                   control={form.control}
                   name="birthday"
                   label="Date of Birth *"
                   baseClassName="w-full"
                   placeholder="Select Date of Birth"
-                  type="date"
                   disabled={isDisabled}
+                  icon={<Calendar variant="Bold" size={16} />}
                 />
                 <InputField
                   control={form.control}
@@ -348,14 +350,14 @@ const EmployeeFormPersonalInfo = () => {
                   placeholder="Enter Spouse Company"
                   disabled={isDisabled}
                 />
-                <InputField
+                <DatePickerField
                   control={form.control}
                   name="spouseBirthday"
                   label="Spouse Date of Birth"
-                  type="date"
                   baseClassName="w-full"
                   placeholder="Select Spouse Date of Birth"
                   disabled={isDisabled}
+                  icon={<Calendar variant="Bold" size={16} />}
                 />
               </div>
             </CollapsibleContainer>
@@ -409,14 +411,14 @@ const EmployeeFormPersonalInfo = () => {
                   placeholder="Enter Passport Number. ex. A1234567"
                   disabled={isDisabled}
                 />
-                <InputField
+                <DatePickerField
                   control={form.control}
                   name="passportExpiry"
                   label="Expiry Date"
-                  type="date"
                   baseClassName="w-full"
                   placeholder="Select Expiry Date"
                   disabled={isDisabled}
+                  icon={<Calendar size={16} />}
                 />
                 <InputField
                   control={form.control}

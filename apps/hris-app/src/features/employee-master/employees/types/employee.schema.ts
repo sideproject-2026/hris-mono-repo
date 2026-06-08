@@ -1,8 +1,11 @@
 import { z } from 'zod'
-import { EmployeeType, GenderType, MaritalStatus } from './enum'
+import { AddressType, EmployeeRank, EmployeeType, GenderType, MaritalStatus } from './enum'
 
-/** "yyyy-MM-dd" (C# DateOnly). */
-export const dateOnly = z.iso.date();
+/** "yyyy-MM-dd" (C# DateOnly). Accepts a Date object or an ISO date string. */
+export const dateOnly = z.preprocess(
+  (val) => (val instanceof Date ? val.toLocaleDateString('en-CA') : val),
+  z.iso.date(),
+);
 
 /**
  * ISO 8601 date-time (C# DateTime).
@@ -10,8 +13,6 @@ export const dateOnly = z.iso.date();
  * with "Z" (Utc), or with an offset (Local) — accept all three.
  */
 export const dateTime = z.iso.datetime({ offset: true, local: true });
-
-
 
 export const employeeSchema = z.object({
   type: z.union([z.enum(EmployeeType), z.string().transform(Number).pipe(z.enum(EmployeeType))]),
@@ -77,4 +78,60 @@ export const employeeDefaultValues: IEmployeeModel = {
   bankAccountNo: '',
   passportNo: '',
   passportExpiry: null,
+}
+
+export const employeeCompanySchema = z.object({
+  companyCode: z.string().min(1, 'Company is required.'),
+  branch: z.string().min(1, 'Branch is required.'),
+  departmentCode: z.string().min(1, 'Department is required.'),
+  designationCode: z.string().min(1, 'Designation is required.'),
+  managerId: z.string().nullish(),
+  localNo: z.string().nullish(),
+  rank: z.union([z.enum(EmployeeRank), z.string().transform(Number).pipe(z.enum(EmployeeRank))]),
+  dateHired: dateOnly,
+  probStartDate: dateOnly.nullish(),
+  probEndDate: dateOnly.nullish(),
+  accreditation: dateOnly.nullish(),
+  deaccreditation: dateOnly.nullish(),
+})
+
+export type IEmployeeCompanyModel = z.infer<typeof employeeCompanySchema>
+
+export const employeeCompanyDefaultValues: IEmployeeCompanyModel = {
+  companyCode: '',
+  branch: '',
+  departmentCode: '',
+  designationCode: '',
+  managerId: null,
+  localNo: '',
+  rank: 0,
+  dateHired: '',
+  probStartDate: null,
+  probEndDate: null,
+  deaccreditation: null,
+  accreditation:null
+}
+
+export const addressSchema = z.object({
+    addressId: z.string().nullish(),
+    type: z.union([z.enum(AddressType), z.string().transform(Number).pipe(z.enum(AddressType))]),
+    street: z.string().min(5, "Street is required"),
+    region: z.string().min(1, "Region is required"),
+    province: z.string().min(5, "Province is required"),
+    municipality: z.string().min(5, "Municipality is required"),
+    zipCode: z.string().min(1, "Zip code is required"),
+    country: z.string().min(5, "Country is required"),
+})
+
+export type IAddressModel = z.infer<typeof addressSchema>
+
+export const addressDefaultValues: IAddressModel = {
+  addressId: null,
+  type: 0,
+  street: '',
+  region: '',
+  province: '',
+  municipality: '',
+  zipCode: '',
+  country: '',
 }

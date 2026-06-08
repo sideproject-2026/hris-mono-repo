@@ -1,5 +1,4 @@
 import {
-  Button,
   NavMenu,
   GroupContainer,
   DGridColumns,
@@ -10,21 +9,19 @@ import {
 import EmployeeFormEducation from './employee-form-education'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import OtherInformationProvider, {
-  useOtherInformationContext,
-} from '../other-information-provider'
-import { Edit } from 'iconsax-reactjs'
-import EducationDeleteButton from './education-delete-button'
+
+import OtherInformationProvider, { useOtherInformationContext } from '../providers/other-info-provider'
+import type { EmployeeEducationResponse } from '../../../types/model'
 
 const EmployeeListEducation = () => {
   const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
-  const columns: ColumnDef<EmployeeEducationTypes>[] = [
+  const columns: ColumnDef<EmployeeEducationResponse>[] = [
     {
       accessorKey: 'level',
       header: 'LEVEL',
       cell: ({ row }) => {
-        const level = row.original.level
+        const level = row.original.level.strCode
         return <span className="text-sm uppercase">{level}</span>
       },
     },
@@ -37,10 +34,10 @@ const EmployeeListEducation = () => {
       },
     },
     {
-      accessorKey: 'course',
+      accessorKey: 'degree',
       header: 'COURSE',
       cell: ({ row }) => {
-        const course = row.original.course
+        const course = row.original.degree
         return <span className="text-sm uppercase">{course}</span>
       },
     },
@@ -49,25 +46,17 @@ const EmployeeListEducation = () => {
       cell: ({ row }) => {
         return (
           <span className="text-sm uppercase">
-            {row.original.yearFrom} - {row.original.yearTo}
+            {row.original.startYear} - {row.original.graduationYear}
           </span>
         )
       },
     },
     {
-      accessorKey: 'awards',
+      accessorKey: 'honors',
       header: 'AWARDS',
       cell: ({ row }) => {
-        const awards = row.original.awards
+        const awards = row.original.honors
         return <span className="text-sm uppercase">{awards}</span>
-      },
-    },
-    {
-      accessorKey: 'attachment',
-      header: 'ATTACHMENT',
-      cell: ({ row }) => {
-        const attachment = row.original.attachment
-        return <span className="text-sm uppercase">{attachment}</span>
       },
     },
     {
@@ -76,7 +65,7 @@ const EmployeeListEducation = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            <EmployeeFormEducation
+            {/* <EmployeeFormEducation
               initialValues={row.original}
               trigger={
                 <Button variant="ghost" size="icon">
@@ -87,7 +76,7 @@ const EmployeeListEducation = () => {
             <EducationDeleteButton
               employeeId={employeeId}
               educationId={row.original.id}
-            />
+            /> */}
           </div>
         )
       },
@@ -119,7 +108,7 @@ const EmployeeListEducation = () => {
 
 const EmployeeEducationContent = () => {
   return (
-    <OtherInformationProvider entityObjectType="educations">
+    <OtherInformationProvider entityObjectType="education">
       <EmployeeListEducation />
     </OtherInformationProvider>
   )

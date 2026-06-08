@@ -9,39 +9,28 @@ import {
 } from '@/components/custom/grid/DataGrid'
 
 import type { ColumnDef } from '@tanstack/react-table'
-import OtherInformationProvider, {
-  useOtherInformationContext,
-} from '../other-information-provider'
+
 import { formatDate } from 'date-fns'
-import { Button } from '@/components/ui/button'
-import { Edit } from 'iconsax-reactjs'
-import WorkExperienceDeleteButton from './work-experience-delete-button'
+import OtherInformationProvider, { useOtherInformationContext } from '../providers/other-info-provider'
+import type { WorkExperienceResponse } from '../../../types/model'
 
 const EmployeeListWorkExperience = () => {
   const { getEmployeeInformation, employeeId } = useOtherInformationContext()
 
-  const columns: ColumnDef<EmployeeWorkExperienceTypes>[] = [
+  const columns: ColumnDef<WorkExperienceResponse>[] = [
     {
       accessorKey: 'company',
       header: 'COMPANY',
       cell: ({ row }) => {
-        const company = row.original.companyName
+        const company = row.original.company
         return <span className="text-sm uppercase">{company}</span>
-      },
-    },
-    {
-      accessorKey: 'address',
-      header: 'ADDRESS',
-      cell: ({ row }) => {
-        const address = row.original.address
-        return <span className="text-sm uppercase">{address}</span>
       },
     },
     {
       accessorKey: 'position',
       header: 'POSITION',
       cell: ({ row }) => {
-        const position = row.original.jobTitle
+        const position = row.original.position
         return <span className="text-sm uppercase">{position}</span>
       },
     },
@@ -64,17 +53,9 @@ const EmployeeListWorkExperience = () => {
         const endDate = row.original.endDate
         return (
           <span className="text-sm uppercase">
-            {formatDate(endDate, 'MMM dd, yyyy')}
+            {endDate}
           </span>
         )
-      },
-    },
-    {
-      accessorKey: 'reason',
-      header: 'REASON FOR LEAVING',
-      cell: ({ row }) => {
-        const reasonForLeaving = row.original.reason
-        return <span className="text-sm uppercase">{reasonForLeaving}</span>
       },
     },
     {
@@ -83,18 +64,18 @@ const EmployeeListWorkExperience = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            <EmployeeFormWorkExperience
+            {/* <EmployeeFormWorkExperience
               initialValues={row.original}
               trigger={
                 <Button variant="ghost" size="icon">
                   <Edit size={18} variant={'Bold'} />
                 </Button>
               }
-            />
-            <WorkExperienceDeleteButton
+            /> */}
+            {/* <WorkExperienceDeleteButton
               employeeId={employeeId}
               workExperienceId={row.original.id}
-            />
+            /> */}
           </div>
         )
       },
@@ -126,7 +107,7 @@ const EmployeeListWorkExperience = () => {
 
 const EmployeeWorkExperienceContent = () => {
   return (
-    <OtherInformationProvider entityObjectType="workexperiences">
+    <OtherInformationProvider entityObjectType="workExperience">
       <EmployeeListWorkExperience />
     </OtherInformationProvider>
   )
