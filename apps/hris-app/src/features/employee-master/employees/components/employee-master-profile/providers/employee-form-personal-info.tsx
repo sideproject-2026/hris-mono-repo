@@ -15,7 +15,7 @@ import {
 
 
 import { toast } from 'sonner'
-import { PREFIX_DATA, RELIGION_DATA } from '../../../types/constant'
+import { PREFIX_DATA, RELIGION_DATA, COUNTRY_DATA } from '../../../types/constant'
 import { Send } from 'iconsax-reactjs'
 import { X } from 'lucide-react'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
@@ -41,7 +41,6 @@ const EmployeeFormPersonalInfo = () => {
   } = useEmployeeProfileContext()
   
   const navigate = useNavigate()
-
   const { onSubmit,form} = useEmployeeMutation({
     defaultValue: info,
     onSuccess: (response) => {
@@ -61,8 +60,10 @@ const EmployeeFormPersonalInfo = () => {
     }
   })
 
-
+  
   const [isEditing, setIsEditing] = useState(false)
+
+  
   
  
   const isDisabled = !!info && !isEditing
@@ -73,8 +74,8 @@ const EmployeeFormPersonalInfo = () => {
     return isEditing ? 'UPDATE EMPLOYEE PROFILE' : 'EDIT EMPLOYEE PROFILE'
   }
 
+  console.log(form.getValues('type'));
   
-
   return (
     <Form {...form}>
       <form
@@ -295,6 +296,24 @@ const EmployeeFormPersonalInfo = () => {
                   placeholder="Enter Personal Email Address. (ex. [EMAIL_ADDRESS])"
                   disabled={isDisabled}
                 />
+                <DropdownField
+                  control={form.control}
+                  name="country"
+                  label="Country *"
+                  data={COUNTRY_DATA}
+                  baseClassName="w-full"
+                  placeholder="Select Country"
+                  disabled={isDisabled}
+                />
+                <InputField
+                  control={form.control}
+                  name="region"
+                  label="Region *"
+                  type="text"
+                  baseClassName="w-full"
+                  placeholder="Enter Region"
+                  disabled={isDisabled}
+                />
               </div>
             </CollapsibleContainer>
             <CollapsibleContainer
@@ -392,7 +411,7 @@ const EmployeeFormPersonalInfo = () => {
                 />
                 <InputField
                   control={form.control}
-                  name="passportExpiryDate"
+                  name="passportExpiry"
                   label="Expiry Date"
                   type="date"
                   baseClassName="w-full"

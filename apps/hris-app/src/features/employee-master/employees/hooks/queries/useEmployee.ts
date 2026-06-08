@@ -2,12 +2,42 @@ import { request } from "@/lib/http";
 import { ApiRoutes } from "@/types/api-routes";
 import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { EmployeeModel } from "../../types/model";
-import { useCallback } from "react";
+import type { IEmployeeModel } from "../../types/employee.schema";
+import { employeeDefaultValues } from "../../types/employee.schema";
 
-
+export const mapEmployeeToFormValues = (model: EmployeeModel): IEmployeeModel => ({
+  type: model.type.code,
+  prefix: model.prefix ?? '',
+  firstName: model.firstName,
+  middleName: model.middleName,
+  lastName: model.lastName,
+  suffix: model.suffix ?? '',
+  gender: model.gender.code,
+  maritalStatus: model.maritalStatus.code,
+  birthday: model.birthday,
+  religion: model.religion,
+  birthPlace: model.birthPlace,
+  emailAddress: model.personalEmailAddress,
+  phoneNumber: model.phoneNumber,
+  mobileNumber: model.mobileNumber,
+  nationality: model.nationality,
+  region: model.region,
+  bloodType: model.bloodType,
+  country: model.country,
+  spouseName: model.spouseFullName,
+  spouseJobTitle: model.spouseJobTitle,
+  spouseCompany: model.spouseCompany,
+  spouseBirthday: model.spouseBirthday,
+  sssNo: model.sssNo,
+  philHealthNo: model.philhealthNo,
+  tinNo: model.tinNo,
+  pagIbigNo: model.pagIbiNo,
+  bankAccountNo: model.bankAccountNo,
+  passportNo: model.passportNo,
+  passportExpiry: model.passportExpiry,
+})
 
 export const useEmployeeProfile = ({id}: {id?: string}) => {
-
    const query = useQuery(getEmployeeProfilelQueryOptions(id));
    const queryClient = useQueryClient();
    const onRefresh = () => {
@@ -16,7 +46,9 @@ export const useEmployeeProfile = ({id}: {id?: string}) => {
        })
      }
 
-   return {query,onRefresh};
+   
+
+   return {query, onRefresh};
 }
 
 

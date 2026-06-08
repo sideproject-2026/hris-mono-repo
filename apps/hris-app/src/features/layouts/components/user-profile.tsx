@@ -13,8 +13,7 @@ import { Separator } from '@hris/shared-ui'
 
 const UserProfile = () => {
   const { userProfile, getPhotoUrl } = useAuthContext()
-  console.log(userProfile);
-  console.log('User Profile:', userProfile)
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="group focus:outline-none transition-all duration-200">

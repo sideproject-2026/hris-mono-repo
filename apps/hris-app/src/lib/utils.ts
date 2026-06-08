@@ -178,6 +178,9 @@ const displayMapping: Record<string, string | number> = {
   RegularWorking: 'REGULAR WORKING',
 }
 
+export const nullIfEmpty = (v: string | null | undefined): string | null =>
+  v === '' || v == null ? null : v
+
 export const getDisplayText = (text: string | number) => displayMapping[text] || text
 export const formatRequestText = (
   types: SelectionItem<string>[] | undefined,
