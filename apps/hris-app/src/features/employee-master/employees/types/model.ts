@@ -23,61 +23,83 @@ export interface EmployeeListModel {
 }
 
 export interface EmployeeModel {
-  id: string
-  type: number
-  strType: string
-  employeeNumber: number
-  prefix: string
-  firstName: string
-  middleName: string
-  lastName: string
-  suffix: string
-  gender: number
-  strGender: string
-  maritalStatus: number
-  strMaritalStatus: string
-  religion?: string
-  designationCode?: string
-  designationName?: string
-  birthday: Date
-  birthPlace: string
-  personalEmailAddress: string
-  businessEmailAddress: string
-  phoneNumber: string
-  mobileNumber: string
-  nationality: string
-  region: string
-  bloodType: string
-  country: string
-  spouseFullName?: string
-  spouseJobTitle?: string
-  spouseCompany?: string
-  spouseBirthday?: Date
-  sssNo?: string
-  philhealthNo?: string
-  tinNo?: string
-  pagIbigNo?: string
-  bankAccountNo?: string
-  passportNo?: string
-  passportExpiry?: Date
-  companyCode?: string
-  companyName?: string
-  branch?: string
-  employeeCode?: string
-  departmentCode?: string
-  departmentName?: string
-  managerId?: string
-  managerName?: string
-  localNo?: string
-  dateHired?: Date
-  probStartDate?: Date
-  probEndDate?: Date
-  lengthOfStay: {}
-  probationaryRemaining: {}
-  photoFile?: string
-  path?: string
-  status: number
-  strStatus?: string
+  id: string;
+   type: CodeValue;
+   employeeNumber: number;
+   prefix: string;
+   firstName: string;
+   middleName: string;
+   lastName: string;
+   suffix: string;
+   fullName: string;
+   gender: CodeValue;
+   maritalStatus: CodeValue;
+   religion: string | null;
+   designationCode: string | null;
+   designationName: string | null;
+   rank: string | null;
+   birthday: string;
+   birthPlace: string;
+   age: number;
+   personalEmailAddress: string;
+   businessEmailAddress: string;
+   phoneNumber: string;
+   mobileNumber: string;
+   nationality: string;
+   region: string;
+   bloodType: string;
+   country: string;
+   spouseFullName: string | null;
+   spouseJobTitle: string | null;
+   spouseCompany: string | null;
+   spouseBirthday: string | null;
+   sssNo: string;
+   philhealthNo: string;
+   tinNo: string;
+   pagIbiNo: string;
+   bankAccountNo: string;
+   passportNo: string;
+   passportExpiry: string;
+   companyCode: string | null;
+   companyName: string | null;
+   branch: string | null;
+   employeeCode: string | null;
+   departmentCode: string | null;
+   departmentName: string | null;
+   managerId: string;
+   managerName: string | null;
+   localNo: string | null;
+   dateHired: string | null;
+   probStartDate: string | null;
+   probEndDate: string | null;
+   regularDate: string | null;
+   lengthOfStay: Duration;
+   probationaryRemaining: Duration;
+   poeaRegister: PoeaRegister;
+   endOfService: EndOfService;
+   photoFile: string;
+   path: string;
+   status: CodeValue;
+}
+
+export interface Duration {
+   years: number;
+   months: number;
+   days: number;
+}
+
+export interface PoeaRegister {
+   accredited: string | null;
+   deAccredited: string | null;
+   referenceNo: string | null;
+   isActive: boolean;
+}
+
+export interface EndOfService {
+   endOfServiceDate: string | null;
+   notes: string | null;
+   isEligableToRehire: boolean;
+   rehireDate: string | null;
 }
 
 export interface LengthOfStay {}

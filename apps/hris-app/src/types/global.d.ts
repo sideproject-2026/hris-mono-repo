@@ -42,3 +42,8 @@ declare interface PageType {
     pageSize: number;
 }
 
+
+declare type CodeValue = {
+   code: number;
+   strCode: string;
+}
