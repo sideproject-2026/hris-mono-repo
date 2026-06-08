@@ -11,26 +11,22 @@ import {
   StackCol,
   StackRow,
   CollapsibleContainer,
-  SwitchInput,
 } from '@hris/shared-ui'
 
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA } from '../../../types/constant'
 import { Send } from 'iconsax-reactjs'
 import { X } from 'lucide-react'
-import { employeePersonalMutation } from '@/features/employee-master/employees/hooks/useEmployee'
 import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
 
 import { ROUTE } from '@/types/router'
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react'
 import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
 import ViewPhoto from '../employee-personal/camera/view-photo'
-import { employeeDefaultValues, employeeSchema, type IEmployeeModel } from '../../../types/employee.schema'
+import { useEmployeeMutation } from '../../../hooks/mutations'
 
 
 
@@ -45,49 +41,29 @@ const EmployeeFormPersonalInfo = () => {
   } = useEmployeeProfileContext()
   
   const navigate = useNavigate()
-  const { mutateAsync: createEmployeePersonalInfo } = employeePersonalMutation()
-  const [isEditing, setIsEditing] = useState(false)
 
-  const form = useForm<IEmployeeModel>({
-    resolver: zodResolver(employeeSchema) as any,
-    defaultValues: employeeDefaultValues
-  })
-
-  
-  useEffect(() => {
-    if (info) {
-      form.reset({
-        type: info.type,
-        prefix: info.prefix,
-        lastName: info.lastName,
-        firstName: info.firstName,
-        middleName: info.middleName,
-        suffix: info.suffix,
-        gender: info.gender,
-        maritalStatus: info.maritalStatus,
-        birthday: info.birthday,
-        religion: info.religion,
-        birthPlace: info.birthPlace,
-        emaillAddress: info.personalEmailAddress,
-        phoneNumber: info.phoneNumber,
-        mobileNumber: info.mobileNumber,
-        nationality: info.nationality,
-        region: info.region,
-        bloodType: info.bloodType,
-        country: info.country,
-        spouseName: info.spouseFullName,
-        spouseCompany: info.spouseCompany,
-        spouseBirthday: info.spouseBirthday,
-        sssNo: info.sssNo,
-        philHealthNo: info.philhealthNo,
-        tinNo: info.tinNo,
-        pagIbigNo: info.pagIbigNo,
-        bankAccountNo: info.bankAccountNo,
-        passportNo: info.passportNo,
-        passportExpiryDate: info.passportExpiry,
+  const { onSubmit,form} = useEmployeeMutation({
+    defaultValue: info,
+    onSuccess: (response) => {
+      toast.success('Employee setup created/update successfully')
+      if(createMode)  {
+        const id = response?.data ?? "";
+        navigate({
+           to: ROUTE.EMPLOYEE_PROFILE_ROUTE(id!),
+        })
+      }
+    },
+    onError: (error) => {
+      toast.error('Failed to create employee setup', {
+        description: getErrorMessage(error),
+        style: { color: 'red' },
       })
     }
-  }, [info])
+  })
+
+
+  const [isEditing, setIsEditing] = useState(false)
+  
  
   const isDisabled = !!info && !isEditing
   const showFields = !createMode && !isEditing
@@ -97,26 +73,7 @@ const EmployeeFormPersonalInfo = () => {
     return isEditing ? 'UPDATE EMPLOYEE PROFILE' : 'EDIT EMPLOYEE PROFILE'
   }
 
-  const onSubmit = async (data: IEmployeeModel) => {
-    try {
-      const response = await createEmployeePersonalInfo({
-        id: employeeId,
-        data,
-      })
-      toast.success('Employee setup created/update successfully')
-      if(createMode)  {
-        const id = response?.data ?? "";
-        navigate({
-           to: ROUTE.EMPLOYEE_PROFILE_ROUTE(id!),
-        })
-      }
-    } catch (error) {
-      toast.error('Failed to create employee setup', {
-        description: getErrorMessage(error),
-        style: { color: 'red' },
-      })
-    }
-  }
+  
 
   return (
     <Form {...form}>
@@ -331,7 +288,7 @@ const EmployeeFormPersonalInfo = () => {
                 />
                 <InputField
                   control={form.control}
-                  name="emaillAddress"
+                  name="emailAddress"
                   label="Personal Email Address"
                   type="email"
                   baseClassName="w-full"
