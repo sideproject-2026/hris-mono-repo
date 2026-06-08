@@ -77,3 +77,13 @@ npm run build
 - **Lint**: `npm run lint`
 - **Format**: `npm run format`
 - **Check**: `npm run check` (Runs prettier and eslint)
+
+
+### Environment
+```env
+VITE_API_URL=https://localhost:7127/api
+VITE_API_URL_1=https://localhost:7041/v1/api
+VITE_API_URL_1=http://10.70.1.94:8092/api
+VITE_API_URL_1=http://192.168.248.15:8092/v1/api
+VITE_APP_VERSION=1.2.8
+```
