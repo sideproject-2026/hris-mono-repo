@@ -1,25 +1,25 @@
 export interface EmployeeListModel {
-  id: string
-  employeeType: string
-  employeeNumber: number
-  firstName: string
-  middleName: string
-  lastName: string
-  fullName: string
-  dateHired?: Date
-  probStartDate?: Date
-  probEndDate?: Date
-  lengthOfService: string
-  probationaryRemaining: string
-  designation?: string
-  department?: string
-  companyCode?: string
-  companyName?: string
-  branch?: string
-  employeeCode?: string
-  photoFile?: string
-  path?: string
-  status: string
+  id: string;
+  employeeNumber: number;
+  employeeType: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  fullName: string;
+  dateHired: string | null;
+  probStartDate: string | null;
+  probEndDate: string | null;
+  lengthOfService: string;
+  probationaryRemaining: string;
+  designation: string;
+  department: string;
+  companyCode: string;
+  companyName: string;
+  branch: string | null;
+  employeeCode: string;
+  photoFile: string;
+  path: string;
+  status: string;
 }
 
 export interface EmployeeModel {

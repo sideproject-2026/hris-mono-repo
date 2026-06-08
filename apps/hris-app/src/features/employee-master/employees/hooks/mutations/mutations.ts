@@ -1,10 +1,10 @@
 import { ApiRoutes } from "@/types/api-routes";
 import { useMutation } from "@tanstack/react-query";
-import { employeeDefaultValues, employeeSchema, type IEmployeeModel } from "../types/employee.schema";
+import { employeeDefaultValues, employeeSchema, type IEmployeeModel } from "../../types/employee.schema";
 import { request } from "@/lib/http";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { EmployeeModel } from "../types/model";
+import type { EmployeeModel } from "../../types/model";
 import { useEffect } from "react";
 
 export const useEmployeeMutation = ({ id, defaultValue,onSuccess,onError }: { 

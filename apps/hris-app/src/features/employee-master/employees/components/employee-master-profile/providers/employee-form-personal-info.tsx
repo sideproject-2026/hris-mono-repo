@@ -26,7 +26,7 @@ import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
 import ViewPhoto from '../employee-personal/camera/view-photo'
-import { useEmployeeMutation } from '../../../hooks/mutations'
+import { useEmployeeMutation } from '../../../hooks/mutations/mutations'
 
 
 

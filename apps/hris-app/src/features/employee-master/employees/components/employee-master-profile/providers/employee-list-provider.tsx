@@ -8,6 +8,7 @@ import {
 } from '../../../types/search'
 import { PAGINATION_DEFAULTS } from '@/components/custom/grid/types/constants'
 import type { EmployeeListModel } from '../../../types/model'
+import { useEmployeeList } from '../../../hooks/queries/useEmployeeList'
 
 type EmployeeContextType = {
   employeesData: PaginatedResponse<EmployeeListModel>
@@ -28,38 +29,16 @@ export const EmployeeListProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [search, setSearch] = useQueryStates(employeeSearchInitialParser)
-  const { data: employees, isFetching } = useQuery(
-    employeesListQueryOptions({ params: search }),
-  )
 
   
-  const queryClient = useQueryClient()
-
-  const handleNextPrevPage = useCallback(
-    (pageNumber: number) => {
-      setSearch((prev) => ({
-        ...prev,
-        pageNumber,
-      }))
-    },
-    [setSearch],
-  )
-
-  const handlePageSizeChange = useCallback(
-    (pageSize: number) => {
-      setSearch((prev) => ({
-        ...prev,
-        pageSize,
-        pageNumber: 1,
-      }))
-    },
-    [setSearch],
-  )
-
-  const handleRefresh = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: ['employees-list'] })
-  }, [queryClient])
+  const {
+    query: {data: employees,isFetching},
+    handleNextPrevPage,
+    handlePageSizeChange,
+    handleRefresh,search,setSearch} = useEmployeeList();
+  
+  
+  
 
   const contextValue = {
     search,
