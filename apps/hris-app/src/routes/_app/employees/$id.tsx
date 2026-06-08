@@ -3,10 +3,10 @@ import EmployeeMasterForm from '@/features/employee-master/employees/components/
 import { employeeSearchInitialParser } from '@/features/employee-master/employees/types/search'
 import { createStandardSchemaV1 } from 'nuqs'
 import {
-  employeeInitialQueryOptions,
   getEmployeeProfilelQueryOptions,
 } from '@/features/employee-master/employees/hooks/useEmployee'
 import EmployeePersonalProvider from '@/features/employee-master/employees/components/employee-master-profile/employee-personal/employee-personal-provider'
+import { queryOptionsInitial } from '@/features/employee-master/employees/hooks/queries/useEmployee'
 
 export const Route = createFileRoute('/_app/employees/$id')({
   validateSearch: createStandardSchemaV1(employeeSearchInitialParser, {
@@ -18,7 +18,7 @@ export const Route = createFileRoute('/_app/employees/$id')({
       getEmployeeProfilelQueryOptions(queryId),
     )
 
-    const initialLoaderData = await context.queryClient.ensureQueryData(employeeInitialQueryOptions())
+    const initialLoaderData = await context.queryClient.ensureQueryData(queryOptionsInitial())
     return {
       data,
       initialLoaderData,

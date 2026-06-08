@@ -113,6 +113,7 @@ const createFilterValue = (search: Record<string, any>): string[] => {
 }
 
 const EmployeePage = () => {
+
   const navigate = useNavigate()
   const {
     employeesData,
@@ -284,7 +285,7 @@ const EmployeePage = () => {
     })
   }
 
-  const response: PaginatedResponse<EmployeeActiveTypes> = {
+  const response: PaginatedResponse<EmployeeListModel> = {
     data: employeesData?.data ?? [],
     totalCount: employeesData?.totalCount ?? 0,
     currentPage: employeesData?.currentPage ?? 1,

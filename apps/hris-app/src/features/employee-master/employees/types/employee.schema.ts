@@ -22,7 +22,7 @@ export const employeeSchema = z.object({
   suffix: z.string(),
   gender: z.enum(GenderType),
   maritalStatus: z.enum(MaritalStatus),
-  birthday: dateTime,
+  birthday: z.date(),
   religion: z.string().nullish(),
   birthPlace: z.string().max(200).nullish(),
   emailAddress: z.string().nullish().pipe(z.email("Email address is not valid.")),

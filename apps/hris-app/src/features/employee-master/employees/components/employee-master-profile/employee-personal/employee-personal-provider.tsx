@@ -13,6 +13,7 @@ import {
   type FC,
 } from 'react'
 import type { EmployeeModel } from '../../../types/model'
+import { useEmployeeProfile } from '../../../hooks/queries/useEmployee'
 
 type EmployeePersonalContextType = {
   employeeInitials?: EmployeeInitials
@@ -34,17 +35,15 @@ export const EmployeePersonalProvider: FC<{
 }> = ({ children, id }) => {
 
 
-  const { data } = useQuery(getEmployeeProfilelQueryOptions(id))
+  
+  const {query: {data},onRefresh} = useEmployeeProfile({id});
   const [isCaptured, setIsCaptured] = useState<boolean>(false)
-
   const queryClient = useQueryClient()
   const initialData = queryClient.getQueryData(employeeInitialQueryOptions().queryKey)
-  console.log("Initial Data",initialData);
+  
 
   const handleRefresh = useCallback(() => {
-    queryClient.invalidateQueries({
-      queryKey: ['employee-personal', id],
-    })
+    onRefresh();
     setIsCaptured((prev) => !prev) // Toggle to trigger re-render if needed
   }, [queryClient, id])
 
