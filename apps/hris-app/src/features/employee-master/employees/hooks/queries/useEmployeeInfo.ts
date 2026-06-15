@@ -35,6 +35,7 @@ export const queryOptionsInfo = <T extends EntityObjectType>({
     },
     enabled: !!employeeId && !!entityObjectType,
     staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false
   });
 };
 

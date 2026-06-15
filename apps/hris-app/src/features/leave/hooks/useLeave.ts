@@ -1,4 +1,4 @@
-import type { LeaveBalanceType } from "@/features/form-request/types/global"
+import type { LeaveBalanceType } from "@/features/attendance-modules/form-request/types/global"
 import { request } from "@/lib/http"
 import { ApiRoutes } from "@/types/api-routes"
 import { queryOptions, useMutation } from "@tanstack/react-query"

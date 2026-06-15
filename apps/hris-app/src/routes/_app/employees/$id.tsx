@@ -5,7 +5,7 @@ import { createStandardSchemaV1 } from 'nuqs'
 import {
   getEmployeeProfilelQueryOptions,
 } from '@/features/employee-master/employees/hooks/useEmployee'
-import EmployeePersonalProvider from '@/features/employee-master/employees/components/employee-master-profile/employee-personal/employee-personal-provider'
+import EmployeePersonalProvider from '@/features/employee-master/employees/components/employee-master-profile/providers/employee-personal-provider'
 import { queryOptionsInitial } from '@/features/employee-master/employees/hooks/queries/useEmployee'
 
 export const Route = createFileRoute('/_app/employees/$id')({

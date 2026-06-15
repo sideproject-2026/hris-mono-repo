@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import type { Control, FieldValues, Path } from 'react-hook-form'
 import { Button } from '../ui/button'
 import {
@@ -23,21 +23,31 @@ interface SelectionItem<T> {
   text: string
 }
 
-interface DropdownFieldProps<T extends FieldValues> {
+type DropdownValueType = 'string' | 'int' | 'object'
+
+interface DropdownFieldProps<T extends FieldValues, TValue = string> {
   control: Control<T>
   name: Path<T>
   label?: string
   type?: string
-  data: SelectionItem<string>[] // Ensure this is never undefined when passed
+  data: SelectionItem<TValue>[] // Ensure this is never undefined when passed
+  /**
+   * How the selected option should be written back into the form:
+   * - 'string' (default) — the option value as a string
+   * - 'int' — the option value parsed/kept as a number
+   * - 'object' — the original option value object, untouched
+   */
+  valueType?: DropdownValueType
   baseClassName?: string
   inputClassName?: string
   placeholder?: string
   disabled?: boolean
   icon?: ReactNode
   hideCloseButton?: boolean
+  defaultValue?: string;
 }
 
-const DropdownField = <T extends FieldValues>({
+const DropdownField = <T extends FieldValues, TValue = string>({
   control,
   name,
   label,
@@ -47,16 +57,48 @@ const DropdownField = <T extends FieldValues>({
   icon,
   disabled = false,
   hideCloseButton = false,
-}: DropdownFieldProps<T>) => {
+  valueType = 'string',
+  defaultValue
+}: DropdownFieldProps<T, TValue>) => {
+  // Radix Select only works with string values, so each option is serialized
+  // to a string key, and on change we map back to the original typed value.
+  const serialize = (value: unknown): string => {
+   
+    if (value === null || value === undefined) return ''
+    return valueType === 'object' ? JSON.stringify(value) : String(value)
+  }
+
+ 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => {
-
+        
         // 3. Ensure value is a string for Shadcn Select, handle null/undefined safely
-        const safeValue = field.value?.toString() ?? ''
-       
+        const safeValue = serialize(field.value)
+
+        const handleValueChange = (selected: string) => {
+          // Radix Select emits onValueChange('') spuriously (e.g. on the
+          // StrictMode dev remount via its hidden native select). No option
+          // ever has an empty value — clearing is handled by the X button —
+          // so an empty selection is always noise and must not wipe the field.
+          if (selected === '') return
+
+          if (valueType === 'string') {
+            field.onChange(selected)
+            return
+          }
+          const match = data.find((item) => serialize(item?.value) === selected)
+          if (match) {
+            field.onChange(match.value)
+          } else if (valueType === 'int') {
+            field.onChange(Number(selected))
+          } else {
+            field.onChange(null)
+          }
+        }
+
         return (
           <FormItem className={baseClassName}>
             {label && (
@@ -67,7 +109,7 @@ const DropdownField = <T extends FieldValues>({
             <div className="relative flex items-center w-full border rounded-md">
               <div className="relative w-full">
                 <Select
-                  onValueChange={field.onChange}
+                  onValueChange={handleValueChange}
                   value={safeValue}
                   disabled={disabled}
                 >
@@ -95,8 +137,8 @@ const DropdownField = <T extends FieldValues>({
                     {data.length > 0 ? (
                       data.map((item) => (
                         <SelectItem
-                          key={item?.value}
-                          value={item?.value?.toString()}
+                          key={serialize(item?.value)}
+                          value={serialize(item?.value)}
                         >
                           {item?.text}
                         </SelectItem>
@@ -117,7 +159,7 @@ const DropdownField = <T extends FieldValues>({
                   className="h-8 w-8 px-0" // Added sizing for the clear button
                   onClick={(e) => {
                     e.preventDefault() // Better than stopPropagation for form elements
-                    field.onChange('')
+                    field.onChange(valueType === 'string' ? '' : null)
                   }}
                   tabIndex={-1}
                   aria-label="Clear selection"

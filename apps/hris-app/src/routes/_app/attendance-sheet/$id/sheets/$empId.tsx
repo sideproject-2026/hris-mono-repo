@@ -1,10 +1,11 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import NotFoundErrors from '@/components/custom/misc/NotFoundErrors'
-import RouteDetailComponent from '@/features/attendance-management/attendance-details/components/route-detail-component'
-import { getAttendanceDetailOptions } from '@/features/attendance-management/hooks/useAttendanceDetail'
-import AttendanceDetailProvider from '@/features/attendance-management/attendance-details/providers/attendance-detail-provider'
+import { getAttendanceDetailOptions } from '@/features/attendance-modules/attendance-management/hooks/useAttendanceDetail'
+import AttendanceDetailProvider from '@/features/attendance-modules/attendance-management/attendance-details/providers/attendance-detail-provider'
+import { DetailActionProvider } from '@/features/attendance-modules/attendance-management/attendance-details/providers/detail-action-provider'
+import RouteDetailComponent from '@/features/attendance-modules/attendance-management/attendance-details/components/route-detail-component'
 import { ROUTE } from '@/types/router'
-import { DetailActionProvider } from '@/features/attendance-management/attendance-details/providers/detail-action-provider'
+
 
 export const Route = createFileRoute(
   '/_app/attendance-sheet/$id/sheets/$empId',

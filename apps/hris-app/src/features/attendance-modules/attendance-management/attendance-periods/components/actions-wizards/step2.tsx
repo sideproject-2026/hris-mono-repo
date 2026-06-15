@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import type { FieldValues, UseFormReturn } from 'react-hook-form'
 import type { AttendancePeriodFormValues } from '../../../types/schema'
 import { Input, ListView, Button } from '@hris/shared-ui'
-import { getListEmployeeOptions } from '@/features/attendance-management/hooks/useAttendanceProcess'
+import { getListEmployeeOptions } from '@/features/attendance-modules/attendance-management/hooks/useAttendanceProcess'
 
 /**
  * Component: Step2

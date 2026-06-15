@@ -15,26 +15,26 @@ export const mapEmployeeToFormValues = (model: EmployeeModel): IEmployeeModel =>
   gender: model.gender.code,
   maritalStatus: model.maritalStatus.code,
   birthday: model.birthday,
-  religion: model.religion,
-  birthPlace: model.birthPlace,
-  emailAddress: model.personalEmailAddress,
-  phoneNumber: model.phoneNumber,
-  mobileNumber: model.mobileNumber,
-  nationality: model.nationality,
-  region: model.region,
-  bloodType: model.bloodType,
-  country: model.country,
-  spouseName: model.spouseFullName,
-  spouseJobTitle: model.spouseJobTitle,
-  spouseCompany: model.spouseCompany,
-  spouseBirthday: model.spouseBirthday,
-  sssNo: model.sssNo,
-  philHealthNo: model.philhealthNo,
-  tinNo: model.tinNo,
-  pagIbigNo: model.pagIbiNo,
-  bankAccountNo: model.bankAccountNo,
-  passportNo: model.passportNo,
-  passportExpiry: model.passportExpiry,
+  religion: model.religion ?? '',
+  birthPlace: model.birthPlace ?? '',
+  emailAddress: model.personalEmailAddress ?? '',
+  phoneNumber: model.phoneNumber ?? '',
+  mobileNumber: model.mobileNumber ?? '',
+  nationality: model.nationality ?? '',
+  region: model.region ?? '',
+  bloodType: model.bloodType ?? '',
+  country: model.country ?? '',
+  spouseName: model.spouseFullName ?? '',
+  spouseJobTitle: model.spouseJobTitle ?? '',
+  spouseCompany: model.spouseCompany ?? '',
+  spouseBirthday: model.spouseBirthday ?? '',
+  sssNo: model.sssNo ?? '',
+  philHealthNo: model.philhealthNo ?? '',
+  tinNo: model.tinNo ?? '',
+  pagIbigNo: model.pagIbiNo ?? '',
+  bankAccountNo: model.bankAccountNo ?? '',
+  passportNo: model.passportNo ?? '',
+  passportExpiry: model.passportExpiry ?? '',
 })
 
 export const useEmployeeProfile = ({id}: {id?: string}) => {
@@ -70,6 +70,21 @@ export const getEmployeeProfilelQueryOptions = (id?: string) => {
 
 
 
+
+export const getEmployeePhotoQueryOptions = (id?: string, enabled = true) => {
+   return queryOptions({
+      queryKey: ['employee-photo', id],
+      queryFn: async () => {
+         if (!id) return null;
+
+         const url = ApiRoutes.EMPLOYEES.VIEW_PHOTO(id);
+         return await request.getBlob(url);
+      },
+      enabled: !!id && enabled,
+      staleTime: 1000 * 60 * 5, // 5 minutes,
+      refetchOnWindowFocus: false,
+   })
+}
 
 export const queryOptionsInitial = () => {
    return queryOptions({

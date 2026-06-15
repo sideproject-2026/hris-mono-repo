@@ -1,9 +1,16 @@
 import { z } from 'zod'
 import { AddressType, EmployeeRank, EmployeeType, GenderType, MaritalStatus } from './enum'
 
-/** "yyyy-MM-dd" (C# DateOnly). Accepts a Date object or an ISO date string. */
+/**
+ * "yyyy-MM-dd" (C# DateOnly). Accepts a Date object, an ISO date string,
+ * or an ISO datetime string (C# DateTime — the time portion is dropped).
+ */
 export const dateOnly = z.preprocess(
-  (val) => (val instanceof Date ? val.toLocaleDateString('en-CA') : val),
+  (val) => {
+    if (val instanceof Date) return val.toLocaleDateString('en-CA')
+    if (typeof val === 'string' && val.includes('T')) return val.split('T')[0]
+    return val
+  },
   z.iso.date(),
 );
 
@@ -70,14 +77,14 @@ export const employeeDefaultValues: IEmployeeModel = {
   spouseName: '',
   spouseJobTitle: '',
   spouseCompany: '',
-  spouseBirthday: null,
+  spouseBirthday: '',
   sssNo: '',
   philHealthNo: '',
   tinNo: '',
   pagIbigNo: '',
   bankAccountNo: '',
   passportNo: '',
-  passportExpiry: null,
+  passportExpiry: '',
 }
 
 export const employeeCompanySchema = z.object({

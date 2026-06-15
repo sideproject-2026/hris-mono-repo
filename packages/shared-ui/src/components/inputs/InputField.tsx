@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 import type { ReactNode } from 'react'
-import type { Control, FieldValues, Path } from 'react-hook-form'
+import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
 import {
   FormControl,
   FormField,
@@ -60,7 +60,7 @@ const InputField = <T extends FieldValues>({
   orientation = 'vertical',
 }: InputFieldProps<T>) => {
   return (
-    <FormField
+    <Controller
       control={control}
       name={name}
       render={({ field }) => {

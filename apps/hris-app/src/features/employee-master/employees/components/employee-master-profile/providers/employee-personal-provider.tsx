@@ -1,19 +1,16 @@
-import {
-  employeeInitialQueryOptions,
-  getEmployeeProfilelQueryOptions,
-} from '@/features/employee-master/employees/hooks/useEmployee'
-
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import {
   createContext,
-  Suspense,
   useCallback,
   useContext,
   useState,
   type FC,
 } from 'react'
 import type { EmployeeModel } from '../../../types/model'
-import { useEmployeeProfile } from '../../../hooks/queries/useEmployee'
+import {
+  employeeInitialQueryOptions,
+  getEmployeeProfilelQueryOptions,
+} from '../../../hooks/useEmployee'
 
 type EmployeePersonalContextType = {
   employeeInitials?: EmployeeInitials
@@ -36,14 +33,13 @@ export const EmployeePersonalProvider: FC<{
 
 
   
-  const {query: {data},onRefresh} = useEmployeeProfile({id});
+  const { data } = useSuspenseQuery(getEmployeeProfilelQueryOptions(id))
+  const { data: initialData } = useSuspenseQuery(employeeInitialQueryOptions())
   const [isCaptured, setIsCaptured] = useState<boolean>(false)
   const queryClient = useQueryClient()
-  const initialData = queryClient.getQueryData(employeeInitialQueryOptions().queryKey)
-  
 
   const handleRefresh = useCallback(() => {
-    onRefresh();
+    queryClient.invalidateQueries({ queryKey: ['employee-personal', id] })
     setIsCaptured((prev) => !prev) // Toggle to trigger re-render if needed
   }, [queryClient, id])
 
@@ -61,7 +57,7 @@ export const EmployeePersonalProvider: FC<{
 
   return (
     <EmployeePersonalContext.Provider value={contextValue}>
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      {children}
     </EmployeePersonalContext.Provider>
   )
 }

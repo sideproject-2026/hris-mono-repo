@@ -12,6 +12,7 @@ import {
   StackRow,
   CollapsibleContainer,
   DatePickerField,
+  Input,
 } from '@hris/shared-ui'
 
 
@@ -19,15 +20,17 @@ import { toast } from 'sonner'
 import { PREFIX_DATA, RELIGION_DATA, COUNTRY_DATA } from '../../../types/constant'
 import { Send } from 'iconsax-reactjs'
 import { Calendar, X } from 'lucide-react'
-import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useEmployeeProfileContext } from '../providers/employee-personal-provider'
 
 import { ROUTE } from '@/types/router'
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { getErrorMessage } from '@/lib/utils'
 
 import { useNavigate } from '@tanstack/react-router'
-import ViewPhoto from '../employee-personal/camera/view-photo'
+import ViewPhoto from './camera/view-photo'
 import { useEmployeeMutation } from '../../../hooks/mutations/useEmployeeMutation'
+import { mapEmployeeToFormValues } from '../../../hooks/queries/useEmployee'
+import { Controller } from 'react-hook-form'
 
 
 
@@ -62,6 +65,15 @@ const EmployeeFormPersonalInfo = () => {
     }
   })
 
+  useEffect(() => {
+      if (info) {
+        const mapEmployee = mapEmployeeToFormValues(info)
+        form.reset(mapEmployee)
+      }
+    }, [info])
+
+
+
   
   const [isEditing, setIsEditing] = useState(false)
 
@@ -76,7 +88,7 @@ const EmployeeFormPersonalInfo = () => {
     return isEditing ? 'UPDATE EMPLOYEE PROFILE' : 'EDIT EMPLOYEE PROFILE'
   }
 
-  console.log(form.getValues('type'));
+
   
   return (
     <Form {...form}>
@@ -141,11 +153,18 @@ const EmployeeFormPersonalInfo = () => {
                   control={form.control}
                   name="type"
                   label="Employee Type"
+                  valueType='string'
                   data={employeeInitials?.types ?? []}
                   baseClassName="w-full"
-                  placeholder="Select Employee Type"
+                  placeholder={`${form.getValues()}`}
                   disabled={isDisabled}
                 />
+
+                {/* <InputField
+                control={form.control}
+                name="type"
+                /> */}
+             
               </StackRow>
             </CollapsibleContainer>
             <CollapsibleContainer
@@ -249,6 +268,7 @@ const EmployeeFormPersonalInfo = () => {
                   control={form.control}
                   name="maritalStatus"
                   label="Civil Status *"
+                  valueType='int'
                   data={employeeInitials?.civilStatus ?? []}
                   baseClassName="w-full"
                   placeholder="Select Civil Status"

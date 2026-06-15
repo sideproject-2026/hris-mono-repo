@@ -1,6 +1,7 @@
-import AttendanceDetailProvider from '@/features/attendance-management/attendance-details/providers/attendance-detail-provider'
-import TimeLogContainer from '@/features/attendance-management/attendance-reports/time-log-pdf'
-import { getAttendanceDetailOptions } from '@/features/attendance-management/hooks/useAttendanceDetail'
+
+import AttendanceDetailProvider from '@/features/attendance-modules/attendance-management/attendance-details/providers/attendance-detail-provider'
+import TimeLogContainer from '@/features/attendance-modules/attendance-management/attendance-reports/time-log-pdf'
+import { getAttendanceDetailOptions } from '@/features/attendance-modules/attendance-management/hooks/useAttendanceDetail'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

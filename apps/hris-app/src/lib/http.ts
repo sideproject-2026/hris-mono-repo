@@ -117,6 +117,7 @@ api.interceptors.response.use(
 
 export const request = {
    get: <T>(url: string) => api.get<T>(url).then(responseBody),
+   getBlob: (url: string) => api.get<Blob>(url, { responseType: 'blob' }).then(responseBody),
    post: <T>(url: string, body?: any) => api.post<T>(url, body).then(responseBody),
    patch: <T>(url: string, body?: any) => api.patch<T>(url, body).then(responseBody),
    put: <T>(url: string, body?: any) => api.put<T>(url, body).then(responseBody),

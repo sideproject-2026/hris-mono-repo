@@ -18,7 +18,7 @@ export const mapEmployeeToCompanyFormValues = (model: EmployeeModel): IEmployeeC
   designationCode: model.designationCode ?? '',
   managerId: model.managerId ?? null,
   localNo: model.localNo ?? null,
-  rank: model.rank.code,
+  rank: model.rank?.code ?? null,
   dateHired: model.dateHired ?? '',
   probStartDate: model.probStartDate ?? null,
   probEndDate: model.probEndDate ?? null,

@@ -14,7 +14,8 @@ export const ApiRoutes = {
     LIST: '/employees',
     INITIAL: '/employees/initial',
     ACTIVE: '/employees/active',
-    UPLOAD_PHOTO: '/employees/upload-photo',
+    UPLOAD_PHOTO: (employeeId: string) => `/employees/${employeeId}/photo`,
+    VIEW_PHOTO: (employeeId: string) => `/employees/${employeeId}/photo`,
     BY_ID: (id: string) => `/employees/${id}`,
     APPOINT: (id: string) => `/employees/${id}/company`,
     APPOINTMENTS: (id: string) => `/employees/${id}/appointments`,
@@ -116,9 +117,10 @@ export const ApiRoutes = {
   },
 
   HR_FORMS: {
-    LIST: 'hr-form',
-    INITIAL: '/hr-form/initial',
-    BY_EMPLOYEE: (employeeId: string) => `/hr-form/${employeeId}`,
+    LIST: 'action-forms',
+    CREATE: 'action-forms',
+    INITIAL: '/action-forms/initial',
+    BY_EMPLOYEE: (employeeId: string) => `/action-forms/${employeeId}`,
   },
 
   IDENTITY: {

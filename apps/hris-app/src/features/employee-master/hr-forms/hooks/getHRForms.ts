@@ -18,7 +18,7 @@ export const useGetHRForms = ({ pageNumber, pageSize }: { pageNumber: number, pa
    return query;
 }
 
-export const useGetHRInitials = () => {
+export const queryOptionInitial = () => {
    return queryOptions({
       queryKey: ['hrInitials'],
       queryFn: async () => {

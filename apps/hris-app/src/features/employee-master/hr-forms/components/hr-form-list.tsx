@@ -26,7 +26,8 @@ import {
   NavMenu
 } from '@hris/shared-ui'
 import { Eye, HamburgerMenu } from 'iconsax-reactjs'
-import HRForm from './hr-form'
+import { Link } from '@tanstack/react-router'
+import { Plus } from 'lucide-react'
 
 const HRFormList = () => {
   const { hrFormsData, handlePrevNextPage, handlePageSizeChange, onRefresh } =
@@ -143,7 +144,15 @@ const HRFormList = () => {
       </HeaderContainer>
       <PageContainer loading={false} className="space-y-3">
         <NavMenu>
-          <HRForm />
+          <Button
+            asChild
+            variant="ghost"
+            className="uppercase font-sans text-sm font-semibold"
+          >
+            <Link to="/hr-forms/create">
+              <Plus className="size-4" /> Create New Request
+            </Link>
+          </Button>
           <Separator orientation="vertical" />
           <Button
             variant="ghost"

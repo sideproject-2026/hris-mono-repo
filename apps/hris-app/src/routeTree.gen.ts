@@ -18,11 +18,13 @@ import { Route as AppWorkScheduleRouteImport } from './routes/_app/work-schedule
 import { Route as AppLeaveRouteImport } from './routes/_app/leave'
 import { Route as AppFormRequestRouteImport } from './routes/_app/form-request'
 import { Route as AppEmployeeSetupRouteImport } from './routes/_app/employee-setup'
+import { Route as AppDropdownTestRouteImport } from './routes/_app/dropdown-test'
 import { Route as AppCalendarRouteImport } from './routes/_app/calendar'
 import { Route as AppAttendancePolicyRouteImport } from './routes/_app/attendance-policy'
 import { Route as AppAttendancePeriodRouteImport } from './routes/_app/attendance-period'
 import { Route as AppHrFormsIndexRouteImport } from './routes/_app/hr-forms/index'
 import { Route as AppEmployeesIndexRouteImport } from './routes/_app/employees/index'
+import { Route as AppHrFormsCreateRouteImport } from './routes/_app/hr-forms/create'
 import { Route as AppEmployeesCreateRouteImport } from './routes/_app/employees/create'
 import { Route as AppEmployeesIdRouteImport } from './routes/_app/employees/$id'
 import { Route as AppAttendanceSheetReportsRouteImport } from './routes/_app/attendance-sheet/reports'
@@ -79,6 +81,11 @@ const AppEmployeeSetupRoute = AppEmployeeSetupRouteImport.update({
   path: '/employee-setup',
   getParentRoute: () => AppRoute,
 } as any)
+const AppDropdownTestRoute = AppDropdownTestRouteImport.update({
+  id: '/dropdown-test',
+  path: '/dropdown-test',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCalendarRoute = AppCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
@@ -102,6 +109,11 @@ const AppHrFormsIndexRoute = AppHrFormsIndexRouteImport.update({
 const AppEmployeesIndexRoute = AppEmployeesIndexRouteImport.update({
   id: '/employees/',
   path: '/employees/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHrFormsCreateRoute = AppHrFormsCreateRouteImport.update({
+  id: '/hr-forms/create',
+  path: '/hr-forms/create',
   getParentRoute: () => AppRoute,
 } as any)
 const AppEmployeesCreateRoute = AppEmployeesCreateRouteImport.update({
@@ -174,6 +186,7 @@ export interface FileRoutesByFullPath {
   '/attendance-period': typeof AppAttendancePeriodRoute
   '/attendance-policy': typeof AppAttendancePolicyRoute
   '/calendar': typeof AppCalendarRoute
+  '/dropdown-test': typeof AppDropdownTestRoute
   '/employee-setup': typeof AppEmployeeSetupRoute
   '/form-request': typeof AppFormRequestRoute
   '/leave': typeof AppLeaveRoute
@@ -189,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/attendance-sheet/reports': typeof AppAttendanceSheetReportsRoute
   '/employees/$id': typeof AppEmployeesIdRoute
   '/employees/create': typeof AppEmployeesCreateRoute
+  '/hr-forms/create': typeof AppHrFormsCreateRoute
   '/employees/': typeof AppEmployeesIndexRoute
   '/hr-forms/': typeof AppHrFormsIndexRoute
   '/attendance-sheet/$id/': typeof AppAttendanceSheetIdIndexRoute
@@ -200,6 +214,7 @@ export interface FileRoutesByTo {
   '/attendance-period': typeof AppAttendancePeriodRoute
   '/attendance-policy': typeof AppAttendancePolicyRoute
   '/calendar': typeof AppCalendarRoute
+  '/dropdown-test': typeof AppDropdownTestRoute
   '/employee-setup': typeof AppEmployeeSetupRoute
   '/form-request': typeof AppFormRequestRoute
   '/leave': typeof AppLeaveRoute
@@ -215,6 +230,7 @@ export interface FileRoutesByTo {
   '/attendance-sheet/reports': typeof AppAttendanceSheetReportsRoute
   '/employees/$id': typeof AppEmployeesIdRoute
   '/employees/create': typeof AppEmployeesCreateRoute
+  '/hr-forms/create': typeof AppHrFormsCreateRoute
   '/employees': typeof AppEmployeesIndexRoute
   '/hr-forms': typeof AppHrFormsIndexRoute
   '/attendance-sheet/$id': typeof AppAttendanceSheetIdIndexRoute
@@ -228,6 +244,7 @@ export interface FileRoutesById {
   '/_app/attendance-period': typeof AppAttendancePeriodRoute
   '/_app/attendance-policy': typeof AppAttendancePolicyRoute
   '/_app/calendar': typeof AppCalendarRoute
+  '/_app/dropdown-test': typeof AppDropdownTestRoute
   '/_app/employee-setup': typeof AppEmployeeSetupRoute
   '/_app/form-request': typeof AppFormRequestRoute
   '/_app/leave': typeof AppLeaveRoute
@@ -244,6 +261,7 @@ export interface FileRoutesById {
   '/_app/attendance-sheet/reports': typeof AppAttendanceSheetReportsRoute
   '/_app/employees/$id': typeof AppEmployeesIdRoute
   '/_app/employees/create': typeof AppEmployeesCreateRoute
+  '/_app/hr-forms/create': typeof AppHrFormsCreateRoute
   '/_app/employees/': typeof AppEmployeesIndexRoute
   '/_app/hr-forms/': typeof AppHrFormsIndexRoute
   '/_app/attendance-sheet/$id/': typeof AppAttendanceSheetIdIndexRoute
@@ -257,6 +275,7 @@ export interface FileRouteTypes {
     | '/attendance-period'
     | '/attendance-policy'
     | '/calendar'
+    | '/dropdown-test'
     | '/employee-setup'
     | '/form-request'
     | '/leave'
@@ -272,6 +291,7 @@ export interface FileRouteTypes {
     | '/attendance-sheet/reports'
     | '/employees/$id'
     | '/employees/create'
+    | '/hr-forms/create'
     | '/employees/'
     | '/hr-forms/'
     | '/attendance-sheet/$id/'
@@ -283,6 +303,7 @@ export interface FileRouteTypes {
     | '/attendance-period'
     | '/attendance-policy'
     | '/calendar'
+    | '/dropdown-test'
     | '/employee-setup'
     | '/form-request'
     | '/leave'
@@ -298,6 +319,7 @@ export interface FileRouteTypes {
     | '/attendance-sheet/reports'
     | '/employees/$id'
     | '/employees/create'
+    | '/hr-forms/create'
     | '/employees'
     | '/hr-forms'
     | '/attendance-sheet/$id'
@@ -310,6 +332,7 @@ export interface FileRouteTypes {
     | '/_app/attendance-period'
     | '/_app/attendance-policy'
     | '/_app/calendar'
+    | '/_app/dropdown-test'
     | '/_app/employee-setup'
     | '/_app/form-request'
     | '/_app/leave'
@@ -326,6 +349,7 @@ export interface FileRouteTypes {
     | '/_app/attendance-sheet/reports'
     | '/_app/employees/$id'
     | '/_app/employees/create'
+    | '/_app/hr-forms/create'
     | '/_app/employees/'
     | '/_app/hr-forms/'
     | '/_app/attendance-sheet/$id/'
@@ -403,6 +427,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEmployeeSetupRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/dropdown-test': {
+      id: '/_app/dropdown-test'
+      path: '/dropdown-test'
+      fullPath: '/dropdown-test'
+      preLoaderRoute: typeof AppDropdownTestRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/calendar': {
       id: '/_app/calendar'
       path: '/calendar'
@@ -436,6 +467,13 @@ declare module '@tanstack/react-router' {
       path: '/employees'
       fullPath: '/employees/'
       preLoaderRoute: typeof AppEmployeesIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hr-forms/create': {
+      id: '/_app/hr-forms/create'
+      path: '/hr-forms/create'
+      fullPath: '/hr-forms/create'
+      preLoaderRoute: typeof AppHrFormsCreateRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/employees/create': {
@@ -529,6 +567,7 @@ interface AppRouteChildren {
   AppAttendancePeriodRoute: typeof AppAttendancePeriodRoute
   AppAttendancePolicyRoute: typeof AppAttendancePolicyRoute
   AppCalendarRoute: typeof AppCalendarRoute
+  AppDropdownTestRoute: typeof AppDropdownTestRoute
   AppEmployeeSetupRoute: typeof AppEmployeeSetupRoute
   AppFormRequestRoute: typeof AppFormRequestRoute
   AppLeaveRoute: typeof AppLeaveRoute
@@ -543,6 +582,7 @@ interface AppRouteChildren {
   AppAttendanceSheetReportsRoute: typeof AppAttendanceSheetReportsRoute
   AppEmployeesIdRoute: typeof AppEmployeesIdRoute
   AppEmployeesCreateRoute: typeof AppEmployeesCreateRoute
+  AppHrFormsCreateRoute: typeof AppHrFormsCreateRoute
   AppEmployeesIndexRoute: typeof AppEmployeesIndexRoute
   AppHrFormsIndexRoute: typeof AppHrFormsIndexRoute
   AppAttendanceSheetIdIndexRoute: typeof AppAttendanceSheetIdIndexRoute
@@ -554,6 +594,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAttendancePeriodRoute: AppAttendancePeriodRoute,
   AppAttendancePolicyRoute: AppAttendancePolicyRoute,
   AppCalendarRoute: AppCalendarRoute,
+  AppDropdownTestRoute: AppDropdownTestRoute,
   AppEmployeeSetupRoute: AppEmployeeSetupRoute,
   AppFormRequestRoute: AppFormRequestRoute,
   AppLeaveRoute: AppLeaveRoute,
@@ -568,6 +609,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAttendanceSheetReportsRoute: AppAttendanceSheetReportsRoute,
   AppEmployeesIdRoute: AppEmployeesIdRoute,
   AppEmployeesCreateRoute: AppEmployeesCreateRoute,
+  AppHrFormsCreateRoute: AppHrFormsCreateRoute,
   AppEmployeesIndexRoute: AppEmployeesIndexRoute,
   AppHrFormsIndexRoute: AppHrFormsIndexRoute,
   AppAttendanceSheetIdIndexRoute: AppAttendanceSheetIdIndexRoute,

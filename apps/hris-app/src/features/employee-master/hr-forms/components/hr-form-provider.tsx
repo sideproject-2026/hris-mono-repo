@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext } from 'react'
 import { PAGINATION_DEFAULTS } from '@/components/custom/grid/types/constants'
 import { useQueryStates } from 'nuqs'
 import { hrFormSearchInitialParser } from '../types/search'
-import { useGetHRForms, useGetHRInitials } from '../hooks/getHRForms'
+import { useGetHRForms, queryOptionInitial } from '../hooks/getHRForms'
 import { useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { employeeInitialQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
 
@@ -36,7 +36,7 @@ export const HRFormProvider = ({
 
   const queryClient = useQueryClient();
 
-  const { data: initialData } = useQuery(useGetHRInitials());
+  const { data: initialData } = useQuery(queryOptionInitial());
   const { data: appointmentInitial } = useSuspenseQuery(employeeInitialQueryOptions())
 
   const handleNextPrevPage = useCallback((_pageNumber: number) => {
