@@ -38,7 +38,7 @@ import {
 } from '@hris/shared-ui'
 import { formatDate } from 'date-fns'
 import { DatePickerField } from '@hris/shared-ui'
-import { usePendingOTFilter } from '@/features/attendance-management/hooks/useAdjustment'
+import { usePendingOTFilter } from '@/features/attendance-modules/attendance-management/hooks/useAdjustment'
 
 const columns: ColumnDef<OvertimePending>[] = [
   {

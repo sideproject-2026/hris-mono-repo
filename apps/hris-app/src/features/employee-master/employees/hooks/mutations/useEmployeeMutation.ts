@@ -17,7 +17,7 @@ export const useEmployeeMutation = ({ id, defaultValue,onSuccess,onError }: {
 
    const form = useForm<IEmployeeModel>({
        resolver: zodResolver(employeeSchema) as any,
-       defaultValues: employeeDefaultValues
+      
    })
    
 
@@ -48,7 +48,7 @@ export const useEmployeeMutation = ({ id, defaultValue,onSuccess,onError }: {
          emailAddress: nullIfEmpty(data.emailAddress),
          phoneNumber: data.phoneNumber,
          mobileNumber: data.mobileNumber,
-         nationality: data.nationality,
+         nationality: "Filipino",
          region: data.region,
          bloodType: nullIfEmpty(data.bloodType),
          country: data.country,
@@ -76,13 +76,7 @@ export const useEmployeeMutation = ({ id, defaultValue,onSuccess,onError }: {
       }
    }
 
-   useEffect(() => {
-       if (defaultValue) {
-         const mapEmployee = mapEmployeeToFormValues(defaultValue)
-         
-         form.reset(mapEmployee)
-       }
-     }, [defaultValue])
+ 
 
    return {mutation, form,onSubmit}
 

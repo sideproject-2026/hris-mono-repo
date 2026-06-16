@@ -21,7 +21,7 @@ export const useLogin = () => {
       clearAuth();
       startTransition(async () => {
          try {
-            const response = await request.post<APIResponse<AuthState>>(ApiRoutes.AUTH.LOGIN, { ...data, application: 'app_portal' });
+            const response = await request.post<APIResponse<AuthState>>(ApiRoutes.AUTH.LOGIN, { ...data, application: 'app_hris' });
             const { accessToken, expiresAt, expiresIn, refreshToken } = response.data;
             setAuth({
                accessToken: accessToken,

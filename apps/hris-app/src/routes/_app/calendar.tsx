@@ -1,7 +1,8 @@
-import CalendarComponent from '@/features/calendar/components/calendar-component'
-import { calendarHolidayQueryOptions } from '@/features/calendar/hooks/useHolidayCalendar'
-import { DEFAULT_YEAR } from '@/features/calendar/types/constant'
-import { calendarHolidayParser } from '@/features/calendar/types/search'
+
+import CalendarComponent from '@/features/attendance-modules/calendar/components/calendar-component'
+import { calendarHolidayQueryOptions } from '@/features/attendance-modules/calendar/hooks/useHolidayCalendar'
+import { DEFAULT_YEAR } from '@/features/attendance-modules/calendar/types/constant'
+import { calendarHolidayParser } from '@/features/attendance-modules/calendar/types/search'
 import { createFileRoute } from '@tanstack/react-router'
 import { createStandardSchemaV1 } from 'nuqs'
 

@@ -80,18 +80,7 @@ const EmployeeAddressesList = () => {
       cell: ({ row }) => {
         return (
           <div className="flex gap-2">
-            {/* <EmployeeFormAddresses
-              initialValues={row.original}
-              trigger={
-                <Button variant="ghost" size="icon">
-                  <Edit size={18} variant={'Bold'} />
-                </Button>
-              }
-            />
-            <AddressDeleteButton
-              employeeId={employeeId}
-              addressId={row.original.id}
-            /> */}
+           
           </div>
         )
       },

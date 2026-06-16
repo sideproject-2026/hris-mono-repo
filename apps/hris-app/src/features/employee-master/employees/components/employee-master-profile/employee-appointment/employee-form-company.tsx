@@ -17,7 +17,7 @@ import { useState } from 'react'
 import EmployeeListAppointment from './employee-list-appointment'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
-import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useEmployeeProfileContext } from '../providers/employee-personal-provider'
 import { XIcon } from 'lucide-react'
 import { useCompanyMutation } from '../../../hooks/mutations/useCompanyMutation'
 import { Label } from '@/components/ui/label'
@@ -64,6 +64,7 @@ const EmployeeFormCompany = () => {
             control={form.control}
             name="rank"
             label="Rank"
+            valueType='int'
             data={employeeInitials?.ranks ?? []}
             baseClassName="w-full"
             disabled={isDisabled}
@@ -73,6 +74,7 @@ const EmployeeFormCompany = () => {
               control={form.control}
               name="designationCode"
               label="Designation"
+              valueType='string'
               data={employeeInitials?.designations ?? []}
               baseClassName="w-full"
               disabled={isDisabled}
@@ -101,6 +103,7 @@ const EmployeeFormCompany = () => {
               control={form.control}
               name="branch"
               label="Branch"
+              valueType='string'
               data={employeeInitials?.branches ?? []}
               baseClassName="w-full"
               disabled={isDisabled}

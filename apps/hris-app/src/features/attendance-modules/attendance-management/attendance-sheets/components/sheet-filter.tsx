@@ -9,7 +9,7 @@ import { usePeriodSheetContext } from './sheet-provider'
 import { Form } from '@hris/shared-ui'
 import { DropdownField } from '@hris/shared-ui'
 
-import { initialQueryOptions } from '@/features/employee-setup/hooks/useEmployeeSetup'
+import { initialQueryOptions } from '@/features/attendance-modules/employee-setup/hooks/useEmployeeSetup'
 
 import { Button } from '@hris/shared-ui'
 import { InputField } from '@hris/shared-ui'

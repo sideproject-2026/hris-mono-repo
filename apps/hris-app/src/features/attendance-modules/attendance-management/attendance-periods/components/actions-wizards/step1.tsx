@@ -3,7 +3,7 @@ import { Calendar1Icon } from 'lucide-react';
 import type { FieldValues, UseFormReturn } from 'react-hook-form';
 import { InputField, DatePickerField, DropdownField, Skeleton } from '@hris/shared-ui';
 import { useQuery } from '@tanstack/react-query';
-import { getPeriodInitialOptions } from '@/features/attendance-management/hooks/useAttendanceProcess';
+import { getPeriodInitialOptions } from '@/features/attendance-modules/attendance-management/hooks/useAttendanceProcess';
 
 
 /**

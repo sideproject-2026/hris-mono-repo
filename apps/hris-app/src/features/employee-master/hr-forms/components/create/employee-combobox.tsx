@@ -1,0 +1,156 @@
+import React from 'react'
+import type { FieldValues, Path, UseFormReturn } from 'react-hook-form'
+import { useQuery } from '@tanstack/react-query'
+import { Check, ChevronsUpDown, Loader2, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { Badge } from '@/components/ui/badge'
+import { employeesActiveQueryOptions } from '@/features/employee-master/employees/hooks/useEmployee'
+
+interface EmployeeComboboxProps<T extends FieldValues> {
+  form: UseFormReturn<T>
+  name: Path<T>
+  label?: string
+  placeholder?: string
+}
+
+// Reusable debounced employee picker bound to a single form field.
+// Used for both the employee detail row and the assigned manager.
+const EmployeeCombobox = <T extends FieldValues>({
+  form,
+  name,
+  label,
+  placeholder = 'Select an employee...',
+}: EmployeeComboboxProps<T>) => {
+  const [open, setOpen] = React.useState(false)
+  const [searchName, setSearchName] = React.useState('')
+  const [debouncedSearchName, setDebouncedSearchName] = React.useState('')
+  const [selectedName, setSelectedName] = React.useState('')
+
+  React.useEffect(() => {
+    const handler = setTimeout(() => setDebouncedSearchName(searchName), 400)
+    return () => clearTimeout(handler)
+  }, [searchName])
+
+  const { data, isFetching } = useQuery(
+    employeesActiveQueryOptions({ fullName: debouncedSearchName }),
+  )
+
+  const employees = data ?? []
+  const currentId = form.watch(name)
+
+  React.useEffect(() => {
+    const found = employees.find((e) => e.id === currentId)
+    if (found) setSelectedName(found.fullName)
+  }, [employees, currentId])
+
+  return (
+    <div className="flex flex-col gap-2 w-full">
+      {label && (
+        <h3 className="text-sm font-medium text-muted-foreground">{label}</h3>
+      )}
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between min-h-11 py-2 px-3"
+          >
+            <div className="flex items-center gap-1 flex-wrap">
+              {currentId ? (
+                <Badge
+                  variant="secondary"
+                  className="flex items-center gap-1 pr-1"
+                >
+                  <span className="text-sm uppercase">
+                    {selectedName || 'Selected Employee'}
+                  </span>
+                  <div
+                    role="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      form.setValue(name, '' as never)
+                      setSelectedName('')
+                    }}
+                    className="ml-1 rounded-full hover:bg-muted-foreground/20 cursor-pointer"
+                  >
+                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                  </div>
+                </Badge>
+              ) : (
+                <span className="text-sm font-normal text-muted-foreground">
+                  {placeholder}
+                </span>
+              )}
+            </div>
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[400px] p-0" align="start">
+          <Command shouldFilter={false}>
+            <CommandInput
+              placeholder="Search employee name..."
+              value={searchName}
+              onValueChange={setSearchName}
+            />
+            <CommandList>
+              {isFetching && (
+                <div className="flex items-center justify-center p-4">
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                </div>
+              )}
+              {!isFetching && employees.length === 0 && (
+                <CommandEmpty>
+                  {debouncedSearchName
+                    ? 'No employees found.'
+                    : 'Type to search employees...'}
+                </CommandEmpty>
+              )}
+              <CommandGroup>
+                {employees.map((employee) => {
+                  const isSelected = currentId === employee.id
+                  return (
+                    <CommandItem
+                      key={employee.id}
+                      onSelect={() => {
+                        form.setValue(name, employee.id as never)
+                        setSelectedName(employee.fullName)
+                        setOpen(false)
+                      }}
+                      className="flex items-center justify-between cursor-pointer"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-medium text-sm">
+                          {employee.fullName}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          {employee.company || 'No Company'}
+                        </span>
+                      </div>
+                      {isSelected && <Check className="h-4 w-4 text-primary" />}
+                    </CommandItem>
+                  )
+                })}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </div>
+  )
+}
+
+export default EmployeeCombobox

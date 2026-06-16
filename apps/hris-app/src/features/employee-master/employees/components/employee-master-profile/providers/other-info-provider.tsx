@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { createContext, useCallback, useContext, useState } from "react"
-import { useEmployeeProfileContext } from "../employee-personal/employee-personal-provider"
+import { useEmployeeProfileContext } from "./employee-personal-provider"
 import { queryOptionsInfo } from "../../../hooks/queries/useEmployeeInfo"
 import type { AllInformationResponse } from "../../../types/model"
 

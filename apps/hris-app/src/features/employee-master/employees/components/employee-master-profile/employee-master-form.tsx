@@ -10,7 +10,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@hris/shared-ui'
-import EmployeeFormPersonalInfo from './providers/employee-form-personal-info'
+import EmployeeFormPersonalInfo from './employee-personal/employee-form-personal-info'
 import EmployeeAddressesContent from './employee-addresses/employee-addresses-list'
 import EmployeeEducationContent from './employee-education/employee-list-education'
 import EmployeeWorkExperienceContent from './employee-work-experience/employee-list-work-experience'

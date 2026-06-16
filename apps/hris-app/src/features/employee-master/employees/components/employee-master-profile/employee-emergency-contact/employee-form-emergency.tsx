@@ -24,7 +24,7 @@ import { Send } from 'iconsax-reactjs'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/lib/utils'
 import { useEffect, useMemo, useState } from 'react'
-import { useEmployeeProfileContext } from '../employee-personal/employee-personal-provider'
+import { useEmployeeProfileContext } from '../providers/employee-personal-provider'
 import { useUpdateEmployeeInformationMutation } from '@/features/employee-master/employees/hooks/useOtherInfo'
 
 interface EmployeeFormEmergencyProps {
